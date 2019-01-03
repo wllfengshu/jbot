@@ -1,0 +1,12 @@
+/target/
+
+/.git/
+/.idea/
+
+*.iml
+
+*.jar
+
+*.xlsx
+
+*.xls
