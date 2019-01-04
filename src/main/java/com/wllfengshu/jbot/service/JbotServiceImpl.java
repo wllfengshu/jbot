@@ -5,6 +5,7 @@ import com.wllfengshu.jbot.common.Jbot;
 import com.wllfengshu.jbot.dao.JbotDao;
 import com.wllfengshu.jbot.entity.ConnectInfo;
 import com.wllfengshu.jbot.entity.DBInfo;
+import com.wllfengshu.jbot.utils.LogUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class JbotServiceImpl implements JbotService {
 		Jbot.connectInfo = connectInfo;
 		//获取数据库中的表信息
 		result.put("data",jbotDao.getDBInfo(connectInfo.getDbName()));
+		LogUtil.info(this,"settingProject-------->result:%s",result);
 		return result;
 	}
 
@@ -37,6 +39,7 @@ public class JbotServiceImpl implements JbotService {
 		Jbot.dbInfo = dbInfo;
 		//调用生成项目的入口类
 		result.put("isSuccess",Launch.start());
+		LogUtil.info(this,"produceProject-------->result:%s",result);
 		return result;
 	}
 }
