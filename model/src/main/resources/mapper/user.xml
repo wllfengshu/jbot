@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wllfengshu.model.dao.UserDao">
+
+	<resultMap type="com.wllfengshu.model.entity.TUser" id="resultMap">
+		<result property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="deleteTime" column="delete_time" />
+		<result property="isDelete" column="is_delete" />
+	</resultMap>
+
+	<insert id="insertUser" parameterType="com.wllfengshu.model.entity.TUser">
+		insert into t_user
+		     (username,password,create_time)
+		values
+		     (#{username},#{password},#{createTime})
+	</insert>
+
+	<delete id="deleteUser" parameterType="java.lang.Integer">
+		delete from t_user
+		where
+		     id=#{id}
+	</delete>
+
+	<update id="updateUser" parameterType="com.wllfengshu.model.entity.TUser" >
+		update t_user
+		set
+		    username=#{username},password=#{password},update_time=#{updateTime}
+		where
+		    id=#{id}
+	</update>
+
+	<select id="selectUser" resultType="com.wllfengshu.model.entity.TUser">
+		SELECT
+			*
+		FROM t_user u
+		<where>
+			1=1
+			<if test="id!=null and id!=''">
+				AND u.id = #{id}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectUsers" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT
+			*
+		FROM t_user u
+		<where>
+			1=1
+			<if test="username!=null and username!=''">
+				AND u.username = #{username}
+			</if>
+			<if test="pageNo!=null and pageNo!='' and pageSize!=null and pageSize!=''">
+				limit #{pageNo} * #{pageSize} , #{pageSize}
+			</if>
+		</where>
+	</select>
+
+</mapper>
