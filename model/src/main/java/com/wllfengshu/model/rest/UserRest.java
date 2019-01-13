@@ -29,7 +29,7 @@ public class UserRest {
             HttpServletRequest request,
             HttpServletResponse response,
             @RequestBody TUser user){
-        logger.info("UserRest,insertUser,user:{}",user);
+        logger.info("UserRest,insertUser-------->user:{}",user);
         return userService.insertUser(user);
     }
 
@@ -45,7 +45,7 @@ public class UserRest {
             @PathVariable("id") Integer id,
             HttpServletRequest request,
             HttpServletResponse response){
-        logger.info("UserRest,deleteUser,id:{}",id);
+        logger.info("UserRest,deleteUser-------->id:{}",id);
         return userService.deleteUser(id);
     }
 
@@ -58,7 +58,7 @@ public class UserRest {
             HttpServletRequest request,
             HttpServletResponse response,
             @RequestBody TUser user){
-        logger.info("UserRest,updateUser,user:{}",user);
+        logger.info("UserRest,updateUser-------->user:{}",user);
         return userService.updateUser(user);
     }
 
@@ -74,7 +74,7 @@ public class UserRest {
             @PathVariable("id") Integer id,
             HttpServletRequest request,
             HttpServletResponse response){
-        logger.info("UserRest,selectUser,id:{}",id);
+        logger.info("UserRest,selectUser-------->id:{}",id);
         return userService.selectUser(id);
     }
 
@@ -92,7 +92,7 @@ public class UserRest {
             HttpServletResponse response){
         Map<String,Object> params = new HashMap<>();
         params.put("username",username);
-        logger.info("UserRest,selectUser,username:{}",username);
+        logger.info("UserRest,selectUser-------->username:{}",username);
         return userService.selectUsers(params);
     }
 }

@@ -3,8 +3,9 @@ package com.wllfengshu.web.rest;
 import com.wllfengshu.common.entity.ConnectInfo;
 import com.wllfengshu.common.entity.DBInfo;
 import com.wllfengshu.web.service.JbotService;
-import com.wllfengshu.common.utils.LogUtil;
 import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ public class JbotRest {
 
     @Autowired
     private JbotService jbotService;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @ApiOperation(value = "设置项目",httpMethod = "POST")
     @ApiResponses({
@@ -28,7 +30,7 @@ public class JbotRest {
             @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）",required = true) ConnectInfo connectInfo,
             HttpServletRequest request,
             HttpServletResponse response) {
-        LogUtil.info(this,"getTableFromDB-------->connectInfo:%s",connectInfo);
+        logger.info("JbotRest,getTableFromDB-------->connectInfo:{}",connectInfo);
         return jbotService.settingProject(connectInfo);
     }
 
@@ -47,7 +49,7 @@ public class JbotRest {
             @RequestBody @ApiParam(value = "数据库实体类（选择的表的集合）",required = true) DBInfo dbInfo,
             HttpServletRequest request,
             HttpServletResponse response) {
-        LogUtil.info(this,"produceProject-------->dbInfo:%s,projectName:%s,packageName:%s",dbInfo,projectName,packageName);
-        return jbotService.produceProject(projectName, packageName, dbInfo);
+        logger.info("JbotRest,produceProject-------->dbInfo:{},projectName:{},packageName:{}",dbInfo,projectName,packageName);
+        return jbotService.produceProject(projectName, packageName, dbInfo,response);
     }
 }

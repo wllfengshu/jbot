@@ -125,7 +125,7 @@
 	    			dbDriver: $("#dbDriver").val()
 	    		}
 	    		$http.post(
-   					'/jbot/setting?projectName='+$("#projectName").val()+'&packageName='+$("#packageName").val(),
+   					'/jbot/setting',
     				_connectInfo
 				).success(
 	    			function(_data){
@@ -160,21 +160,37 @@
 			
 			//生成项目
 			$scope.produceProjectFun=function(){
+				var _projectName=$("#projectName").val();
+				var _packageName=$("#packageName").val();
+				var _dbName=$("#dbName").val();
+				if(!_projectName){
+					alert("项目名不能为空");
+					return;
+				}
+				if(!_packageName){
+					alert("包名不能为空");
+					return;
+				}
+				if(!_dbName){
+					alert("数据库名不能为空");
+					return;
+				}
 				var _dbInfo = {
-		    		dbName: $("#dbName").val(),
+		    		dbName: _dbName,
 		    		tables: $scope.selectTables
 	    		}
 	    		$http.post(
-   					'/jbot/produce',
-    				_dbInfo
+   					'/jbot/produce?projectName='+_projectName+'&packageName='+_packageName,
+    				_dbInfo,
+    				 {responseType:'arraybuffer'}
 				).success(
-	    			function(_data){
-	    				console.log(_data);
-                        if (_data["isSuccess"]){
-                            alert("项目生成成功！");
-						} else {
-                            alert("项目生成失败！");
-						}
+	    			function(data,status,headers){
+	    				var blob = new Blob([data],{type: 'application/zip'});
+	    				var a = document.createElement("a");
+	    				a.href = window.URL.createObjectURL(blob);
+	    				a.download = $("#projectName").val()+'.zip';
+						a.target = '_blank';
+						a.click();
 	    			}
 	    		);
 			}

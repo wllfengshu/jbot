@@ -1,4 +1,4 @@
-package com.wllfengshu.core.dockerfile;
+package com.wllfengshu.core.work.dockerfile;
 
 /**
  * 处理dockerfile文件

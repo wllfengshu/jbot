@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> result = new HashMap<>();
         user.setCreateTime(new Date());
         userDao.insertUser(user);
-        logger.info("UserServiceImpl,insertUser,user:{}",user);
+        logger.info("UserServiceImpl,insertUser-------->user:{}",user);
         return result;
     }
 
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> deleteUser(Integer id){
         Map<String, Object> result = new HashMap<>();
         userDao.deleteUser(id);
-        logger.info("UserServiceImpl,deleteUser,id:{}",id);
+        logger.info("UserServiceImpl,deleteUser-------->id:{}",id);
         return result;
     }
 
@@ -39,14 +39,14 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> result = new HashMap<>();
         user.setUpdateTime(new Date());
         userDao.updateUser(user);
-        logger.info("UserServiceImpl,updateUser,user:{}",user);
+        logger.info("UserServiceImpl,updateUser-------->user:{}",user);
         return result;
     }
 
     @Override
     public Map<String, Object> selectUsers(Map<String, Object> params){
         Map<String, Object> result = new HashMap<>();
-        logger.info("UserServiceImpl,selectUsers,params:{}",params);
+        logger.info("UserServiceImpl,selectUsers-------->params:{}",params);
         result.put("data",userDao.selectUsers(params));
         return result;
     }
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, Object> selectUser(Integer id){
         Map<String, Object> result = new HashMap<>();
-        logger.info("UserServiceImpl,selectUser,id:{}",id);
+        logger.info("UserServiceImpl,selectUser-------->id:{}",id);
         result.put("data",userDao.selectUser(id));
         return result;
     }
