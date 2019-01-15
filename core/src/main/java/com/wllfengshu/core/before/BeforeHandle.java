@@ -2,8 +2,11 @@ package com.wllfengshu.core.before;
 
 import com.wllfengshu.common.constant.Collective;
 import com.wllfengshu.common.utils.FileUtil;
+import com.wllfengshu.common.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * 负责core开始前的准备工作
@@ -37,7 +40,8 @@ public class BeforeHandle {
      * @param packageName
      */
     private static void createPackageName(String projectName,String packageName){
-        String[] packs = packageName.split("\\.");
+        List<String> packs = StringUtil.stringToList(packageName,"\\.");
+        packs.add(projectName);
         String pack="";
         for (String p:packs) {
             FileUtil.createDir(Collective.TARGET_PROJECT_HOME+"/"+projectName+"/src/main/java/"+(pack+=(p+"/")));
@@ -64,6 +68,6 @@ public class BeforeHandle {
     }
 
     public static void main(String[] args) {
-        start("user","com.welljoint.user");
+        start("user","com.welljoint.query");
     }
 }

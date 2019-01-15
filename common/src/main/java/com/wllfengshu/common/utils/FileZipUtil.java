@@ -7,7 +7,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * 文件压缩工具类
  */
-public class ZipUtil {
+public class FileZipUtil {
 
     /**
      * 递归的把文件压缩为zip文件

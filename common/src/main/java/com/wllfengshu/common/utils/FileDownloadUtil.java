@@ -10,7 +10,7 @@ import java.net.URLEncoder;
 /**
  * 文件下载工具类
  */
-public class FileDownload {
+public class FileDownloadUtil {
 
     public static void download(String fileName, HttpServletResponse response){
         BufferedInputStream bis = null;

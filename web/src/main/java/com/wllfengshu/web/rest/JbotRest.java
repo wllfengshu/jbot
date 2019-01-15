@@ -37,7 +37,7 @@ public class JbotRest {
     @ApiOperation(value = "生成项目",httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "projectName", value = "项目名（eg:jbot）", required = true, dataType = "string",paramType = "query"),
-            @ApiImplicitParam(name = "packageName", value = "包名（包含项目名,eg:com.wllfengshu.jbot）", required = true, dataType = "string",paramType = "query")
+            @ApiImplicitParam(name = "packageName", value = "包名（不包含项目名,eg:com.wllfengshu）", required = true, dataType = "string",paramType = "query")
     })
     @ApiResponses({
             @ApiResponse(code=400, message="IllegalParam")

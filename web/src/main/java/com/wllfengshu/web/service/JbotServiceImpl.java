@@ -1,7 +1,7 @@
 package com.wllfengshu.web.service;
 
 import com.wllfengshu.common.constant.Collective;
-import com.wllfengshu.common.utils.FileDownload;
+import com.wllfengshu.common.utils.FileDownloadUtil;
 import com.wllfengshu.core.Launch;
 import com.wllfengshu.web.dao.JbotDao;
 import com.wllfengshu.common.entity.ConnectInfo;
@@ -36,8 +36,7 @@ public class JbotServiceImpl implements JbotService {
 		Map<String, Object> result = new HashMap<>();
 		//调用生成项目的入口类
 		if (Launch.start(projectName, packageName, dbInfo)){
-			FileDownload.download(Collective.TARGET_PROJECT_HOME+"/"+projectName+".zip",response);
-			result.put("isSuccess",true);
+			FileDownloadUtil.download(Collective.TARGET_PROJECT_HOME+"/"+projectName+".zip",response);
 		}else {
 			result.put("isSuccess",false);
 		}

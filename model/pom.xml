@@ -101,7 +101,7 @@
                             <addClasspath>true</addClasspath>
                             <useUniqueVersions>false</useUniqueVersions>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.welljoint.query.QueryApplication</mainClass>
+                            <mainClass>com.wllfengshu.model.ModelApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
