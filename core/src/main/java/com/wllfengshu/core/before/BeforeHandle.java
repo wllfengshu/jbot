@@ -55,8 +55,4 @@ public class BeforeHandle {
     private static void deleteFile(String projectName){
         FileUtil.deleteFile(Collective.TARGET_PROJECT_HOME+"/"+projectName+"/src/main/resources/mapper/user.xml");
     }
-
-    public static void main(String[] args) {
-        start("user","com.welljoint.query");
-    }
 }

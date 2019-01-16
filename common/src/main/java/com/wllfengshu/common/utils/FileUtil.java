@@ -1,8 +1,6 @@
 package com.wllfengshu.common.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 
 /**
  * 文件工具类
@@ -11,23 +9,33 @@ public class FileUtil {
 
     /**
      * 创建文件
-     * @param destFileName
+     * @param fileName
      * @return
      */
-    public static boolean createFile(String destFileName) {
-        File file = new File(destFileName);
+    public static void createFile(String fileName,String content) {
+        File file = new File(fileName);
+        FileWriter fw = null;
+        BufferedWriter bw = null;
         try{
-            if (file.exists()) {
-                return true;
+            if (!file.exists()){
+                file.createNewFile();
             }
-            if (file.createNewFile()) {
-                return true;
-            } else {
-                return false;
-            }
+            fw = new FileWriter(file.getAbsoluteFile());
+            bw = new BufferedWriter(fw);
+            bw.write(content);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+        }finally {
+            try{
+                if (bw!=null){
+                    bw.close();
+                }
+                if (fw!=null){
+                    fw.close();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

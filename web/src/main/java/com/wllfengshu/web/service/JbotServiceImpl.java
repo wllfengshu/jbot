@@ -34,6 +34,8 @@ public class JbotServiceImpl implements JbotService {
 	@Override
 	public Map<String, Object> produceProject(String projectName, String packageName, DBInfo dbInfo, HttpServletResponse response){
 		Map<String, Object> result = new HashMap<>();
+		//检测projectName和packageName不能是特殊字符串，还需要对长度做限制
+
 		//调用生成项目的入口类
 		if (Launch.start(projectName, packageName, dbInfo)){
 			FileDownloadUtil.download(Collective.TARGET_PROJECT_HOME+"/"+projectName+".zip",response);

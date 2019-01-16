@@ -9,6 +9,18 @@ import java.util.List;
 public class StringUtil {
 
     /**
+     * 删除单词开头的t_
+     * @param str
+     * @return
+     */
+    public static String delTUnderline(String str){
+        if (str.startsWith("t_") && str.length()>2){
+            return str.substring(2,str.length());
+        }
+        return str;
+    }
+
+    /**
      * 把单词首字母变为大写
      * @param str
      * @return
@@ -90,7 +102,7 @@ public class StringUtil {
      * 驼峰命名转为下划线命名
      * @param para 驼峰命名的字符串
      */
-    public String humpToUnderline(String para){
+    public static String humpToUnderline(String para){
         StringBuilder sb=new StringBuilder(para);
         int temp=0;//定位
         for(int i=0;i<para.length();i++){

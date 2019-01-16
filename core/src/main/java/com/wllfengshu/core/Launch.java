@@ -8,6 +8,7 @@ import com.wllfengshu.core.work.PomHandle;
 import com.wllfengshu.core.work.ReadmeHandle;
 import com.wllfengshu.core.work.StartupHandle;
 import com.wllfengshu.core.work.resourcesHandle.LogbackHandle;
+import com.wllfengshu.core.work.resourcesHandle.MapperHandle;
 import com.wllfengshu.core.work.resourcesHandle.PropertiesHandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,7 @@ public class Launch {
 
         //4、resources文件修改
         LogbackHandle.start(projectName,packageName);
+        MapperHandle.start(projectName,packageName,dbInfo);
         PropertiesHandle.start(projectName, packageName);
         //5、善后工作
         AfterHandle.start(projectName);

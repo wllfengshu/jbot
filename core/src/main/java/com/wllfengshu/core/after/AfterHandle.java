@@ -21,8 +21,4 @@ public class AfterHandle {
     private static void produceZip(String projectName){
         FileZipUtil.fileToZip(Collective.TARGET_PROJECT_HOME+"/"+projectName+".zip",Collective.TARGET_PROJECT_HOME+"/"+projectName);
     }
-
-    public static void main(String[] args) {
-        start("user");
-    }
 }
