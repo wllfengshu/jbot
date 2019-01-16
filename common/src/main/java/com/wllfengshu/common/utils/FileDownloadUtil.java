@@ -32,19 +32,15 @@ public class FileDownloadUtil {
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            if (bis!=null){
-                try {
+            try {
+                if (bis!=null){
                     bis.close();
-                }catch (Exception e){
-                    e.printStackTrace();
                 }
-            }
-            if (bos!=null){
-                try{
+                if (bos!=null){
                     bos.close();
-                }catch (Exception e){
-                    e.printStackTrace();
                 }
+            }catch (Exception e){
+                e.printStackTrace();
             }
         }
     }

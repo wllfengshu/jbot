@@ -24,21 +24,14 @@ public class BeforeHandle {
         copyConfFile(projectName);
         //4、复制resources文件夹
         copyResource(projectName);
+        //5、删除resources/mapper目录里的xml文件
+        deleteFile(projectName);
     }
 
-    /**
-     * 创建项目名
-     * @param projectName
-     */
     private static void createProjectName(String projectName){
         FileUtil.createDir(Collective.TARGET_PROJECT_HOME+"/"+projectName);
     }
 
-    /**
-     * 创建包
-     * @param projectName
-     * @param packageName
-     */
     private static void createPackageName(String projectName,String packageName){
         List<String> packs = StringUtil.stringToList(packageName,"\\.");
         packs.add(projectName);
@@ -48,10 +41,6 @@ public class BeforeHandle {
         }
     }
 
-    /**
-     * 复制dockerfile、pom、startup、readme等文件
-     * @param projectName
-     */
     private static void copyConfFile(String projectName){
         String[] fileName={"Dockerfile","pom.xml","README.md","startup.sh"};
         for (String f:fileName) {
@@ -59,12 +48,12 @@ public class BeforeHandle {
         }
     }
 
-    /**
-     * 复制resources文件夹
-     * @param projectName
-     */
     private static void copyResource(String projectName){
         FileUtil.copyDir(Collective.MODEL_PROJECT_HOME+"/src/main/resources",Collective.TARGET_PROJECT_HOME+"/"+projectName+"/src/main/resources");
+    }
+
+    private static void deleteFile(String projectName){
+        FileUtil.deleteFile(Collective.TARGET_PROJECT_HOME+"/"+projectName+"/src/main/resources/mapper/user.xml");
     }
 
     public static void main(String[] args) {

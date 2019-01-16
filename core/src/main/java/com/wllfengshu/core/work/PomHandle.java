@@ -8,6 +8,7 @@ import com.wllfengshu.common.utils.StringUtil;
  * 处理pom.xml文件
  */
 public class PomHandle {
+
     public static void start(String projectName,String packageName){
         //1、修改里面的“包名”和“项目名”
         replace(projectName,packageName);
@@ -21,11 +22,7 @@ public class PomHandle {
                              "Model"},
                 new String[]{packageName,
                              projectName,
-                             StringUtil.wordToUpperCase(projectName)}
+                             StringUtil.toFirstCharUpperCase(projectName)}
         );
-    }
-
-    public static void main(String[] args) {
-        replace("aaaa","com.bbbb");
     }
 }

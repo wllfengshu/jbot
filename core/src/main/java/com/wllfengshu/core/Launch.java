@@ -7,6 +7,8 @@ import com.wllfengshu.core.work.DockerfileHandle;
 import com.wllfengshu.core.work.PomHandle;
 import com.wllfengshu.core.work.ReadmeHandle;
 import com.wllfengshu.core.work.StartupHandle;
+import com.wllfengshu.core.work.resourcesHandle.LogbackHandle;
+import com.wllfengshu.core.work.resourcesHandle.PropertiesHandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +33,8 @@ public class Launch {
         //3、java文件修改
 
         //4、resources文件修改
-
+        LogbackHandle.start(projectName,packageName);
+        PropertiesHandle.start(projectName, packageName);
         //5、善后工作
         AfterHandle.start(projectName);
         return true;

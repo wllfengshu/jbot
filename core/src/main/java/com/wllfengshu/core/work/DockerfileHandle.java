@@ -24,8 +24,4 @@ public class DockerfileHandle {
                             new String[]{sdf.format(new Date())}
         );
     }
-
-    public static void main(String[] args) {
-        replaceTime("aaaa");
-    }
 }

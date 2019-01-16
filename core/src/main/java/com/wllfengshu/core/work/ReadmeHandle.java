@@ -7,6 +7,7 @@ import com.wllfengshu.common.utils.FileReplaceUtil;
  * 处理readme.md文件
  */
 public class ReadmeHandle {
+
     public static void start(String projectName){
         //1、修改里面的“模板”
         replaceModel(projectName);
@@ -18,9 +19,5 @@ public class ReadmeHandle {
                         new String[]{"标准模板"},
                         new String[]{projectName+"项目"}
         );
-    }
-
-    public static void main(String[] args) {
-        replaceModel("aaaa");
     }
 }

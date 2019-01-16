@@ -7,6 +7,7 @@ import com.wllfengshu.common.utils.FileReplaceUtil;
  * 处理startup.sh文件
  */
 public class StartupHandle {
+
     public static void start(String projectName){
         //1、修改里面的“model”
         replaceProjectName(projectName);
@@ -18,9 +19,5 @@ public class StartupHandle {
                         new String[]{"model"},
                         new String[]{projectName}
         );
-    }
-
-    public static void main(String[] args) {
-        replaceProjectName("aaaa");
     }
 }
