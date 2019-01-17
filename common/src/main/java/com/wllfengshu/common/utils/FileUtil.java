@@ -17,6 +17,9 @@ public class FileUtil {
         FileWriter fw = null;
         BufferedWriter bw = null;
         try{
+            if (file.getParentFile()!=null && !file.getParentFile().exists()){
+                file.getParentFile().mkdirs();
+            }
             if (!file.exists()){
                 file.createNewFile();
             }

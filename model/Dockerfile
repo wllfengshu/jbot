@@ -1,4 +1,4 @@
-# Generated in [2019-01-01 00:00:00]
+# Generated in [20190101000000]
 FROM registry:5000/jdk8:base
 # Expose the API port
 EXPOSE 8080

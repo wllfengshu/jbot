@@ -1,8 +1,12 @@
-package com.wllfengshu.common.utils;
+package com.wllfengshu.core.utils;
 
 import com.wllfengshu.common.entity.FieldInfo;
 import com.wllfengshu.common.entity.TableInfo;
+import com.wllfengshu.common.utils.StringUtil;
 
+/**
+ * 生成mapper文件
+ */
 public class MapperUtil {
 
     public static String genMapper(String projectName,String packageName,TableInfo tableInfo){
@@ -10,33 +14,33 @@ public class MapperUtil {
         String daoClassName=packageName+"."+projectName+".dao."+tableNameFUDTU+"Dao";
         String entityClassName=packageName+"."+projectName+".entity."+tableNameFUDTU;
         StringBuffer mapper=new StringBuffer();
-        mapper.append(genXmlHead(daoClassName));
-        mapper.append(genResultMapper(entityClassName,tableInfo));
-        mapper.append(genInsertMapper(tableNameFUDTU,entityClassName,tableInfo));
-        mapper.append(genDeleteMapper(tableNameFUDTU,tableInfo.getTableName()));
-        mapper.append(genUpdateMapper(tableNameFUDTU,entityClassName,tableInfo));
-        mapper.append(genSelectMapper(tableNameFUDTU,entityClassName,tableInfo.getTableName()));
-        mapper.append(genSelectListMapper(tableNameFUDTU,tableInfo));
-        mapper.append(genXmlTail());
+        mapper.append(genHead(daoClassName));
+        mapper.append(genResult(entityClassName,tableInfo));
+        mapper.append(genInsert(entityClassName,tableInfo));
+        mapper.append(genDelete(tableInfo.getTableName()));
+        mapper.append(genUpdate(entityClassName,tableInfo));
+        mapper.append(genSelect(entityClassName,tableInfo.getTableName()));
+        mapper.append(genSelectList(tableInfo));
+        mapper.append(genTail());
         return mapper.toString();
     }
 
     /**
-     * 生成xml头
+     * 生成头
      * @param daoClassName
      * @return
      */
-    private static String genXmlHead(String daoClassName){
+    private static String genHead(String daoClassName){
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n" +
                 "<mapper namespace=\""+daoClassName+"\">\n\n";
     }
 
     /**
-     * 生成xml尾
+     * 生成尾
      * @return
      */
-    private static String genXmlTail(){
+    private static String genTail(){
         return "</mapper>\n";
     }
 
@@ -46,7 +50,7 @@ public class MapperUtil {
      * @param tableInfo
      * @return
      */
-    private static String genResultMapper(String entityClassName,TableInfo tableInfo){
+    private static String genResult(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
         sb.append("    <resultMap type=\""+entityClassName+"\" id=\"resultMap\">\n");
         for (FieldInfo field : tableInfo.getFields()) {
@@ -58,14 +62,13 @@ public class MapperUtil {
 
     /**
      * 生成插入语句
-     * @param tableNameFUDTU
      * @param entityClassName
      * @param tableInfo
      * @return
      */
-    private static String genInsertMapper(String tableNameFUDTU,String entityClassName,TableInfo tableInfo){
+    private static String genInsert(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <INSERT id=\"insert"+tableNameFUDTU+"\" parameterType=\""+entityClassName+"\">\n");
+        sb.append("    <INSERT id=\"insert\" parameterType=\""+entityClassName+"\">\n");
         sb.append("        INSERT INTO "+tableInfo.getTableName()+"(\n            ");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append(field.getFieldName()+", ");
@@ -83,13 +86,12 @@ public class MapperUtil {
 
     /**
     * 生成删除语句
-    * * @param tableNameFUDTU
     * @param tableName
     * @return
     */
-    private static String genDeleteMapper(String tableNameFUDTU,String tableName){
+    private static String genDelete(String tableName){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <delete id=\"delete"+tableNameFUDTU+"\" parameterType=\"java.lang.Integer\">\n");
+        sb.append("    <delete id=\"delete\" parameterType=\"java.lang.Integer\">\n");
         sb.append("        DELETE FROM "+tableName+"\n");
         sb.append("        WHERE id = #{id}\n");
         sb.append("    </delete>\n\n");
@@ -98,14 +100,13 @@ public class MapperUtil {
 
     /**
      * 生成更新语句
-     * @param tableNameFUDTU
      * @param entityClassName
      * @param tableInfo
      * @return
      */
-    private static String genUpdateMapper(String tableNameFUDTU,String entityClassName,TableInfo tableInfo){
+    private static String genUpdate(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <update id=\"update"+tableNameFUDTU+"\" parameterType=\""+entityClassName+"\">\n");
+        sb.append("    <update id=\"update\" parameterType=\""+entityClassName+"\">\n");
         sb.append("        UPDATE "+tableInfo.getTableName()+" SET\n            ");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append(field.getFieldName()+" = #{"+StringUtil.underlineToHump(field.getFieldName())+"}, ");
@@ -118,14 +119,13 @@ public class MapperUtil {
 
     /**
      * 生成查询语句（单条）
-     * @param tableNameFUDTU
      * @param entityClassName
      * @param tableName
      * @return
      */
-    private static String genSelectMapper(String tableNameFUDTU,String entityClassName,String tableName){
+    private static String genSelect(String entityClassName,String tableName){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <select id=\"select"+tableNameFUDTU+"\" parameterType=\"java.lang.Integer\" resultType=\""+entityClassName+"\">\n");
+        sb.append("    <select id=\"select\" parameterType=\"java.lang.Integer\" resultType=\""+entityClassName+"\">\n");
         sb.append("        SELECT * FROM "+tableName+"\n");
         sb.append("        WHERE id = #{id}\n");
         sb.append("    </select>\n\n");
@@ -134,13 +134,12 @@ public class MapperUtil {
 
     /**
      * 生成查询语句（多条）
-     * @param tableNameFUDTU
      * @param tableInfo
      * @return
      */
-    private static String genSelectListMapper(String tableNameFUDTU,TableInfo tableInfo){
+    private static String genSelectList(TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <select id=\"select"+tableNameFUDTU+"s\" parameterType=\"java.util.Map\">\n");
+        sb.append("    <select id=\"selects\" parameterType=\"java.util.Map\">\n");
         sb.append("        SELECT * \n");
         sb.append("        FROM "+tableInfo.getTableName()+" \n");
         sb.append("        <where> 1=1 \n");

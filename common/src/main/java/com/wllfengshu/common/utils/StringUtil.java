@@ -9,6 +9,15 @@ import java.util.List;
 public class StringUtil {
 
     /**
+     * 点转斜杠
+     * @param str
+     * @return
+     */
+    public static String spotToSlash(String str){
+        return str.replace('.','/');
+    }
+
+    /**
      * 删除单词开头的t_
      * @param str
      * @return
@@ -88,6 +97,10 @@ public class StringUtil {
         StringBuilder result=new StringBuilder();
         String a[]=para.split("_");
         for(String s:a){
+            if (!para.contains("_")){
+                result.append(s);
+                continue;
+            }
             if(result.length()==0){
                 result.append(s.toLowerCase());
             }else{

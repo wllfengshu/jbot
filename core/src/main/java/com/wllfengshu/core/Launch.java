@@ -7,13 +7,12 @@ import com.wllfengshu.core.work.DockerfileHandle;
 import com.wllfengshu.core.work.PomHandle;
 import com.wllfengshu.core.work.ReadmeHandle;
 import com.wllfengshu.core.work.StartupHandle;
+import com.wllfengshu.core.work.javaHandle.*;
 import com.wllfengshu.core.work.resourcesHandle.LogbackHandle;
 import com.wllfengshu.core.work.resourcesHandle.MapperHandle;
 import com.wllfengshu.core.work.resourcesHandle.PropertiesHandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.OutputStream;
 
 /**
  * 把model工程按照需求进行修改
@@ -32,7 +31,11 @@ public class Launch {
         ReadmeHandle.start(projectName);
         StartupHandle.start(projectName);
         //3、java文件修改
-
+        DaoHandle.start(projectName, packageName, dbInfo);
+        ServiceHandle.start(projectName, packageName, dbInfo);
+        ServiceImplHandle.start(projectName, packageName, dbInfo);
+        RestHandle.start(projectName, packageName, dbInfo);
+        EntityHandle.start(projectName, packageName, dbInfo);
         //4、resources文件修改
         LogbackHandle.start(projectName,packageName);
         MapperHandle.start(projectName,packageName,dbInfo);

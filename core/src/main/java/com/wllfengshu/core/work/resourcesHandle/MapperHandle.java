@@ -4,7 +4,7 @@ import com.wllfengshu.common.constant.Collective;
 import com.wllfengshu.common.entity.DBInfo;
 import com.wllfengshu.common.entity.TableInfo;
 import com.wllfengshu.common.utils.FileUtil;
-import com.wllfengshu.common.utils.MapperUtil;
+import com.wllfengshu.core.utils.MapperUtil;
 
 public class MapperHandle {
 

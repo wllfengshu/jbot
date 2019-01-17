@@ -182,10 +182,16 @@
 	    		$http.post(
    					'/jbot/produce?projectName='+_projectName+'&packageName='+_packageName,
     				_dbInfo,
-    				 {responseType:'arraybuffer'}
+					{responseType:'arraybuffer'}
 				).success(
-	    			function(data,status,headers){
-	    				var blob = new Blob([data],{type: 'application/zip'});
+	    			function(_data){
+                        console.log(_data);
+                        // var isSuccess = _data["isSuccess"];
+                        // if (!isSuccess){
+                         //    alert(_data["msg"]);
+                         //    return;
+						// }
+	    				var blob = new Blob([_data],{type: 'application/zip'});
 	    				var a = document.createElement("a");
 	    				a.href = window.URL.createObjectURL(blob);
 	    				a.download = $("#projectName").val()+'.zip';
