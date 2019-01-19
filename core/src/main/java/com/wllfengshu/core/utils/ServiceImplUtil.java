@@ -1,51 +1,42 @@
 package com.wllfengshu.core.utils;
 
-import com.wllfengshu.common.entity.TableInfo;
-import com.wllfengshu.common.utils.StringUtil;
-
 /**
  * 生成serviceImpl层文件
  */
 public class ServiceImplUtil {
 
-    public static String genServiceImpl(String projectName,String packageName,TableInfo tableInfo){
-        String tableNameFUDTU=StringUtil.toFirstCharUpperCase(StringUtil.underlineToHump(StringUtil.delTUnderline(tableInfo.getTableName())));
-        String daoClassName=packageName+"."+projectName+".dao."+tableNameFUDTU+"Dao";
-        String entityClassName=packageName+"."+projectName+".entity."+tableNameFUDTU;
-        String pack=packageName+"."+projectName+".service.impl";
-        StringBuffer serviceImpl=new StringBuffer();
-        serviceImpl.append(genHead(tableNameFUDTU,pack,daoClassName,entityClassName));
-        serviceImpl.append(genMember(tableNameFUDTU));
-        serviceImpl.append(genInsert(tableNameFUDTU));
-        serviceImpl.append(genDelete());
-        serviceImpl.append(genUpdate(tableNameFUDTU));
-        serviceImpl.append(genSelect());
-        serviceImpl.append(genSelectList());
-        serviceImpl.append(genTail());
-        return serviceImpl.toString();
+    public static String genServiceImpl(String tableNameFUDTU,String daoClassName,String entityClassName,String serviceImplPack,String serviceClassName){
+        StringBuffer sb=new StringBuffer();
+        sb.append(genHead(tableNameFUDTU,serviceImplPack,daoClassName,entityClassName,serviceClassName));
+        sb.append(genMember(tableNameFUDTU));
+        sb.append(genInsert(tableNameFUDTU));
+        sb.append(genDelete());
+        sb.append(genUpdate(tableNameFUDTU));
+        sb.append(genSelect());
+        sb.append(genSelectList());
+        sb.append(genTail());
+        return sb.toString();
     }
 
     /**
      * 生成头
-     * @param tableNameFUDTU
-     * @param pack
-     * @param daoClassName
-     * @param entityClassName
      * @return
      */
-    private static String genHead(String tableNameFUDTU,String pack,String daoClassName,String entityClassName){
-        return  "package "+pack+";\n\n" +
-                "import "+daoClassName+";\n" +
-                "import "+entityClassName+";\n" +
-                "import org.slf4j.Logger;\n" +
-                "import org.slf4j.LoggerFactory;\n" +
-                "import org.springframework.beans.factory.annotation.Autowired;\n" +
-                "import org.springframework.stereotype.Service;\n" +
-                "import java.util.Date;\n" +
-                "import java.util.HashMap;\n" +
-                "import java.util.Map;\n\n" +
-                "@Service\n" +
-                "public class "+tableNameFUDTU+"ServiceImpl implements "+tableNameFUDTU+"Service {\n\n";
+    private static String genHead(String tableNameFUDTU,String serviceImplPack,String daoClassName,String entityClassName,String serviceClassName){
+        StringBuffer sb=new StringBuffer();
+        sb.append("package "+serviceImplPack+";\r\n\r\n");
+        sb.append("import "+serviceClassName+";\r\n");
+        sb.append("import "+daoClassName+";\r\n");
+        sb.append("import "+entityClassName+";\r\n");
+        sb.append("import org.slf4j.Logger;\r\n");
+        sb.append("import org.slf4j.LoggerFactory;\r\n");
+        sb.append("import org.springframework.beans.factory.annotation.Autowired;\r\n");
+        sb.append("import org.springframework.stereotype.Service;\r\n");
+        sb.append("import java.util.HashMap;\r\n");
+        sb.append("import java.util.Map;\r\n\r\n");
+        sb.append("@Service\r\n");
+        sb.append("public class "+tableNameFUDTU+"ServiceImpl implements "+tableNameFUDTU+"Service {\r\n\r\n");
+        return sb.toString();
     }
 
     /**
@@ -53,32 +44,34 @@ public class ServiceImplUtil {
      * @return
      */
     private static String genTail(){
-        return "\n}\n";
+        return "\r\n}\r\n";
     }
 
     /**
      * 生成成员变量
-     * @param tableNameFUDTU
      * @return
      */
     private static String genMember(String tableNameFUDTU){
-        return  "    @Autowired\n" +
-                "    private "+tableNameFUDTU+"Dao dao;\n\n" +
-                "    private Logger logger = LoggerFactory.getLogger(getClass());\n\n";
+        StringBuffer sb=new StringBuffer();
+        sb.append("\t@Autowired\r\n");
+        sb.append("\tprivate "+tableNameFUDTU+"Dao dao;\r\n\r\n");
+        sb.append("\tprivate Logger logger = LoggerFactory.getLogger(getClass());\r\n\r\n");
+        return sb.toString();
     }
 
     /**
      * 生成插入语句
-     * @param tableNameFUDTU
      * @return
      */
     private static String genInsert(String tableNameFUDTU){
-        return  "    @Override\n" +
-                "    public Map<String, Object> insert("+tableNameFUDTU+" entity){\n" +
-                "        Map<String, Object> result = new HashMap<>();\n" +
-                "        dao.insert(entity);\n" +
-                "        return result;\n" +
-                "    }\n\n";
+        StringBuffer sb=new StringBuffer();
+        sb.append("\t@Override\r\n");
+        sb.append("\tpublic Map<String, Object> insert("+tableNameFUDTU+" entity){\r\n");
+        sb.append("\t\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\t\tdao.insert(entity);\r\n");
+        sb.append("\t\treturn result;\r\n");
+        sb.append("\t}\r\n\r\n");
+        return sb.toString();
     }
 
     /**
@@ -86,26 +79,29 @@ public class ServiceImplUtil {
      * @return
      */
     private static String genDelete(){
-        return  "    @Override\n" +
-                "    public Map<String, Object> delete(Integer id){\n" +
-                "        Map<String, Object> result = new HashMap<>();\n" +
-                "        dao.delete(id);\n" +
-                "        return result;\n" +
-                "    }\n\n";
+        StringBuffer sb=new StringBuffer();
+        sb.append("\t@Override\r\n");
+        sb.append("\tpublic Map<String, Object> delete(Integer id){\r\n");
+        sb.append("\t\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\t\tdao.delete(id);\r\n");
+        sb.append("\t\treturn result;\r\n");
+        sb.append("\t}\r\n\r\n");
+        return sb.toString();
     }
 
     /**
      * 生成更新语句
-     * @param tableNameFUDTU
      * @return
      */
     private static String genUpdate(String tableNameFUDTU){
-        return  "    @Override\n" +
-                "    public Map<String, Object> update("+tableNameFUDTU+" entity){\n" +
-                "        Map<String, Object> result = new HashMap<>();\n" +
-                "        dao.update(entity);\n" +
-                "        return result;\n" +
-                "    }\n\n";
+        StringBuffer sb=new StringBuffer();
+        sb.append("\t@Override\r\n");
+        sb.append("\tpublic Map<String, Object> update("+tableNameFUDTU+" entity){\r\n");
+        sb.append("\t\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\t\tdao.update(entity);\r\n");
+        sb.append("\t\treturn result;\r\n");
+        sb.append("\t}\r\n\r\n");
+        return sb.toString();
     }
 
     /**
@@ -113,12 +109,14 @@ public class ServiceImplUtil {
      * @return
      */
     private static String genSelect(){
-        return  "    @Override\n" +
-                "    public Map<String, Object> select(Integer id){\n" +
-                "        Map<String, Object> result = new HashMap<>();\n" +
-                "        result.put(\"data\",dao.select(id));\n" +
-                "        return result;\n" +
-                "    }\n\n";
+        StringBuffer sb=new StringBuffer();
+        sb.append("\t@Override\r\n");
+        sb.append("\tpublic Map<String, Object> select(Integer id){\r\n");
+        sb.append("\t\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\t\tresult.put(\"data\",dao.select(id));\r\n");
+        sb.append("\t\treturn result;\r\n");
+        sb.append("\t}\r\n\r\n");
+        return sb.toString();
     }
 
     /**
@@ -126,11 +124,13 @@ public class ServiceImplUtil {
      * @return
      */
     private static String genSelectList(){
-        return  "    @Override\n" +
-                "    public Map<String, Object> selects(Map<String, Object> params){\n" +
-                "        Map<String, Object> result = new HashMap<>();\n" +
-                "        result.put(\"data\",dao.selects(params));\n" +
-                "        return result;\n" +
-                "    }\n\n";
+        StringBuffer sb=new StringBuffer();
+        sb.append("\t@Override\r\n");
+        sb.append("\tpublic Map<String, Object> selects(Map<String, Object> params){\r\n");
+        sb.append("\t\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\t\tresult.put(\"data\",dao.selects(params));\r\n");
+        sb.append("\t\treturn result;\r\n");
+        sb.append("\t}\r\n");
+        return sb.toString();
     }
 }

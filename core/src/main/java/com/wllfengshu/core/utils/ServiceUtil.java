@@ -1,40 +1,35 @@
 package com.wllfengshu.core.utils;
 
-import com.wllfengshu.common.entity.TableInfo;
-import com.wllfengshu.common.utils.StringUtil;
-
 /**
  * 生成service层文件
  */
 public class ServiceUtil {
 
-    public static String genService(String projectName,String packageName,TableInfo tableInfo){
-        String tableNameFUDTU=StringUtil.toFirstCharUpperCase(StringUtil.underlineToHump(StringUtil.delTUnderline(tableInfo.getTableName())));
-        String entityClassName=packageName+"."+projectName+".entity."+tableNameFUDTU;
-        String pack=packageName+"."+projectName+".service";
-        StringBuffer service=new StringBuffer();
-        service.append(genHead(tableNameFUDTU,pack,entityClassName));
-        service.append(genInsert(tableNameFUDTU));
-        service.append(genDelete());
-        service.append(genUpdate(tableNameFUDTU));
-        service.append(genSelect());
-        service.append(genSelectList());
-        service.append(genTail());
-        return service.toString();
+    public static String genService(String tableNameFUDTU,String entityClassName,String servicePack){
+        StringBuffer sb=new StringBuffer();
+        sb.append(genHead(tableNameFUDTU,servicePack,entityClassName));
+        sb.append(genInsert(tableNameFUDTU));
+        sb.append(genDelete());
+        sb.append(genUpdate(tableNameFUDTU));
+        sb.append(genSelect());
+        sb.append(genSelectList());
+        sb.append(genTail());
+        return sb.toString();
     }
 
     /**
      * 生成头
-     * @param pack
      * @return
      */
-    private static String genHead(String tableNameFUDTU,String pack,String entityClassName){
-        return  "package "+pack+";\n\n" +
-                "import "+entityClassName+";\n" +
-                "import org.springframework.stereotype.Service;\n" +
-                "import java.util.Map;\n\n" +
-                "@Service\n" +
-                "public interface "+tableNameFUDTU+"Service {\n\n";
+    private static String genHead(String tableNameFUDTU,String servicePack,String entityClassName){
+        StringBuffer sb=new StringBuffer();
+        sb.append("package "+servicePack+";\r\n\r\n");
+        sb.append("import "+entityClassName+";\r\n");
+        sb.append("import org.springframework.stereotype.Service;\r\n");
+        sb.append("import java.util.Map;\r\n\r\n");
+        sb.append("@Service\r\n");
+        sb.append("public interface "+tableNameFUDTU+"Service {\r\n\r\n");
+        return sb.toString();
     }
 
     /**
@@ -42,16 +37,15 @@ public class ServiceUtil {
      * @return
      */
     private static String genTail(){
-        return "\n}\n";
+        return "\r\n}\r\n";
     }
 
     /**
      * 生成插入语句
-     * @param tableNameFUDTU
      * @return
      */
     private static String genInsert(String tableNameFUDTU){
-        return "    Map<String, Object> insert("+tableNameFUDTU+" entity);\n";
+        return "\tMap<String, Object> insert("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
@@ -59,16 +53,15 @@ public class ServiceUtil {
      * @return
      */
     private static String genDelete(){
-        return "    Map<String, Object> delete(Integer id);\n";
+        return "\tMap<String, Object> delete(Integer id);\r\n";
     }
 
     /**
      * 生成更新语句
-     * @param tableNameFUDTU
      * @return
      */
     private static String genUpdate(String tableNameFUDTU){
-        return "    Map<String, Object> update("+tableNameFUDTU+" entity);\n";
+        return "\tMap<String, Object> update("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
@@ -76,7 +69,7 @@ public class ServiceUtil {
      * @return
      */
     private static String genSelect(){
-        return "    Map<String, Object> select(Integer id);\n";
+        return "\tMap<String, Object> select(Integer id);\r\n";
     }
 
     /**
@@ -84,6 +77,6 @@ public class ServiceUtil {
      * @return
      */
     private static String genSelectList(){
-        return "    Map<String, Object> selects(Map<String, Object> params);\n";
+        return "\tMap<String, Object> selects(Map<String, Object> params);\r\n";
     }
 }

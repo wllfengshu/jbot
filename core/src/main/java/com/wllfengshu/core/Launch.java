@@ -3,6 +3,7 @@ package com.wllfengshu.core;
 import com.wllfengshu.common.entity.DBInfo;
 import com.wllfengshu.core.after.AfterHandle;
 import com.wllfengshu.core.before.BeforeHandle;
+import com.wllfengshu.core.model.RequestModel;
 import com.wllfengshu.core.work.DockerfileHandle;
 import com.wllfengshu.core.work.PomHandle;
 import com.wllfengshu.core.work.ReadmeHandle;
@@ -24,24 +25,25 @@ public class Launch {
     public static boolean start(String projectName, String packageName, DBInfo dbInfo){
         logger.info("jbot core,Launch,start-------->dbInfo:%s,projectName:%s,packageName:%s",dbInfo,projectName,packageName);
         //1、准备工作
-        BeforeHandle.start(projectName,packageName);
+        RequestModel model = BeforeHandle.start(projectName, packageName, dbInfo);
         //2、配置文件修改
-        DockerfileHandle.start(projectName);
-        PomHandle.start(projectName,packageName);
-        ReadmeHandle.start(projectName);
-        StartupHandle.start(projectName);
+        DockerfileHandle.start(model);
+        PomHandle.start(model);
+        ReadmeHandle.start(model);
+        StartupHandle.start(model);
         //3、java文件修改
-        DaoHandle.start(projectName, packageName, dbInfo);
-        ServiceHandle.start(projectName, packageName, dbInfo);
-        ServiceImplHandle.start(projectName, packageName, dbInfo);
-        RestHandle.start(projectName, packageName, dbInfo);
-        EntityHandle.start(projectName, packageName, dbInfo);
+        DaoHandle.start(model);
+        ServiceHandle.start(model);
+        ServiceImplHandle.start(model);
+        RestHandle.start(model);
+        EntityHandle.start(model);
+        ApplicationHandle.start(model);
         //4、resources文件修改
-        LogbackHandle.start(projectName,packageName);
-        MapperHandle.start(projectName,packageName,dbInfo);
-        PropertiesHandle.start(projectName, packageName);
+        LogbackHandle.start(model);
+        MapperHandle.start(model);
+        PropertiesHandle.start(model);
         //5、善后工作
-        AfterHandle.start(projectName);
+        AfterHandle.start(model);
         return true;
     }
 }

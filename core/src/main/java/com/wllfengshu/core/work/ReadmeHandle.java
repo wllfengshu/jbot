@@ -1,23 +1,23 @@
 package com.wllfengshu.core.work;
 
-import com.wllfengshu.common.constant.Collective;
 import com.wllfengshu.common.utils.FileReplaceUtil;
+import com.wllfengshu.core.model.RequestModel;
 
 /**
  * 处理readme.md文件
  */
 public class ReadmeHandle {
 
-    public static void start(String projectName){
+    public static void start(RequestModel requestModel){
         //1、修改里面的“模板”
-        replaceModel(projectName);
+        replaceModel(requestModel);
     }
 
-    private static void replaceModel(String projectName){
+    private static void replaceModel(RequestModel requestModel){
         FileReplaceUtil.replace(
-                Collective.TARGET_PROJECT_HOME+"/"+projectName+"/README.md",
-                        new String[]{"标准模板"},
-                        new String[]{projectName+"项目"}
+                    requestModel.getProjectPath()+"/README.md",
+                             new String[]{"标准模板"},
+                             new String[]{requestModel.getProjectName()+"项目"}
         );
     }
 }

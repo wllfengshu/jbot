@@ -1,42 +1,37 @@
 package com.wllfengshu.core.utils;
 
-import com.wllfengshu.common.entity.TableInfo;
-import com.wllfengshu.common.utils.StringUtil;
-
 /**
  * 生成dao层文件
  */
 public class DaoUtil {
 
-    public static String genDao(String projectName,String packageName,TableInfo tableInfo){
-        String tableNameFUDTU=StringUtil.toFirstCharUpperCase(StringUtil.underlineToHump(StringUtil.delTUnderline(tableInfo.getTableName())));
-        String entityClassName=packageName+"."+projectName+".entity."+tableNameFUDTU;
-        String pack=packageName+"."+projectName+".dao";
-        StringBuffer dao=new StringBuffer();
-        dao.append(genHead(tableNameFUDTU,pack,entityClassName));
-        dao.append(genInsert(tableNameFUDTU));
-        dao.append(genDelete(tableNameFUDTU));
-        dao.append(genUpdate(tableNameFUDTU));
-        dao.append(genSelect(tableNameFUDTU));
-        dao.append(genSelectList(tableNameFUDTU));
-        dao.append(genTail());
-        return dao.toString();
+    public static String genDao(String tableNameFUDTU,String entityClassName,String daoPack){
+        StringBuffer sb=new StringBuffer();
+        sb.append(genHead(tableNameFUDTU,daoPack,entityClassName));
+        sb.append(genInsert(tableNameFUDTU));
+        sb.append(genDelete());
+        sb.append(genUpdate(tableNameFUDTU));
+        sb.append(genSelect(tableNameFUDTU));
+        sb.append(genSelectList(tableNameFUDTU));
+        sb.append(genTail());
+        return sb.toString();
     }
 
     /**
      * 生成头
-     * @param pack
      * @return
      */
-    private static String genHead(String tableNameFUDTU,String pack,String entityClassName){
-        return  "package "+pack+";\n\n" +
-                "import "+entityClassName+";\n" +
-                "import org.apache.ibatis.annotations.Param;\n" +
-                "import org.springframework.stereotype.Repository;\n" +
-                "import java.util.List;\n" +
-                "import java.util.Map;\n\n" +
-                "@Repository\n" +
-                "public interface "+tableNameFUDTU+"Dao {\n\n";
+    private static String genHead(String tableNameFUDTU,String daoPack,String entityClassName){
+        StringBuffer sb=new StringBuffer();
+        sb.append("package "+daoPack+";\r\n\r\n");
+        sb.append("import "+entityClassName+";\r\n");
+        sb.append("import org.apache.ibatis.annotations.Param;\r\n");
+        sb.append("import org.springframework.stereotype.Repository;\r\n");
+        sb.append("import java.util.List;\r\n");
+        sb.append("import java.util.Map;\r\n\r\n");
+        sb.append("@Repository\r\n");
+        sb.append("public interface "+tableNameFUDTU+"Dao {\r\n\r\n");
+        return sb.toString();
     }
 
     /**
@@ -44,51 +39,46 @@ public class DaoUtil {
      * @return
      */
     private static String genTail(){
-        return "\n}\n";
+        return "\r\n}\r\n";
     }
 
     /**
      * 生成插入语句
-     * @param tableNameFUDTU
      * @return
      */
     private static String genInsert(String tableNameFUDTU){
-        return "    void insert("+tableNameFUDTU+" entity);\n";
+        return "\tvoid insert("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
      * 生成删除语句
-     * * @param tableNameFUDTU
      * @return
      */
-    private static String genDelete(String tableNameFUDTU){
-        return "    void delete(@Param(\"id\") Integer id);\n";
+    private static String genDelete(){
+        return "\tvoid delete(@Param(\"id\") Integer id);\r\n";
     }
 
     /**
      * 生成更新语句
-     * @param tableNameFUDTU
      * @return
      */
     private static String genUpdate(String tableNameFUDTU){
-        return "    void update("+tableNameFUDTU+" entity);\n";
+        return "\tvoid update("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
      * 生成查询语句（单条）
-     * @param tableNameFUDTU
      * @return
      */
     private static String genSelect(String tableNameFUDTU){
-        return "    "+tableNameFUDTU+" select(@Param(\"id\") Integer id);\n";
+        return "\t"+tableNameFUDTU+" select(@Param(\"id\") Integer id);\r\n";
     }
 
     /**
      * 生成查询语句（多条）
-     * @param tableNameFUDTU
      * @return
      */
     private static String genSelectList(String tableNameFUDTU){
-        return "    List<"+tableNameFUDTU+"> selects(Map<String, Object> params);\n";
+        return "\tList<"+tableNameFUDTU+"> selects(Map<String, Object> params);\r\n";
     }
 }

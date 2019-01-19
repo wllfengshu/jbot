@@ -9,31 +9,29 @@ import com.wllfengshu.common.utils.StringUtil;
  */
 public class MapperUtil {
 
-    public static String genMapper(String projectName,String packageName,TableInfo tableInfo){
-        String tableNameFUDTU=StringUtil.toFirstCharUpperCase(StringUtil.underlineToHump(StringUtil.delTUnderline(tableInfo.getTableName())));
-        String daoClassName=packageName+"."+projectName+".dao."+tableNameFUDTU+"Dao";
-        String entityClassName=packageName+"."+projectName+".entity."+tableNameFUDTU;
-        StringBuffer mapper=new StringBuffer();
-        mapper.append(genHead(daoClassName));
-        mapper.append(genResult(entityClassName,tableInfo));
-        mapper.append(genInsert(entityClassName,tableInfo));
-        mapper.append(genDelete(tableInfo.getTableName()));
-        mapper.append(genUpdate(entityClassName,tableInfo));
-        mapper.append(genSelect(entityClassName,tableInfo.getTableName()));
-        mapper.append(genSelectList(tableInfo));
-        mapper.append(genTail());
-        return mapper.toString();
+    public static String genMapper(String daoClassName,String entityClassName,TableInfo tableInfo){
+        StringBuffer sb=new StringBuffer();
+        sb.append(genHead(daoClassName));
+        sb.append(genResult(entityClassName,tableInfo));
+        sb.append(genInsert(entityClassName,tableInfo));
+        sb.append(genDelete(tableInfo.getTableName()));
+        sb.append(genUpdate(entityClassName,tableInfo));
+        sb.append(genSelect(entityClassName,tableInfo.getTableName()));
+        sb.append(genSelectList(tableInfo));
+        sb.append(genTail());
+        return sb.toString();
     }
 
     /**
      * 生成头
-     * @param daoClassName
      * @return
      */
     private static String genHead(String daoClassName){
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\n" +
-                "<mapper namespace=\""+daoClassName+"\">\n\n";
+        StringBuffer sb=new StringBuffer();
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+        sb.append("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\r\n");
+        sb.append("<mapper namespace=\""+daoClassName+"\">\r\n\r\n");
+        return sb.toString();
     }
 
     /**
@@ -41,114 +39,104 @@ public class MapperUtil {
      * @return
      */
     private static String genTail(){
-        return "</mapper>\n";
+        return "</mapper>\r\n";
     }
 
     /**
      * 对象结果映射
-     * @param entityClassName
-     * @param tableInfo
      * @return
      */
     private static String genResult(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <resultMap type=\""+entityClassName+"\" id=\"resultMap\">\n");
+        sb.append("\t<resultMap type=\""+entityClassName+"\" id=\"resultMap\">\r\n");
         for (FieldInfo field : tableInfo.getFields()) {
-            sb.append("        <result property=\""+StringUtil.underlineToHump(field.getFieldName())+"\" column=\""+field.getFieldName()+"\"></result>\n");
+            sb.append("\t\t<result property=\""+StringUtil.underlineToHump(field.getFieldName())+"\" column=\""+field.getFieldName()+"\"></result>\r\n");
         }
-        sb.append("    </resultMap>\n\n");
+        sb.append("\t</resultMap>\r\n\r\n");
         return sb.toString();
     }
 
     /**
      * 生成插入语句
-     * @param entityClassName
-     * @param tableInfo
      * @return
      */
     private static String genInsert(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <INSERT id=\"insert\" parameterType=\""+entityClassName+"\">\n");
-        sb.append("        INSERT INTO "+tableInfo.getTableName()+"(\n            ");
+        sb.append("\t<INSERT id=\"insert\" parameterType=\""+entityClassName+"\">\r\n");
+        sb.append("\t\tINSERT INTO "+tableInfo.getTableName()+"(\r\n\t\t\t");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append(field.getFieldName()+", ");
         }
         sb.deleteCharAt(sb.lastIndexOf(","));
-        sb.append("\n        )VALUES(\n            ");
+        sb.append("\r\n\t\t)VALUES(\r\n\t\t\t");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append("#{"+StringUtil.underlineToHump(field.getFieldName())+"}, ");
         }
         sb.deleteCharAt(sb.lastIndexOf(","));
-        sb.append("\n        )\n");
-        sb.append("    </insert>\n\n");
+        sb.append("\r\n\t\t)\r\n");
+        sb.append("\t</insert>\r\n\r\n");
         return sb.toString();
     }
 
     /**
     * 生成删除语句
-    * @param tableName
     * @return
     */
     private static String genDelete(String tableName){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <delete id=\"delete\" parameterType=\"java.lang.Integer\">\n");
-        sb.append("        DELETE FROM "+tableName+"\n");
-        sb.append("        WHERE id = #{id}\n");
-        sb.append("    </delete>\n\n");
+        sb.append("\t<delete id=\"delete\" parameterType=\"java.lang.Integer\">\r\n");
+        sb.append("\t\tDELETE FROM "+tableName+"\r\n");
+        sb.append("\t\tWHERE id = #{id}\r\n");
+        sb.append("\t</delete>\r\n\r\n");
         return sb.toString();
     }
 
     /**
      * 生成更新语句
-     * @param entityClassName
-     * @param tableInfo
      * @return
      */
     private static String genUpdate(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <update id=\"update\" parameterType=\""+entityClassName+"\">\n");
-        sb.append("        UPDATE "+tableInfo.getTableName()+" SET\n            ");
+        sb.append("\t<update id=\"update\" parameterType=\""+entityClassName+"\">\r\n");
+        sb.append("\t\tUPDATE "+tableInfo.getTableName()+" SET\r\n\t\t\t");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append(field.getFieldName()+" = #{"+StringUtil.underlineToHump(field.getFieldName())+"}, ");
         }
         sb.deleteCharAt(sb.lastIndexOf(","));
-        sb.append("\n        WHERE id = #{id}\n");
-        sb.append("    </update>\n\n");
+        sb.append("\r\n\t\tWHERE id = #{id}\r\n");
+        sb.append("\t</update>\r\n\r\n");
         return sb.toString();
     }
 
     /**
      * 生成查询语句（单条）
-     * @param entityClassName
-     * @param tableName
      * @return
      */
     private static String genSelect(String entityClassName,String tableName){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <select id=\"select\" parameterType=\"java.lang.Integer\" resultType=\""+entityClassName+"\">\n");
-        sb.append("        SELECT * FROM "+tableName+"\n");
-        sb.append("        WHERE id = #{id}\n");
-        sb.append("    </select>\n\n");
+        sb.append("\t<select id=\"select\" parameterType=\"java.lang.Integer\" resultType=\""+entityClassName+"\">\r\n");
+        sb.append("\t\tSELECT * FROM "+tableName+"\r\n");
+        sb.append("\t\tWHERE id = #{id}\r\n");
+        sb.append("\t</select>\r\n\r\n");
         return sb.toString();
     }
 
     /**
      * 生成查询语句（多条）
-     * @param tableInfo
      * @return
      */
     private static String genSelectList(TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("    <select id=\"selects\" parameterType=\"java.util.Map\">\n");
-        sb.append("        SELECT * \n");
-        sb.append("        FROM "+tableInfo.getTableName()+" \n");
-        sb.append("        <where> 1=1 \n");
+        sb.append("\t<select id=\"selects\" parameterType=\"java.util.Map\">\r\n");
+        sb.append("\t\tSELECT * \r\n");
+        sb.append("\t\tFROM "+tableInfo.getTableName()+" \r\n");
+        sb.append("\t\t<where> 1=1 \r\n");
         for (FieldInfo field : tableInfo.getFields()) {
-            sb.append("            <if test=\""+field.getFieldName()+"!=null and "+field.getFieldName()+"!=''\">\n");
-            sb.append("                AND "+field.getFieldName()+" = #{"+StringUtil.underlineToHump(field.getFieldName())+"}\n");
-            sb.append("            </if>\n");
+            sb.append("\t\t\t<if test=\""+field.getFieldName()+"!=null and "+field.getFieldName()+"!=''\">\r\n");
+            sb.append("\t\t\t\tAND "+field.getFieldName()+" = #{"+StringUtil.underlineToHump(field.getFieldName())+"}\r\n");
+            sb.append("\t\t\t</if>\r\n");
         }
-        sb.append("        </where>\n    </select>\n\n");
+        sb.append("\t\t\t</where>\r\n\t</select>\r\n\r\n");
         return sb.toString();
     }
 }
