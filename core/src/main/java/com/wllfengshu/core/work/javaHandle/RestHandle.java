@@ -15,7 +15,7 @@ public class RestHandle {
 
     private static void genFile(RequestModel requestModel){
         for (TableModel t:requestModel.getTableModels()) {
-            String rest=RestUtil.genRest(t.getTableNameFUDTU(),t.getServiceClassName(),t.getEntityClassName(),requestModel.getRestPack());
+            String rest=RestUtil.genRest(t.getTableNameFLDTU(),t.getTableNameFUDTU(),t.getServiceClassName(),t.getEntityClassName(),requestModel.getRestPack());
             FileUtil.createFile(requestModel.getJavaPath()+"/"+StringUtil.spotToSlash(requestModel.getRestPack())+"/"+t.getTableNameFUDTU()+"Rest.java",rest);
         }
     }

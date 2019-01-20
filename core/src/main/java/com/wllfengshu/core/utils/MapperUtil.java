@@ -62,7 +62,7 @@ public class MapperUtil {
      */
     private static String genInsert(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<INSERT id=\"insert\" parameterType=\""+entityClassName+"\">\r\n");
+        sb.append("\t<insert id=\"insert\" parameterType=\""+entityClassName+"\">\r\n");
         sb.append("\t\tINSERT INTO "+tableInfo.getTableName()+"(\r\n\t\t\t");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append(field.getFieldName()+", ");
@@ -127,7 +127,7 @@ public class MapperUtil {
      */
     private static String genSelectList(TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<select id=\"selects\" parameterType=\"java.util.Map\">\r\n");
+        sb.append("\t<select id=\"selects\" parameterType=\"java.util.Map\" resultMap=\"resultMap\">\r\n");
         sb.append("\t\tSELECT * \r\n");
         sb.append("\t\tFROM "+tableInfo.getTableName()+" \r\n");
         sb.append("\t\t<where> 1=1 \r\n");

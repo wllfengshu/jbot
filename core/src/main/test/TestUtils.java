@@ -34,13 +34,13 @@ public class TestUtils extends TestSuper {
 
     @Test
     public void testRestUtil(){
-        String temp= RestUtil.genRest(t.getTableNameFUDTU(),t.getServiceClassName(),t.getEntityClassName(),requestModel.getRestPack());
+        String temp= RestUtil.genRest(t.getTableNameFLDTU(),t.getTableNameFUDTU(),t.getServiceClassName(),t.getEntityClassName(),requestModel.getRestPack());
         System.out.println("文件数据："+temp);
     }
 
     @Test
     public void testServiceImplUtil(){
-        String temp= ServiceImplUtil.genServiceImpl(t.getTableNameFUDTU(),t.getDaoClassName(),t.getEntityClassName(),requestModel.getServiceImplPack(),t.getServiceClassName());
+        String temp= ServiceImplUtil.genServiceImpl(t.getTableNameFLDTU(),t.getTableNameFUDTU(),t.getDaoClassName(),t.getEntityClassName(),requestModel.getServiceImplPack(),t.getServiceClassName());
         System.out.println("文件数据："+temp);
     }
 

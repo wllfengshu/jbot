@@ -49,8 +49,8 @@ public class BeforeHandle {
         List<TableModel> tables = new ArrayList<>();
         for(TableInfo tableInfo:dbInfo.getTables()){
             TableModel table = new TableModel();
-            table.setTableNameFUDTU(StringUtil.toFirstCharUpperCase(StringUtil.underlineToHump(StringUtil.delTUnderline(tableInfo.getTableName()))));
-            table.setTableNameFLDTU(StringUtil.toFirstCharLowCase(StringUtil.underlineToHump(StringUtil.delTUnderline(tableInfo.getTableName()))));
+            table.setTableNameFUDTU(StringUtil.toFirstCharUpperCase(StringUtil.underlineToHump(tableInfo.getTableName())));
+            table.setTableNameFLDTU(StringUtil.toFirstCharLowCase(StringUtil.underlineToHump(tableInfo.getTableName())));
             table.setEntityClassName(model.getEntityPack()+"."+table.getTableNameFUDTU());
             table.setDaoClassName(model.getDaoPack()+"."+table.getTableNameFUDTU()+"Dao");
             table.setServiceClassName(model.getServicePack()+"."+table.getTableNameFUDTU()+"Service");

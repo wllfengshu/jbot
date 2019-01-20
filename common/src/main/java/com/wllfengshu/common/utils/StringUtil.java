@@ -9,6 +9,44 @@ import java.util.List;
 public class StringUtil {
 
     /**
+     * 把数据库中字段的类型，转换为java中的类型
+     * @return
+     */
+    public static String sqlType2JavaType(String sqlType){
+        if (sqlType.equalsIgnoreCase("bit")) {
+            return "Boolean";
+        } else if (sqlType.equalsIgnoreCase("tinyint")) {
+            return "Byte";
+        } else if (sqlType.equalsIgnoreCase("smallint")) {
+            return "Short";
+        } else if (sqlType.equalsIgnoreCase("int")) {
+            return "Integer";
+        } else if (sqlType.equalsIgnoreCase("bigint")) {
+            return "Long";
+        } else if (sqlType.equalsIgnoreCase("float")) {
+            return "Float";
+        } else if (sqlType.equalsIgnoreCase("decimal")
+                || sqlType.equalsIgnoreCase("numeric")
+                || sqlType.equalsIgnoreCase("real")
+                || sqlType.equalsIgnoreCase("money")
+                || sqlType.equalsIgnoreCase("double")
+                || sqlType.equalsIgnoreCase("smallmoney")) {
+            return "Double";
+        } else if (sqlType.equalsIgnoreCase("varchar")
+                || sqlType.equalsIgnoreCase("char")
+                || sqlType.equalsIgnoreCase("nvarchar")
+                || sqlType.equalsIgnoreCase("nchar")
+                || sqlType.equalsIgnoreCase("text")) {
+            return "String";
+        } else if (sqlType.equalsIgnoreCase("datetime")) {
+            return "Date";
+        } else if (sqlType.equalsIgnoreCase("image")) {
+            return "Blod";
+        }
+        return "String";
+    }
+
+    /**
      * 点转斜杠
      * @param str
      * @return

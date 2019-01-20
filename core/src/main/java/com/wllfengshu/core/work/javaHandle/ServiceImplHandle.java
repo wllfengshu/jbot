@@ -15,7 +15,7 @@ public class ServiceImplHandle {
 
     private static void genFile(RequestModel requestModel){
         for (TableModel t:requestModel.getTableModels()) {
-            String serviceImpl=ServiceImplUtil.genServiceImpl(t.getTableNameFUDTU(),t.getDaoClassName(),t.getEntityClassName(),requestModel.getServiceImplPack(),t.getServiceClassName());
+            String serviceImpl=ServiceImplUtil.genServiceImpl(t.getTableNameFLDTU(),t.getTableNameFUDTU(),t.getDaoClassName(),t.getEntityClassName(),requestModel.getServiceImplPack(),t.getServiceClassName());
             FileUtil.createFile(requestModel.getJavaPath()+"/"+StringUtil.spotToSlash(t.getServiceImplClassName())+".java",serviceImpl);
         }
     }

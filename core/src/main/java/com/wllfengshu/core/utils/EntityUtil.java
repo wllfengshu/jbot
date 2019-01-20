@@ -2,12 +2,10 @@ package com.wllfengshu.core.utils;
 
 import com.wllfengshu.common.entity.FieldInfo;
 import com.wllfengshu.common.entity.TableInfo;
+import com.wllfengshu.common.utils.StringUtil;
 
 public class EntityUtil {
-    /**
-     * 实体类难在怎么把数据库中字段的类型，转换为java中的类型，我们使用Set
-     * @return
-     */
+
     public static String genEntity(String tableNameFUDTU,String entityPack,TableInfo tableInfo){
         StringBuffer sb=new StringBuffer();
         sb.append(genHead(tableNameFUDTU,entityPack));
@@ -47,7 +45,7 @@ public class EntityUtil {
     private static String genAttrs(TableInfo tableInfo) {
         StringBuffer sb = new StringBuffer();
         for (FieldInfo field : tableInfo.getFields()) {
-            sb.append("\tprivate "+field.getFieldType()+" "+field.getFieldName()+";\r\n ");
+            sb.append("\tprivate "+StringUtil.sqlType2JavaType(field.getFieldType())+" "+StringUtil.underlineToHump(field.getFieldName()) +";\r\n ");
         }
         sb.append("\r\n");
         return sb.toString();
@@ -60,11 +58,13 @@ public class EntityUtil {
     private static String genMethod(TableInfo tableInfo) {
         StringBuffer sb = new StringBuffer();
         for (FieldInfo field : tableInfo.getFields()) {
-            sb.append("\tpublic void set"+field.getFieldName()+"("+field.getFieldType()+" "+field.getFieldName()+") {\r\n" +
-                      "\t\tthis."+field.getFieldName()+" = "+field.getFieldName()+";\r\n" +
+            String fieldName=StringUtil.underlineToHump(field.getFieldName());
+            String fieldType=StringUtil.sqlType2JavaType(field.getFieldType());
+            sb.append("\tpublic void set"+StringUtil.toFirstCharUpperCase(fieldName)+"("+fieldType+" "+fieldName+") {\r\n" +
+                      "\t\tthis."+fieldName+" = "+fieldName+";\r\n" +
                       "\t}\r\n");
-            sb.append("\tpublic "+field.getFieldType()+" get"+field.getFieldName()+"() {\r\n" +
-                      "\t\treturn "+field.getFieldName()+";\r\n" +
+            sb.append("\tpublic "+fieldType+" get"+StringUtil.toFirstCharUpperCase(fieldName)+"() {\r\n" +
+                      "\t\treturn "+fieldName+";\r\n" +
                       "\t}\r\n");
         }
         return sb.toString();
