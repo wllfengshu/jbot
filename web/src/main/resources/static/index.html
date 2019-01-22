@@ -123,7 +123,7 @@
 	    			dbUsername: $("#dbUsername").val(),
 	    			dbPassword: $("#dbPassword").val(),
 	    			dbDriver: $("#dbDriver").val()
-	    		}
+	    		};
 	    		$http.post(
    					'/jbot/setting',
     				_connectInfo
@@ -144,8 +144,12 @@
 				        }
 				        $scope.todos=_tableInfo;
 	    			}
-	    		);
-			}
+                ).error(
+                    function() {
+                        alert("系统异常，请稍后重试...");
+                    }
+                );
+			};
 			
 			$scope.selectTables=[];//用户勾选的表名
 			//更新勾选
@@ -156,7 +160,7 @@
 					var index = $scope.selectTables.indexOf(table);
 					$scope.selectTables.splice(index,1);
 				}
-			}
+			};
 			
 			//生成项目
 			$scope.produceProjectFun=function(){
@@ -178,7 +182,7 @@
 				var _dbInfo = {
 		    		dbName: _dbName,
 		    		tables: $scope.selectTables
-	    		}
+	    		};
 	    		$http.post(
    					'/jbot/produce?projectName='+_projectName+'&packageName='+_packageName,
     				_dbInfo,
@@ -186,11 +190,6 @@
 				).success(
 	    			function(_data){
                         console.log(_data);
-                        // var isSuccess = _data["isSuccess"];
-                        // if (!isSuccess){
-                         //    alert(_data["msg"]);
-                         //    return;
-						// }
 	    				var blob = new Blob([_data],{type: 'application/zip'});
 	    				var a = document.createElement("a");
 	    				a.href = window.URL.createObjectURL(blob);
@@ -198,7 +197,20 @@
 						a.target = '_blank';
 						a.click();
 	    			}
-	    		);
+	    		).error(
+                    function(_data,_status) {
+                        switch (_status){
+							case 410:
+                                alert("项目名不能为关键字");
+                                break;
+                            case 411:
+                                alert("包名不能为关键字");
+                                break;
+                            default:
+                                alert("生成项目失败，请稍后重试...");
+						}
+                    }
+				);
 			}
 		});
 		

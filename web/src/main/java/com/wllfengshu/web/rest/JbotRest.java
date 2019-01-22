@@ -40,7 +40,9 @@ public class JbotRest {
             @ApiImplicitParam(name = "packageName", value = "包名（不包含项目名,eg:com.wllfengshu）", required = true, dataType = "string",paramType = "query")
     })
     @ApiResponses({
-            @ApiResponse(code=400, message="IllegalParam")
+            @ApiResponse(code=400, message="IllegalParam"),
+            @ApiResponse(code=410, message="project name Illegal"),
+            @ApiResponse(code=411, message="package name Illegal"),
     })
     @RequestMapping(value = "/produce",method = RequestMethod.POST)
     public Map<String, Object> produceProject(

@@ -9,6 +9,26 @@ import java.util.List;
 public class StringUtil {
 
     /**
+     * 判断字符串是否只使用字母、数字、-连字符、_下划线，不超过50个字符
+     * @param str
+     * @return true 验证通过
+     *          false 验证不通过
+     */
+    public static boolean checkWEU(String str){
+        return str.matches("^[a-zA-Z0-9][\\w-_]{1,49}$");
+    }
+
+    /**
+     * 判断字符串是否只使用字母、数字、点，不超过50个字符
+     * @param str
+     * @return true 验证通过
+     *          false 验证不通过
+     */
+    public static boolean checkWD(String str){
+        return str.matches("^[a-zA-Z0-9][\\w.]{1,99}$");
+    }
+
+    /**
      * 把数据库中字段的类型，转换为java中的类型
      * @return
      */

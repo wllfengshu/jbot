@@ -36,21 +36,23 @@ public class JbotServiceImpl implements JbotService {
 	public Map<String, Object> produceProject(String projectName, String packageName, DBInfo dbInfo, HttpServletResponse response){
 		Map<String, Object> result = new HashMap<>();
 		//检测projectName和packageName不能是特殊字符串
-		if (Interceptor.check(projectName)){
+		if (!Interceptor.checkProject(projectName)){
+			response.setStatus(410);
 			result.put("isSuccess",false);
 			result.put("msg","项目名不能为关键字");
 			return result;
 		}
-		if (Interceptor.check(packageName)){
+		if (!Interceptor.checkPackage(packageName)){
+			response.setStatus(411);
 			result.put("isSuccess",false);
 			result.put("msg","包名不能为关键字");
 			return result;
 		}
 		//调用生成项目的入口类
 		if (Launch.start(projectName, packageName, dbInfo)){
-			result.put("isSuccess",true);
 			FileDownloadUtil.download(Collective.TARGET_PROJECT_HOME+"/"+projectName+".zip",response);
 		}else {
+			response.setStatus(412);
 			result.put("isSuccess",false);
 			result.put("msg","生成项目失败");
 		}

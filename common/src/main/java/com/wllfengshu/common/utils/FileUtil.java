@@ -1,11 +1,54 @@
 package com.wllfengshu.common.utils;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文件工具类
  */
 public class FileUtil {
+
+    /**
+     * 把配置文件读到List中
+     *       注意：1、一行只允许一个字符串；
+     *             2、以#开头的字符串将被忽略；
+     * @param input
+     * @return
+     */
+    public static List readFile2Set(String input){
+        ArrayList<String> items = new ArrayList<>();
+        File file = new File(input);
+        if (!file.exists()){
+            return items;
+        }
+        FileReader reader = null;
+        BufferedReader br = null;
+        try {
+            reader = new FileReader(file);
+            br = new BufferedReader(reader);
+            String temp = null;
+            while (null != (temp = br.readLine())) {
+                if (null!=temp && !"".equals(temp) && !"\n".equals(temp) && !"\r\n".equals(temp) && !temp.startsWith("#")) {
+                    items.add(temp);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try {
+                if (reader!=null){
+                    reader.close();
+                }
+                if (br!=null){
+                    br.close();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return items;
+    }
 
     /**
      * 创建文件
