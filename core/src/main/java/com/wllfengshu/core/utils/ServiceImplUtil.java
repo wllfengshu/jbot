@@ -53,9 +53,9 @@ public class ServiceImplUtil {
      */
     private static String genMember(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
-        sb.append("\t@Autowired\r\n");
-        sb.append("\tprivate "+tableNameFUDTU+"Dao "+tableNameFLDTU+"Dao;\r\n\r\n");
-        sb.append("\tprivate Logger logger = LoggerFactory.getLogger(getClass());\r\n\r\n");
+        sb.append("\r\t@Autowired\r\n");
+        sb.append("\r\tprivate "+tableNameFUDTU+"Dao "+tableNameFLDTU+"Dao;\r\n\r\n");
+        sb.append("\r\tprivate Logger logger = LoggerFactory.getLogger(getClass());\r\n\r\n");
         return sb.toString();
     }
 
@@ -65,12 +65,12 @@ public class ServiceImplUtil {
      */
     private static String genInsert(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
-        sb.append("\t@Override\r\n");
-        sb.append("\tpublic Map<String, Object> insert("+tableNameFUDTU+" entity){\r\n");
-        sb.append("\t\tMap<String, Object> result = new HashMap<>();\r\n");
-        sb.append("\t\t"+tableNameFLDTU+"Dao.insert(entity);\r\n");
-        sb.append("\t\treturn result;\r\n");
-        sb.append("\t}\r\n\r\n");
+        sb.append("\r\t@Override\r\n");
+        sb.append("\r\tpublic Map<String, Object> insert("+tableNameFUDTU+" entity){\r\n");
+        sb.append("\r\t\r\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\r\t\r\t"+tableNameFLDTU+"Dao.insert(entity);\r\n");
+        sb.append("\r\t\r\treturn result;\r\n");
+        sb.append("\r\t}\r\n\r\n");
         return sb.toString();
     }
 
@@ -80,12 +80,12 @@ public class ServiceImplUtil {
      */
     private static String genDelete(String tableNameFLDTU){
         StringBuffer sb=new StringBuffer();
-        sb.append("\t@Override\r\n");
-        sb.append("\tpublic Map<String, Object> delete(Integer id){\r\n");
-        sb.append("\t\tMap<String, Object> result = new HashMap<>();\r\n");
-        sb.append("\t\t"+tableNameFLDTU+"Dao.delete(id);\r\n");
-        sb.append("\t\treturn result;\r\n");
-        sb.append("\t}\r\n\r\n");
+        sb.append("\r\t@Override\r\n");
+        sb.append("\r\tpublic Map<String, Object> delete(Integer id){\r\n");
+        sb.append("\r\t\r\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\r\t\r\t"+tableNameFLDTU+"Dao.delete(id);\r\n");
+        sb.append("\r\t\r\treturn result;\r\n");
+        sb.append("\r\t}\r\n\r\n");
         return sb.toString();
     }
 
@@ -95,12 +95,12 @@ public class ServiceImplUtil {
      */
     private static String genUpdate(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
-        sb.append("\t@Override\r\n");
-        sb.append("\tpublic Map<String, Object> update("+tableNameFUDTU+" entity){\r\n");
-        sb.append("\t\tMap<String, Object> result = new HashMap<>();\r\n");
-        sb.append("\t\t"+tableNameFLDTU+"Dao.update(entity);\r\n");
-        sb.append("\t\treturn result;\r\n");
-        sb.append("\t}\r\n\r\n");
+        sb.append("\r\t@Override\r\n");
+        sb.append("\r\tpublic Map<String, Object> update("+tableNameFUDTU+" entity){\r\n");
+        sb.append("\r\t\r\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\r\t\r\t"+tableNameFLDTU+"Dao.update(entity);\r\n");
+        sb.append("\r\t\r\treturn result;\r\n");
+        sb.append("\r\t}\r\n\r\n");
         return sb.toString();
     }
 
@@ -110,12 +110,12 @@ public class ServiceImplUtil {
      */
     private static String genSelect(String tableNameFLDTU){
         StringBuffer sb=new StringBuffer();
-        sb.append("\t@Override\r\n");
-        sb.append("\tpublic Map<String, Object> select(Integer id){\r\n");
-        sb.append("\t\tMap<String, Object> result = new HashMap<>();\r\n");
-        sb.append("\t\tresult.put(\"data\","+tableNameFLDTU+"Dao.select(id));\r\n");
-        sb.append("\t\treturn result;\r\n");
-        sb.append("\t}\r\n\r\n");
+        sb.append("\r\t@Override\r\n");
+        sb.append("\r\tpublic Map<String, Object> select(Integer id){\r\n");
+        sb.append("\r\t\r\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\r\t\r\tresult.put(\"data\","+tableNameFLDTU+"Dao.select(id));\r\n");
+        sb.append("\r\t\r\treturn result;\r\n");
+        sb.append("\r\t}\r\n\r\n");
         return sb.toString();
     }
 
@@ -125,12 +125,12 @@ public class ServiceImplUtil {
      */
     private static String genSelectList(String tableNameFLDTU){
         StringBuffer sb=new StringBuffer();
-        sb.append("\t@Override\r\n");
-        sb.append("\tpublic Map<String, Object> selects(Map<String, Object> params){\r\n");
-        sb.append("\tMap<String, Object> result = new HashMap<>();\r\n");
-        sb.append("\t\tresult.put(\"data\","+tableNameFLDTU+"Dao.selects(params));\r\n");
-        sb.append("\t\treturn result;\r\n");
-        sb.append("\t}\r\n\r\n");
+        sb.append("\r\t@Override\r\n");
+        sb.append("\r\tpublic Map<String, Object> selects(Map<String, Object> params){\r\n");
+        sb.append("\r\tMap<String, Object> result = new HashMap<>();\r\n");
+        sb.append("\r\t\r\tresult.put(\"data\","+tableNameFLDTU+"Dao.selects(params));\r\n");
+        sb.append("\r\t\r\treturn result;\r\n");
+        sb.append("\r\t}\r\n\r\n");
         return sb.toString();
     }
 }

@@ -1,14 +1,20 @@
 package com.wllfengshu.common.entity;
 
+/**
+ * 表字段实体类
+ */
 public class FieldInfo {
+
     /**
      * 字段名
      */
     private String fieldName = null;
+
     /**
      * 字段类型
      */
     private String fieldType = null;
+
 
     public String getFieldName() {
         return fieldName;

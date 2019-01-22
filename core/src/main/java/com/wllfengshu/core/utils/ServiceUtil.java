@@ -45,7 +45,7 @@ public class ServiceUtil {
      * @return
      */
     private static String genInsert(String tableNameFUDTU){
-        return "\tMap<String, Object> insert("+tableNameFUDTU+" entity);\r\n";
+        return "\r\tMap<String, Object> insert("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
@@ -53,7 +53,7 @@ public class ServiceUtil {
      * @return
      */
     private static String genDelete(){
-        return "\tMap<String, Object> delete(Integer id);\r\n";
+        return "\r\tMap<String, Object> delete(Integer id);\r\n";
     }
 
     /**
@@ -61,7 +61,7 @@ public class ServiceUtil {
      * @return
      */
     private static String genUpdate(String tableNameFUDTU){
-        return "\tMap<String, Object> update("+tableNameFUDTU+" entity);\r\n";
+        return "\r\tMap<String, Object> update("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
@@ -69,7 +69,7 @@ public class ServiceUtil {
      * @return
      */
     private static String genSelect(){
-        return "\tMap<String, Object> select(Integer id);\r\n";
+        return "\r\tMap<String, Object> select(Integer id);\r\n";
     }
 
     /**
@@ -77,6 +77,6 @@ public class ServiceUtil {
      * @return
      */
     private static String genSelectList(){
-        return "\tMap<String, Object> selects(Map<String, Object> params);\r\n";
+        return "\r\tMap<String, Object> selects(Map<String, Object> params);\r\n";
     }
 }

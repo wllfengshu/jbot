@@ -2,15 +2,21 @@ package com.wllfengshu.common.entity;
 
 import java.util.List;
 
+/**
+ * 数据库实体类
+ */
 public class DBInfo {
+
     /**
      * 数据库名
      */
     private String dbName = null;
+
     /**
      * 表集合
      */
     private List<TableInfo> tables = null;
+
 
     public String getDbName() {
         return dbName;

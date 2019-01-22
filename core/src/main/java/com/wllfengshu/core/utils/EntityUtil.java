@@ -26,7 +26,7 @@ public class EntityUtil {
         sb.append("import java.io.Serializable;\r\n");
         sb.append("import java.util.Date;\r\n\r\n");
         sb.append("public class "+tableNameFUDTU+" implements Serializable{\r\n\r\n");
-        sb.append("\tprivate static final long serialVersionUID = 1L;\r\n\r\n");
+        sb.append("\r\tprivate static final long serialVersionUID = 1L;\r\n\r\n");
         return sb.toString();
     }
 
@@ -45,7 +45,7 @@ public class EntityUtil {
     private static String genAttrs(TableInfo tableInfo) {
         StringBuffer sb = new StringBuffer();
         for (FieldInfo field : tableInfo.getFields()) {
-            sb.append("\tprivate "+StringUtil.sqlType2JavaType(field.getFieldType())+" "+StringUtil.underlineToHump(field.getFieldName()) +";\r\n ");
+            sb.append("\r\tprivate "+StringUtil.sqlType2JavaType(field.getFieldType())+" "+StringUtil.underlineToHump(field.getFieldName()) +";\r\n ");
         }
         sb.append("\r\n");
         return sb.toString();
@@ -60,12 +60,12 @@ public class EntityUtil {
         for (FieldInfo field : tableInfo.getFields()) {
             String fieldName=StringUtil.underlineToHump(field.getFieldName());
             String fieldType=StringUtil.sqlType2JavaType(field.getFieldType());
-            sb.append("\tpublic void set"+StringUtil.toFirstCharUpperCase(fieldName)+"("+fieldType+" "+fieldName+") {\r\n" +
-                      "\t\tthis."+fieldName+" = "+fieldName+";\r\n" +
-                      "\t}\r\n");
-            sb.append("\tpublic "+fieldType+" get"+StringUtil.toFirstCharUpperCase(fieldName)+"() {\r\n" +
-                      "\t\treturn "+fieldName+";\r\n" +
-                      "\t}\r\n");
+            sb.append("\r\tpublic void set"+StringUtil.toFirstCharUpperCase(fieldName)+"("+fieldType+" "+fieldName+") {\r\n" +
+                    "\r\t\r\tthis."+fieldName+" = "+fieldName+";\r\n" +
+                    "\r\t}\r\n");
+            sb.append("\r\tpublic "+fieldType+" get"+StringUtil.toFirstCharUpperCase(fieldName)+"() {\r\n" +
+                    "\r\t\r\treturn "+fieldName+";\r\n" +
+                    "\r\t}\r\n");
         }
         return sb.toString();
     }

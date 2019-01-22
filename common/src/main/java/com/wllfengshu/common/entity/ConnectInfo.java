@@ -1,30 +1,40 @@
 package com.wllfengshu.common.entity;
 
+/**
+ * 数据库连接信息
+ */
 public class ConnectInfo {
+
     /**
      * 数据库ip
      */
     private String dbIp = null;
+
     /**
      * 数据库port
      */
     private String dbPort = null;
+
     /**
      * 数据库name
      */
     private String dbName = null;
+
     /**
      * 数据库username
      */
     private String dbUsername = null;
+
     /**
      * 数据库password
      */
     private String dbPassword = null;
+
     /**
      * 数据库driver
      */
     private String dbDriver = null;
+
 
     public String getDbIp() {
         return dbIp;

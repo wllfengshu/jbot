@@ -47,7 +47,7 @@ public class DaoUtil {
      * @return
      */
     private static String genInsert(String tableNameFUDTU){
-        return "\tvoid insert("+tableNameFUDTU+" entity);\r\n";
+        return "\r\tvoid insert("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
@@ -55,7 +55,7 @@ public class DaoUtil {
      * @return
      */
     private static String genDelete(){
-        return "\tvoid delete(@Param(\"id\") Integer id);\r\n";
+        return "\r\tvoid delete(@Param(\"id\") Integer id);\r\n";
     }
 
     /**
@@ -63,7 +63,7 @@ public class DaoUtil {
      * @return
      */
     private static String genUpdate(String tableNameFUDTU){
-        return "\tvoid update("+tableNameFUDTU+" entity);\r\n";
+        return "\r\tvoid update("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
@@ -71,7 +71,7 @@ public class DaoUtil {
      * @return
      */
     private static String genSelect(String tableNameFUDTU){
-        return "\t"+tableNameFUDTU+" select(@Param(\"id\") Integer id);\r\n";
+        return "\r\t"+tableNameFUDTU+" select(@Param(\"id\") Integer id);\r\n";
     }
 
     /**
@@ -79,6 +79,6 @@ public class DaoUtil {
      * @return
      */
     private static String genSelectList(String tableNameFUDTU){
-        return "\tList<"+tableNameFUDTU+"> selects(Map<String, Object> params);\r\n";
+        return "\r\tList<"+tableNameFUDTU+"> selects(Map<String, Object> params);\r\n";
     }
 }

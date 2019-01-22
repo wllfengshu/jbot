@@ -2,15 +2,21 @@ package com.wllfengshu.common.entity;
 
 import java.util.List;
 
+/**
+ * 表实体类
+ */
 public class TableInfo {
+
     /**
      * 表名
      */
     private String tableName = null;
+
     /**
      * 字段集合
      */
     private List<FieldInfo> fields = null;
+
 
     public String getTableName() {
         return tableName;

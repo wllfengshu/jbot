@@ -48,11 +48,11 @@ public class MapperUtil {
      */
     private static String genResult(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<resultMap type=\""+entityClassName+"\" id=\"resultMap\">\r\n");
+        sb.append("\r\t<resultMap type=\""+entityClassName+"\" id=\"resultMap\">\r\n");
         for (FieldInfo field : tableInfo.getFields()) {
-            sb.append("\t\t<result property=\""+StringUtil.underlineToHump(field.getFieldName())+"\" column=\""+field.getFieldName()+"\"></result>\r\n");
+            sb.append("\r\t\r\t<result property=\""+StringUtil.underlineToHump(field.getFieldName())+"\" column=\""+field.getFieldName()+"\"></result>\r\n");
         }
-        sb.append("\t</resultMap>\r\n\r\n");
+        sb.append("\r\t</resultMap>\r\n\r\n");
         return sb.toString();
     }
 
@@ -62,32 +62,32 @@ public class MapperUtil {
      */
     private static String genInsert(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<insert id=\"insert\" parameterType=\""+entityClassName+"\">\r\n");
-        sb.append("\t\tINSERT INTO "+tableInfo.getTableName()+"(\r\n\t\t\t");
+        sb.append("\r\t<insert id=\"insert\" parameterType=\""+entityClassName+"\">\r\n");
+        sb.append("\r\t\r\tINSERT INTO "+tableInfo.getTableName()+"(\r\n\r\t\r\t\r\t");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append(field.getFieldName()+", ");
         }
         sb.deleteCharAt(sb.lastIndexOf(","));
-        sb.append("\r\n\t\t)VALUES(\r\n\t\t\t");
+        sb.append("\r\n\r\t\r\t)VALUES(\r\n\r\t\r\t\r\t");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append("#{"+StringUtil.underlineToHump(field.getFieldName())+"}, ");
         }
         sb.deleteCharAt(sb.lastIndexOf(","));
-        sb.append("\r\n\t\t)\r\n");
-        sb.append("\t</insert>\r\n\r\n");
+        sb.append("\r\n\r\t\r\t)\r\n");
+        sb.append("\r\t</insert>\r\n\r\n");
         return sb.toString();
     }
 
     /**
-    * 生成删除语句
-    * @return
-    */
+     * 生成删除语句
+     * @return
+     */
     private static String genDelete(String tableName){
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<delete id=\"delete\" parameterType=\"java.lang.Integer\">\r\n");
-        sb.append("\t\tDELETE FROM "+tableName+"\r\n");
-        sb.append("\t\tWHERE id = #{id}\r\n");
-        sb.append("\t</delete>\r\n\r\n");
+        sb.append("\r\t<delete id=\"delete\" parameterType=\"java.lang.Integer\">\r\n");
+        sb.append("\r\t\r\tDELETE FROM "+tableName+"\r\n");
+        sb.append("\r\t\r\tWHERE id = #{id}\r\n");
+        sb.append("\r\t</delete>\r\n\r\n");
         return sb.toString();
     }
 
@@ -97,14 +97,14 @@ public class MapperUtil {
      */
     private static String genUpdate(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<update id=\"update\" parameterType=\""+entityClassName+"\">\r\n");
-        sb.append("\t\tUPDATE "+tableInfo.getTableName()+" SET\r\n\t\t\t");
+        sb.append("\r\t<update id=\"update\" parameterType=\""+entityClassName+"\">\r\n");
+        sb.append("\r\t\r\tUPDATE "+tableInfo.getTableName()+" SET\r\n\r\t\r\t\r\t");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append(field.getFieldName()+" = #{"+StringUtil.underlineToHump(field.getFieldName())+"}, ");
         }
         sb.deleteCharAt(sb.lastIndexOf(","));
-        sb.append("\r\n\t\tWHERE id = #{id}\r\n");
-        sb.append("\t</update>\r\n\r\n");
+        sb.append("\r\n\r\t\r\tWHERE id = #{id}\r\n");
+        sb.append("\r\t</update>\r\n\r\n");
         return sb.toString();
     }
 
@@ -114,10 +114,10 @@ public class MapperUtil {
      */
     private static String genSelect(String entityClassName,String tableName){
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<select id=\"select\" parameterType=\"java.lang.Integer\" resultType=\""+entityClassName+"\">\r\n");
-        sb.append("\t\tSELECT * FROM "+tableName+"\r\n");
-        sb.append("\t\tWHERE id = #{id}\r\n");
-        sb.append("\t</select>\r\n\r\n");
+        sb.append("\r\t<select id=\"select\" parameterType=\"java.lang.Integer\" resultType=\""+entityClassName+"\">\r\n");
+        sb.append("\r\t\r\tSELECT * FROM "+tableName+"\r\n");
+        sb.append("\r\t\r\tWHERE id = #{id}\r\n");
+        sb.append("\r\t</select>\r\n\r\n");
         return sb.toString();
     }
 
@@ -127,16 +127,16 @@ public class MapperUtil {
      */
     private static String genSelectList(TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
-        sb.append("\t<select id=\"selects\" parameterType=\"java.util.Map\" resultMap=\"resultMap\">\r\n");
-        sb.append("\t\tSELECT * \r\n");
-        sb.append("\t\tFROM "+tableInfo.getTableName()+" \r\n");
-        sb.append("\t\t<where> 1=1 \r\n");
+        sb.append("\r\t<select id=\"selects\" parameterType=\"java.util.Map\" resultMap=\"resultMap\">\r\n");
+        sb.append("\r\t\r\tSELECT * \r\n");
+        sb.append("\r\t\r\tFROM "+tableInfo.getTableName()+" \r\n");
+        sb.append("\r\t\r\t<where> 1=1 \r\n");
         for (FieldInfo field : tableInfo.getFields()) {
-            sb.append("\t\t\t<if test=\""+field.getFieldName()+"!=null and "+field.getFieldName()+"!=''\">\r\n");
-            sb.append("\t\t\t\tAND "+field.getFieldName()+" = #{"+StringUtil.underlineToHump(field.getFieldName())+"}\r\n");
-            sb.append("\t\t\t</if>\r\n");
+            sb.append("\r\t\r\t\r\t<if test=\""+field.getFieldName()+"!=null and "+field.getFieldName()+"!=''\">\r\n");
+            sb.append("\r\t\r\t\r\t\r\tAND "+field.getFieldName()+" = #{"+StringUtil.underlineToHump(field.getFieldName())+"}\r\n");
+            sb.append("\r\t\r\t\r\t</if>\r\n");
         }
-        sb.append("\t\t\t</where>\r\n\t</select>\r\n\r\n");
+        sb.append("\r\t\r\t\r\t</where>\r\n\r\t</select>\r\n\r\n");
         return sb.toString();
     }
 }

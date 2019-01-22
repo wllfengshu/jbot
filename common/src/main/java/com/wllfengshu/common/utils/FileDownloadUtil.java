@@ -12,6 +12,11 @@ import java.net.URLEncoder;
  */
 public class FileDownloadUtil {
 
+    /**
+     * 文件下载
+     * @param fileName 文件名（带路径）
+     * @param response 请求体
+     */
     public static void download(String fileName, HttpServletResponse response){
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
