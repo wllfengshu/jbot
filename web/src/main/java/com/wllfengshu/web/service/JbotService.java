@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+/**
+ * service
+ * @author wllfengshu
+ */
 @Service
 public interface JbotService {
 	Map<String, Object> settingProject(ConnectInfo connectInfo);

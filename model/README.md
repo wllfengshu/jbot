@@ -1,1 +1,1 @@
-# 这是一个swagger+springboot+spring+mybatis的标准模板
+# 这是一个swagger + springBoot + spring + mybatis的标准模板

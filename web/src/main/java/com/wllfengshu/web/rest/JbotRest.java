@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
+/**
+ * rest
+ * @author wllfengshu
+ */
 @RestController
 @RequestMapping("/jbot")
 public class JbotRest {
@@ -27,7 +31,7 @@ public class JbotRest {
     })
     @RequestMapping(value = "/setting",method = RequestMethod.POST)
     public Map<String, Object> settingProject(
-            @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）",required = true) ConnectInfo connectInfo,
+            @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）注：暂且不可自定义数据库信息",required = true) ConnectInfo connectInfo,
             HttpServletRequest request,
             HttpServletResponse response) {
         logger.info("JbotRest,getTableFromDB-------->connectInfo:{}",connectInfo);

@@ -2,6 +2,7 @@ package com.wllfengshu.common.entity;
 
 /**
  * 表字段实体类
+ * @author wllfengshu
  */
 public class FieldInfo {
 

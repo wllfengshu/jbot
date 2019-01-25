@@ -83,9 +83,29 @@ AngularJS | JS框架
 演示地址：
 
 ## 预览图
+
 - 使用http://localhost:8080/swagger-ui.html 访问
+
 ![swagger](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/swagger.png)
+
 - 使用http://localhost:8080/index.html 访问
+
 ![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/web.png)
+
+- 生成的项目的效果图（使用http://localhost:8080/swagger-ui.html 访问）
+
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/genSwagger.png)
+
+- 生成的项目结构
+
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/genProject.png)
+
+- 生成的项目entity
+
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/genEntity.png)
+
+- 生成的项目mapper
+
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/genMapper.png)
 
 ## jbot相关博客

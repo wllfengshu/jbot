@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * 数据库实体类
+ * @author wllfengshu
  */
 public class DBInfo {
 

@@ -5,6 +5,7 @@ import com.wllfengshu.core.model.RequestModel;
 
 /**
  * 负责core结束后的善后工作
+ * @author wllfengshu
  */
 public class AfterHandle {
 

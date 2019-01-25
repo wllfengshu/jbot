@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * 负责core开始前的准备工作
+ * @author wllfengshu
  */
 public class BeforeHandle {
 

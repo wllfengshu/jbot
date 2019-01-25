@@ -6,6 +6,10 @@ import com.wllfengshu.core.model.RequestModel;
 import com.wllfengshu.core.model.TableModel;
 import com.wllfengshu.core.utils.EntityUtil;
 
+/**
+ * 处理entity文件
+ * @author wllfengshu
+ */
 public class EntityHandle {
 
     public static void start(RequestModel requestModel){

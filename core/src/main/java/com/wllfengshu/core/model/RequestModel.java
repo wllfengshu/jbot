@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * 每个请求的model(下面以dns项目为例进行注释)
+ * @author wllfengshu
  */
 public class RequestModel {
 

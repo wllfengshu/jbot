@@ -6,6 +6,10 @@ import com.wllfengshu.core.model.TableModel;
 import com.wllfengshu.core.utils.DaoUtil;
 import com.wllfengshu.common.utils.FileUtil;
 
+/**
+ * 处理dao文件
+ * @author wllfengshu
+ */
 public class DaoHandle {
 
     public static void start(RequestModel requestModel){

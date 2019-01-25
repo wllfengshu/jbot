@@ -4,6 +4,10 @@ import com.wllfengshu.common.utils.FileUtil;
 import com.wllfengshu.common.utils.StringUtil;
 import com.wllfengshu.core.model.RequestModel;
 
+/**
+ * 处理application文件
+ * @author wllfengshu
+ */
 public class ApplicationHandle {
 
     public static void start(RequestModel requestModel){

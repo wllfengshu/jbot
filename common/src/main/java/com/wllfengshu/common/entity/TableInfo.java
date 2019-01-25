@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * 表实体类
+ * @author wllfengshu
  */
 public class TableInfo {
 

@@ -6,6 +6,7 @@ import com.wllfengshu.core.model.RequestModel;
 
 /**
  * 处理logback文件
+ * @author wllfengshu
  */
 public class LogbackHandle {
 

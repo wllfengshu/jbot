@@ -2,6 +2,7 @@ package com.wllfengshu.core.utils;
 
 /**
  * 生成service层文件
+ * @author wllfengshu
  */
 public class ServiceUtil {
 
@@ -45,7 +46,7 @@ public class ServiceUtil {
      * @return
      */
     private static String genInsert(String tableNameFUDTU){
-        return "\r\tMap<String, Object> insert("+tableNameFUDTU+" entity);\r\n";
+        return "\tMap<String, Object> insert("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
@@ -53,7 +54,7 @@ public class ServiceUtil {
      * @return
      */
     private static String genDelete(){
-        return "\r\tMap<String, Object> delete(Integer id);\r\n";
+        return "\tMap<String, Object> delete(Integer id);\r\n";
     }
 
     /**
@@ -61,7 +62,7 @@ public class ServiceUtil {
      * @return
      */
     private static String genUpdate(String tableNameFUDTU){
-        return "\r\tMap<String, Object> update("+tableNameFUDTU+" entity);\r\n";
+        return "\tMap<String, Object> update("+tableNameFUDTU+" entity);\r\n";
     }
 
     /**
@@ -69,7 +70,7 @@ public class ServiceUtil {
      * @return
      */
     private static String genSelect(){
-        return "\r\tMap<String, Object> select(Integer id);\r\n";
+        return "\tMap<String, Object> select(Integer id);\r\n";
     }
 
     /**
@@ -77,6 +78,6 @@ public class ServiceUtil {
      * @return
      */
     private static String genSelectList(){
-        return "\r\tMap<String, Object> selects(Map<String, Object> params);\r\n";
+        return "\tMap<String, Object> selects(Map<String, Object> params);\r\n";
     }
 }

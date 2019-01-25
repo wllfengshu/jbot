@@ -6,6 +6,10 @@ import com.wllfengshu.core.model.RequestModel;
 import com.wllfengshu.core.model.TableModel;
 import com.wllfengshu.core.utils.ServiceImplUtil;
 
+/**
+ * 处理serviceImpl文件
+ * @author wllfengshu
+ */
 public class ServiceImplHandle {
 
     public static void start(RequestModel requestModel){

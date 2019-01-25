@@ -6,6 +6,10 @@ import com.wllfengshu.core.model.RequestModel;
 import com.wllfengshu.core.model.TableModel;
 import com.wllfengshu.core.utils.ServiceUtil;
 
+/**
+ * 处理service文件
+ * @author wllfengshu
+ */
 public class ServiceHandle {
 
     public static void start(RequestModel requestModel){

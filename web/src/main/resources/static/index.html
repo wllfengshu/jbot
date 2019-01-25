@@ -32,40 +32,41 @@
 				</div>
 				<div id="step3" style="background-color: #FFCCCC;width: 100%;height: 100%;">
 					<h2>步骤三：设置数据库信息</h2>
+					<a style="color: red;">注：暂且不可自定义数据库信息,请使用mysql客户端按照如下配置进行连接，然后再在test数据库里创建表</a>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbIp">请输入IP：</label>
 						<div class="controls">
-							<input id="dbIp" value="127.0.0.1" type="text" placeholder="例如：127.0.0.1" class="input-xlarge">
+							<input id="dbIp" readonly="readonly" value="127.0.0.1" type="text" placeholder="例如：127.0.0.1" class="input-xlarge">
 						</div>
 					</div>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbPort">请输入端口：</label>
 						<div class="controls">
-							<input id="dbPort" value="3306" type="text" placeholder="例如：3306" class="input-xlarge">
+							<input id="dbPort" readonly="readonly" value="3306" type="text" placeholder="例如：3306" class="input-xlarge">
 						</div>
 					</div>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbName">请输入数据库名：</label>
 						<div class="controls">
-							<input id="dbName" value="test" type="text" placeholder="例如：user" class="input-xlarge">
+							<input id="dbName" readonly="readonly" value="test" type="text" placeholder="例如：user" class="input-xlarge">
 						</div>
 					</div>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbUsername">请输入数据库用户名：</label>
 						<div class="controls">
-							<input id="dbUsername" value="root" type="text" placeholder="例如：root" class="input-xlarge">
+							<input id="dbUsername" readonly="readonly" value="root" type="text" placeholder="例如：root" class="input-xlarge">
 						</div>
 					</div>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbPassword">请输入数据库密码：</label>
 						<div class="controls">
-							<input id="dbPassword" value="root" type="password" placeholder="例如：root" class="input-xlarge">
+							<input id="dbPassword" readonly="readonly" value="root" type="text" placeholder="例如：root" class="input-xlarge">
 						</div>
 					</div>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbDriver">请输入数据库驱动名：</label>
 						<div class="controls">
-							<input id="dbDriver" value="com.mysql.jdbc.Driver" type="text" placeholder="例如：com.mysql.jdbc.Driver" class="input-xlarge">
+							<input id="dbDriver" readonly="readonly" value="com.mysql.jdbc.Driver" type="text" placeholder="例如：com.mysql.jdbc.Driver" class="input-xlarge">
 						</div>
 					</div>
 					<div id="step4" style="background-color: #99CCCC;width: 100%;height: 100%;">

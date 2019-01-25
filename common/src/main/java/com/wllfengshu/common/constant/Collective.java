@@ -2,6 +2,7 @@ package com.wllfengshu.common.constant;
 
 /**
  * 公共常量集合
+ * @author wllfengshu
  */
 public class Collective {
 

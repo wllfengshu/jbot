@@ -5,6 +5,10 @@ import com.wllfengshu.core.model.RequestModel;
 import com.wllfengshu.core.model.TableModel;
 import com.wllfengshu.core.utils.MapperUtil;
 
+/**
+ * 处理mapper文件
+ * @author wllfengshu
+ */
 public class MapperHandle {
 
     public static void start(RequestModel requestModel){

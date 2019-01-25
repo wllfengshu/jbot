@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * 字符串工具类
+ * @author wllfengshu
  */
 public class StringUtil {
 

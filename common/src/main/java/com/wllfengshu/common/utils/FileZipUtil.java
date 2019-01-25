@@ -6,6 +6,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * 文件压缩工具类
+ * @author wllfengshu
  */
 public class FileZipUtil {
 

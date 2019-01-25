@@ -6,6 +6,10 @@ import com.wllfengshu.core.model.RequestModel;
 import com.wllfengshu.core.model.TableModel;
 import com.wllfengshu.core.utils.RestUtil;
 
+/**
+ * 处理rest文件
+ * @author wllfengshu
+ */
 public class RestHandle {
 
     public static void start(RequestModel requestModel){

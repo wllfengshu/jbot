@@ -4,6 +4,7 @@ import com.wllfengshu.common.entity.TableInfo;
 
 /**
  * 每张表的model(下面以t_user表为例进行注释)
+ * @author wllfengshu
  */
 public class TableModel {
 
