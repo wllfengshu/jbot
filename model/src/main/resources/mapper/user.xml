@@ -12,39 +12,6 @@
 		<result property="isDelete" column="is_delete" />
 	</resultMap>
 
-	<insert id="insertUser" parameterType="com.wllfengshu.model.entity.TUser">
-		insert into t_user
-		     (username,password,create_time)
-		values
-		     (#{username},#{password},#{createTime})
-	</insert>
-
-	<delete id="deleteUser" parameterType="java.lang.Integer">
-		delete from t_user
-		where
-		     id=#{id}
-	</delete>
-
-	<update id="updateUser" parameterType="com.wllfengshu.model.entity.TUser" >
-		update t_user
-		set
-		    username=#{username},password=#{password},update_time=#{updateTime}
-		where
-		    id=#{id}
-	</update>
-
-	<select id="selectUser" resultType="com.wllfengshu.model.entity.TUser">
-		SELECT
-			*
-		FROM t_user u
-		<where>
-			1=1
-			<if test="id!=null and id!=''">
-				AND u.id = #{id}
-			</if>
-		</where>
-	</select>
-
 	<select id="selectUsers" parameterType="java.util.Map" resultMap="resultMap">
 		SELECT
 			*
@@ -53,6 +20,12 @@
 			1=1
 			<if test="username!=null and username!=''">
 				AND u.username = #{username}
+			</if>
+			<if test="createTimeBegin!=null and createTimeBegin!=''">
+				AND u.create_time &gt;= #{createTimeBegin}
+			</if>
+			<if test="createTimeEnd!=null and createTimeEnd!=''">
+				AND u.create_time &lt;= #{createTimeEnd}
 			</if>
 			<if test="pageNo!=null and pageNo!='' and pageSize!=null and pageSize!=''">
 				limit #{pageNo} * #{pageSize} , #{pageSize}

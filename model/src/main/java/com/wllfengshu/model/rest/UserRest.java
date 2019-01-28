@@ -80,7 +80,9 @@ public class UserRest {
 
     @ApiOperation(value = "查询用户",httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名", dataType = "string",paramType = "query")
+            @ApiImplicitParam(name = "username", value = "用户名", dataType = "string",paramType = "query"),
+            @ApiImplicitParam(name = "createTimeBegin", value = "创建时间开始(格式：yyyy-MM-dd HH:mm:ss)", dataType = "string",paramType = "query"),
+            @ApiImplicitParam(name = "createTimeEnd", value = "创建时间结束(格式：yyyy-MM-dd HH:mm:ss)", dataType = "string",paramType = "query")
     })
     @ApiResponses({
             @ApiResponse(code=400, message="IllegalParam")
@@ -88,11 +90,15 @@ public class UserRest {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public Map<String, Object> selectUsers(
             @RequestParam(value = "username",required = false) String username,
+            @RequestParam(value = "createTimeBegin",required = false) String createTimeBegin,
+            @RequestParam(value = "createTimeEnd",required = false) String createTimeEnd,
             HttpServletRequest request,
             HttpServletResponse response){
         Map<String,Object> params = new HashMap<>();
         params.put("username",username);
-        logger.info("UserRest,selectUser-------->username:{}",username);
+        params.put("createTimeBegin",createTimeBegin);
+        params.put("createTimeEnd",createTimeEnd);
+        logger.info("UserRest,selectUser-------->username:{},createTimeBegin,createTimeEnd",username,createTimeBegin,createTimeEnd);
         return userService.selectUsers(params);
     }
 }
