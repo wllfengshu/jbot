@@ -1,8 +1,5 @@
 package com.wllfengshu.model.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,7 +10,6 @@ public class TUser implements Serializable{
     private Integer id;
     private String username;
     private String password;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date createTime;
     private Date updateTime;
     private Date deleteTime;

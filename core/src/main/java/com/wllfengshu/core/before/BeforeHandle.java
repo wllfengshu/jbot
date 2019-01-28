@@ -24,7 +24,7 @@ public class BeforeHandle {
         createProjectName(model.getProjectPath());
         //2、创建包
         createPackageName(model.getPackageBasePath());
-        //3、复制dockerfile、pom、startup、readme等文件
+        //3、复制pom、readme等文件
         copyConfFile(model.getProjectPath());
         //4、复制resources文件夹
         copyResource(model.getResourcesPath());
@@ -73,7 +73,7 @@ public class BeforeHandle {
     }
 
     private static void copyConfFile(String projectPath){
-        String[] fileName={"Dockerfile","pom.xml","README.md","startup.sh"};
+        String[] fileName={"pom.xml","README.md"};
         for (String f:fileName) {
             FileUtil.copyFile(Collective.MODEL_PROJECT_HOME+"/"+f,projectPath+"/"+f);
         }

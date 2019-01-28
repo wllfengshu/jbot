@@ -4,12 +4,9 @@ import com.wllfengshu.common.entity.DBInfo;
 import com.wllfengshu.core.after.AfterHandle;
 import com.wllfengshu.core.before.BeforeHandle;
 import com.wllfengshu.core.model.RequestModel;
-import com.wllfengshu.core.work.DockerfileHandle;
 import com.wllfengshu.core.work.PomHandle;
 import com.wllfengshu.core.work.ReadmeHandle;
-import com.wllfengshu.core.work.StartupHandle;
 import com.wllfengshu.core.work.javaHandle.*;
-import com.wllfengshu.core.work.resourcesHandle.LogbackHandle;
 import com.wllfengshu.core.work.resourcesHandle.MapperHandle;
 import com.wllfengshu.core.work.resourcesHandle.PropertiesHandle;
 import org.slf4j.Logger;
@@ -17,7 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * 把model工程按照需求进行修改
@@ -36,10 +35,8 @@ public class Launch {
             RequestModel model = BeforeHandle.start(projectName, packageName, dbInfo);
             futures.add(executorService.submit(() -> {
                 //2、配置文件修改
-                DockerfileHandle.start(model);
                 PomHandle.start(model);
                 ReadmeHandle.start(model);
-                StartupHandle.start(model);
                 return true;
             }));
             futures.add(executorService.submit(() -> {
@@ -54,7 +51,6 @@ public class Launch {
             }));
             futures.add(executorService.submit(() -> {
                 //4、resources文件修改
-                LogbackHandle.start(model);
                 MapperHandle.start(model);
                 PropertiesHandle.start(model);
                 return true;
