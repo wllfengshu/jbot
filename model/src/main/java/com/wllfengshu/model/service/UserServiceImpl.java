@@ -15,7 +15,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
-
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
@@ -55,6 +54,7 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> result = new HashMap<>();
         logger.info("UserServiceImpl,selectUsers-------->params:{}",params);
         result.put("data",userDao.selectUsers(params));
+        result.put("total",userDao.selectUsersCount(params));
         return result;
     }
 

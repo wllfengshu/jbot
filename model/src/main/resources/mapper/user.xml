@@ -12,24 +12,38 @@
 		<result property="isDelete" column="is_delete" />
 	</resultMap>
 
+	<sql id="selectUsersWhere">
+		<if test="username!=null and username!=''">
+			AND u.username = #{username}
+		</if>
+		<if test="createTimeBegin!=null and createTimeBegin!=''">
+			AND u.create_time &gt;= #{createTimeBegin}
+		</if>
+		<if test="createTimeEnd!=null and createTimeEnd!=''">
+			AND u.create_time &lt;= #{createTimeEnd}
+		</if>
+	</sql>
+
 	<select id="selectUsers" parameterType="java.util.Map" resultMap="resultMap">
 		SELECT
 			*
 		FROM t_user u
 		<where>
 			1=1
-			<if test="username!=null and username!=''">
-				AND u.username = #{username}
-			</if>
-			<if test="createTimeBegin!=null and createTimeBegin!=''">
-				AND u.create_time &gt;= #{createTimeBegin}
-			</if>
-			<if test="createTimeEnd!=null and createTimeEnd!=''">
-				AND u.create_time &lt;= #{createTimeEnd}
-			</if>
+			<include refid="selectUsersWhere"/>
 			<if test="pageNo!=null and pageNo!='' and pageSize!=null and pageSize!=''">
 				limit #{pageNo} * #{pageSize} , #{pageSize}
 			</if>
+		</where>
+	</select>
+
+	<select id="selectUsersCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM t_user u
+		<where>
+			1=1
+			<include refid="selectUsersWhere"/>
 		</where>
 	</select>
 

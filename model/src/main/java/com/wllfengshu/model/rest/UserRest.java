@@ -34,9 +34,7 @@ public class UserRest {
     }
 
     @ApiOperation(value = "删除用户",httpMethod = "DELETE")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int",paramType = "path")
-    })
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int",paramType = "path")
     @ApiResponses({
             @ApiResponse(code=400, message="IllegalParam")
     })
@@ -63,9 +61,7 @@ public class UserRest {
     }
 
     @ApiOperation(value = "获取用户详情",httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int",paramType = "path")
-    })
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int",paramType = "path")
     @ApiResponses({
             @ApiResponse(code=400, message="IllegalParam")
     })
@@ -82,7 +78,9 @@ public class UserRest {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", dataType = "string",paramType = "query"),
             @ApiImplicitParam(name = "createTimeBegin", value = "创建时间开始(格式：yyyy-MM-dd HH:mm:ss)", dataType = "string",paramType = "query"),
-            @ApiImplicitParam(name = "createTimeEnd", value = "创建时间结束(格式：yyyy-MM-dd HH:mm:ss)", dataType = "string",paramType = "query")
+            @ApiImplicitParam(name = "createTimeEnd", value = "创建时间结束(格式：yyyy-MM-dd HH:mm:ss)", dataType = "string",paramType = "query"),
+            @ApiImplicitParam(name = "pageNo",value = "页数(从0开始，默认0)", dataType = "int",paramType = "query"),
+            @ApiImplicitParam(name = "pageSize",value = "每页的数量(默认10)", dataType = "int",paramType = "query")
     })
     @ApiResponses({
             @ApiResponse(code=400, message="IllegalParam")
@@ -92,12 +90,16 @@ public class UserRest {
             @RequestParam(value = "username",required = false) String username,
             @RequestParam(value = "createTimeBegin",required = false) String createTimeBegin,
             @RequestParam(value = "createTimeEnd",required = false) String createTimeEnd,
+            @RequestParam(value = "pageNo",required = false,defaultValue = "0") Integer pageNo,
+            @RequestParam(value = "pageSize",required = false,defaultValue = "10") Integer pageSize,
             HttpServletRequest request,
             HttpServletResponse response){
         Map<String,Object> params = new HashMap<>();
         params.put("username",username);
         params.put("createTimeBegin",createTimeBegin);
         params.put("createTimeEnd",createTimeEnd);
+        params.put("pageNo",pageNo);
+        params.put("pageSize",pageSize);
         logger.info("UserRest,selectUser-------->username:{},createTimeBegin,createTimeEnd",username,createTimeBegin,createTimeEnd);
         return userService.selectUsers(params);
     }
