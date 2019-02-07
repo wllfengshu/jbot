@@ -1,11 +1,11 @@
-package com.wllfengshu.core.work.resourcesHandle;
+package com.wllfengshu.core.work.resources;
 
 import com.wllfengshu.common.constant.Collective;
 import com.wllfengshu.common.utils.FileReplaceUtil;
-import com.wllfengshu.core.model.RequestModel;
+import com.wllfengshu.common.model.RequestModel;
 
 /**
- * 处理application.properties文件
+ * 处理application.properties文件（现在叫application.yml文件）
  * @author wllfengshu
  */
 public class PropertiesHandle {
@@ -17,7 +17,7 @@ public class PropertiesHandle {
 
     private static void replace(RequestModel requestModel){
         FileReplaceUtil.replace(
-                    requestModel.getResourcesPath()+"/application.properties",
+                    requestModel.getResourcesPath()+"/application.yml",
                              new String[]{Collective.MODEL_PACKAGE_NAME,
                                           Collective.MODEL_PROJECT_NAME},
                              new String[]{requestModel.getPackageName(),

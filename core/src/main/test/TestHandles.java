@@ -4,10 +4,10 @@ import com.wllfengshu.core.work.DockerfileHandle;
 import com.wllfengshu.core.work.PomHandle;
 import com.wllfengshu.core.work.ReadmeHandle;
 import com.wllfengshu.core.work.StartupHandle;
-import com.wllfengshu.core.work.javaHandle.*;
-import com.wllfengshu.core.work.resourcesHandle.LogbackHandle;
-import com.wllfengshu.core.work.resourcesHandle.MapperHandle;
-import com.wllfengshu.core.work.resourcesHandle.PropertiesHandle;
+import com.wllfengshu.core.work.java.*;
+import com.wllfengshu.core.work.resources.LogbackHandle;
+import com.wllfengshu.core.work.resources.MapperHandle;
+import com.wllfengshu.core.work.resources.PropertiesHandle;
 import org.junit.Test;
 
 /**

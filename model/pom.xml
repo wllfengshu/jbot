@@ -83,12 +83,12 @@
         </dependency>
         <dependency>
             <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
+            <artifactId>mapper-spring-boot-starter</artifactId><!--通用mapper-->
             <version>2.0.3</version>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId><!--分页插件-->
             <version>1.2.5</version>
         </dependency>
     </dependencies>

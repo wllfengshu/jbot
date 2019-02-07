@@ -2,7 +2,7 @@ import com.wllfengshu.common.entity.DBInfo;
 import com.wllfengshu.common.entity.FieldInfo;
 import com.wllfengshu.common.entity.TableInfo;
 import com.wllfengshu.core.before.BeforeHandle;
-import com.wllfengshu.core.model.RequestModel;
+import com.wllfengshu.common.model.RequestModel;
 import org.junit.BeforeClass;
 
 import java.util.ArrayList;

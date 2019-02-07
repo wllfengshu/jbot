@@ -1,5 +1,4 @@
-package com.wllfengshu.core.model;
-
+package com.wllfengshu.common.model;
 
 import java.util.List;
 
@@ -43,6 +42,11 @@ public class RequestModel {
      * 待生成serviceImpl的包名,eg:com.wllfenghu.dns.service.impl
      */
     private String serviceImplPack;
+
+    /**
+     * 待生成utils的包名：eg:com.wllfengshu.dns.utils
+     */
+    private String utilsPack;
 
     /**
      * 待生成项目路径，eg:/home/listen/Apps/dns
@@ -165,6 +169,14 @@ public class RequestModel {
         this.tableModels = tableModels;
     }
 
+    public String getUtilsPack() {
+        return utilsPack;
+    }
+
+    public void setUtilsPack(String utilsPack) {
+        this.utilsPack = utilsPack;
+    }
+
     @Override
     public String toString() {
         return "RequestModel{" +
@@ -175,6 +187,7 @@ public class RequestModel {
                 ", daoPack='" + daoPack + '\'' +
                 ", servicePack='" + servicePack + '\'' +
                 ", serviceImplPack='" + serviceImplPack + '\'' +
+                ", utilsPack='" + utilsPack + '\'' +
                 ", projectPath='" + projectPath + '\'' +
                 ", javaPath='" + javaPath + '\'' +
                 ", resourcesPath='" + resourcesPath + '\'' +

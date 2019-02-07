@@ -1,8 +1,9 @@
+# ≤Œøº≈‰÷√https://blog.csdn.net/ajlzhu/article/details/81009845
 server:
   port: 8080
 spring:
   application:
-    name: model
+    name: web
   datasource:
     url: ${db_url}
     username: ${db_username}
@@ -25,22 +26,10 @@ spring:
     filters: stat,wall,log4j
     use-global-data-source-stat: true
     connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+#≈‰÷√”≥…‰Œƒº˛
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
-  type-aliases-package: com.wllfengshu.model.entity
+  type-aliases-package: com.wllfengshu.web.entity
   configuration:
     map-underscore-to-camel-case: true
-mapper:
-  mappers: com.wllfengshu.model.utils.MyMapper
-  not-empty: false
-  identity: MYSQL
-pagehelper:
-  helper-dialect: mysql
-  reasonable: true
-  params: count=countSql
-  support-methods-arguments: true
-
-
-
-
 

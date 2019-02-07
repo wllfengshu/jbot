@@ -1,7 +1,7 @@
 package com.wllfengshu.core.after;
 
 import com.wllfengshu.common.utils.FileZipUtil;
-import com.wllfengshu.core.model.RequestModel;
+import com.wllfengshu.common.model.RequestModel;
 
 /**
  * 负责core结束后的善后工作

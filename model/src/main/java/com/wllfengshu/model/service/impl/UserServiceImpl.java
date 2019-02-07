@@ -1,7 +1,8 @@
-package com.wllfengshu.model.service;
+package com.wllfengshu.model.service.impl;
 
 import com.wllfengshu.model.dao.UserDao;
 import com.wllfengshu.model.entity.TUser;
+import com.wllfengshu.model.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

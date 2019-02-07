@@ -1,12 +1,29 @@
-package com.wllfengshu.core.utils;
+package com.wllfengshu.core.work.java;
+
+import com.wllfengshu.common.model.RequestModel;
+import com.wllfengshu.common.model.TableModel;
+import com.wllfengshu.common.utils.FileUtil;
+import com.wllfengshu.common.utils.StringUtil;
 
 /**
- * 生成rest层文件
+ * 处理rest文件
  * @author wllfengshu
  */
-public class RestUtil {
+public class RestHandle {
 
-    public static String genRest(String tableNameFLDTU,String tableNameFUDTU,String serviceClassName,String entityClassName,String restPack){
+    public static void start(RequestModel requestModel){
+        //1、生成对应的rest文件
+        genFile(requestModel);
+    }
+
+    private static void genFile(RequestModel requestModel){
+        for (TableModel t:requestModel.getTableModels()) {
+            String rest=genData(t.getTableNameFLDTU(),t.getTableNameFUDTU(),t.getServiceClassName(),t.getEntityClassName(),requestModel.getRestPack());
+            FileUtil.createFile(requestModel.getJavaPath()+"/"+StringUtil.spotToSlash(requestModel.getRestPack())+"/"+t.getTableNameFUDTU()+"Rest.java",rest);
+        }
+    }
+
+    private static String genData(String tableNameFLDTU,String tableNameFUDTU,String serviceClassName,String entityClassName,String restPack){
         StringBuffer sb=new StringBuffer();
         sb.append(genHead(tableNameFLDTU,tableNameFUDTU,restPack,serviceClassName,entityClassName));
         sb.append(genMember(tableNameFLDTU,tableNameFUDTU));
@@ -74,9 +91,9 @@ public class RestUtil {
         sb.append("\t})\r\n");
         sb.append("\t@RequestMapping(value = \"/"+tableNameFLDTU+"\",method = RequestMethod.POST)\r\n");
         sb.append("\tpublic Map<String, Object> insert(\r\n");
-        sb.append("\t\t\tHttpServletRequest request,\r\n");
-        sb.append("\t\t\tHttpServletResponse response,\r\n");
-        sb.append("\t\t\t@RequestBody "+tableNameFUDTU+" entity){\r\n");
+        sb.append("\t\tHttpServletRequest request,\r\n");
+        sb.append("\t\tHttpServletResponse response,\r\n");
+        sb.append("\t\t@RequestBody "+tableNameFUDTU+" entity){\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.insert(entity);\r\n");
         sb.append("\t}\r\n\r\n");
         return sb.toString();
@@ -89,17 +106,15 @@ public class RestUtil {
     private static String genDelete(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@ApiOperation(value = \"删除\",httpMethod = \"DELETE\")\r\n");
-        sb.append("\t@ApiImplicitParams({\r\n");
-        sb.append("\t\t@ApiImplicitParam(name = \"id\", value = \"ID\", required = true, dataType = \"int\",paramType = \"path\")\r\n");
-        sb.append("\t})\r\n");
+        sb.append("\t@ApiImplicitParam(name = \"id\", value = \"ID\", required = true, dataType = \"int\",paramType = \"path\")\r\n");
         sb.append("\t@ApiResponses({\r\n");
         sb.append("\t\t@ApiResponse(code=400, message=\"IllegalParam\")\r\n");
         sb.append("\t})\r\n");
         sb.append("\t@RequestMapping(value = \"/"+tableNameFLDTU+"/{id}\",method = RequestMethod.DELETE)\r\n");
         sb.append("\tpublic Map<String, Object> delete(\r\n");
-        sb.append("\t\t\t@PathVariable(\"id\") Integer id,\r\n");
-        sb.append("\t\t\tHttpServletRequest request,\r\n");
-        sb.append("\t\t\tHttpServletResponse response){\r\n");
+        sb.append("\t\t@PathVariable(\"id\") Integer id,\r\n");
+        sb.append("\t\tHttpServletRequest request,\r\n");
+        sb.append("\t\tHttpServletResponse response){\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.delete(id);\r\n");
         sb.append("\t}\r\n\r\n");
         return sb.toString();
@@ -117,9 +132,9 @@ public class RestUtil {
         sb.append("\t})\r\n");
         sb.append("\t@RequestMapping(value = \"/"+tableNameFLDTU+"\",method = RequestMethod.PUT)\r\n");
         sb.append("\tpublic Map<String, Object> update(\r\n");
-        sb.append("\t\t\tHttpServletRequest request,\r\n");
-        sb.append("\t\t\tHttpServletResponse response,\r\n");
-        sb.append("\t\t\t@RequestBody "+tableNameFUDTU+" entity){\r\n");
+        sb.append("\t\tHttpServletRequest request,\r\n");
+        sb.append("\t\tHttpServletResponse response,\r\n");
+        sb.append("\t\t@RequestBody "+tableNameFUDTU+" entity){\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.update(entity);\r\n");
         sb.append("\t}\r\n\r\n");
         return sb.toString();
@@ -132,17 +147,15 @@ public class RestUtil {
     private static String genSelect(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@ApiOperation(value = \"按ID查询\",httpMethod = \"GET\")\r\n");
-        sb.append("\t@ApiImplicitParams({\r\n");
-        sb.append("\t\t@ApiImplicitParam(name = \"id\", value = \"ID\", required = true, dataType = \"int\",paramType = \"path\")\r\n");
-        sb.append("\t})\r\n");
+        sb.append("\t@ApiImplicitParam(name = \"id\", value = \"ID\", required = true, dataType = \"int\",paramType = \"path\")\r\n");
         sb.append("\t@ApiResponses({\r\n");
         sb.append("\t\t@ApiResponse(code=400, message=\"IllegalParam\")\r\n");
         sb.append("\t})\r\n");
         sb.append("\t@RequestMapping(value = \"/"+tableNameFLDTU+"/{id}\",method = RequestMethod.GET)\r\n");
         sb.append("\tpublic Map<String, Object> select(\r\n");
-        sb.append("\t\t\t@PathVariable(\"id\") Integer id,\r\n");
-        sb.append("\t\t\tHttpServletRequest request,\r\n");
-        sb.append("\t\t\tHttpServletResponse response){\r\n");
+        sb.append("\t\t@PathVariable(\"id\") Integer id,\r\n");
+        sb.append("\t\tHttpServletRequest request,\r\n");
+        sb.append("\t\tHttpServletResponse response){\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.select(id);\r\n");
         sb.append("\t}\r\n\r\n");
         return sb.toString();
@@ -156,15 +169,21 @@ public class RestUtil {
         StringBuffer sb=new StringBuffer();
         sb.append("\t@ApiOperation(value = \"查询\",httpMethod = \"GET\")\r\n");
         sb.append("\t@ApiImplicitParams({\r\n");
+        sb.append("\t\t@ApiImplicitParam(name = \"pageNo\",value = \"页数(从0开始，默认0)\", dataType = \"int\",paramType = \"query\"),\r\n");
+        sb.append("\t\t@ApiImplicitParam(name = \"pageSize\",value = \"每页的数量(默认10)\", dataType = \"int\",paramType = \"query\")\r\n");
         sb.append("\t})\r\n");
         sb.append("\t @ApiResponses({\r\n");
         sb.append("\t\t@ApiResponse(code=400, message=\"IllegalParam\")\r\n");
         sb.append("\t})\r\n");
         sb.append("\t@RequestMapping(value = \"/\",method = RequestMethod.GET)\r\n");
         sb.append("\tpublic Map<String, Object> selects(\r\n");
-        sb.append("\t\t\tHttpServletRequest request,\r\n");
-        sb.append("\t\t\tHttpServletResponse response){\r\n");
-        sb.append("\t\t\tMap<String,Object> params = new HashMap<>();\r\n");
+        sb.append("\t\t@RequestParam(value = \"pageNo\",required = false,defaultValue = \"0\") Integer pageNo,\r\n");
+        sb.append("\t\t@RequestParam(value = \"pageSize\",required = false,defaultValue = \"10\") Integer pageSize,\r\n");
+        sb.append("\t\tHttpServletRequest request,\r\n");
+        sb.append("\t\tHttpServletResponse response){\r\n");
+        sb.append("\t\tMap<String,Object> params = new HashMap<>();\r\n");
+        sb.append("\t\tparams.put(\"pageNo\",pageNo);\r\n");
+        sb.append("\t\tparams.put(\"pageSize\",pageSize);\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.selects(params);\r\n");
         sb.append("\t}\r\n");
         return sb.toString();

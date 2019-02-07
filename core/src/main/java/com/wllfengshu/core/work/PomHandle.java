@@ -3,7 +3,7 @@ package com.wllfengshu.core.work;
 import com.wllfengshu.common.constant.Collective;
 import com.wllfengshu.common.utils.FileReplaceUtil;
 import com.wllfengshu.common.utils.StringUtil;
-import com.wllfengshu.core.model.RequestModel;
+import com.wllfengshu.common.model.RequestModel;
 
 /**
  * 处理pom.xml文件

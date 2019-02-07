@@ -31,9 +31,7 @@
 		<where>
 			1=1
 			<include refid="selectUsersWhere"/>
-			<if test="pageNo!=null and pageNo!='' and pageSize!=null and pageSize!=''">
-				limit #{pageNo} * #{pageSize} , #{pageSize}
-			</if>
+			limit ${pageNo * pageSize} , ${pageSize}
 		</where>
 	</select>
 

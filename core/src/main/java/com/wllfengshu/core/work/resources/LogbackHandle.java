@@ -1,8 +1,8 @@
-package com.wllfengshu.core.work.resourcesHandle;
+package com.wllfengshu.core.work.resources;
 
 import com.wllfengshu.common.constant.Collective;
 import com.wllfengshu.common.utils.FileReplaceUtil;
-import com.wllfengshu.core.model.RequestModel;
+import com.wllfengshu.common.model.RequestModel;
 
 /**
  * 处理logback文件

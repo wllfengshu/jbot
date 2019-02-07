@@ -1,4 +1,4 @@
-package com.wllfengshu.web.service;
+package com.wllfengshu.web.service.impl;
 
 import com.wllfengshu.common.constant.Collective;
 import com.wllfengshu.common.utils.FileDownloadUtil;
@@ -7,6 +7,7 @@ import com.wllfengshu.web.dao.JbotDao;
 import com.wllfengshu.common.entity.ConnectInfo;
 import com.wllfengshu.common.entity.DBInfo;
 import com.wllfengshu.web.security.Interceptor;
+import com.wllfengshu.web.service.JbotService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,8 @@ public class JbotServiceImpl implements JbotService {
 		//调用生成项目的入口类
 		if (Launch.start(projectName, packageName, dbInfo)){
 			FileDownloadUtil.download(Collective.TARGET_PROJECT_HOME+"/"+projectName+".zip",response);
+			result.put("isSuccess",true);
+			result.put("msg","生成项目成功");
 		}else {
 			response.setStatus(412);
 			result.put("isSuccess",false);

@@ -1,4 +1,4 @@
-package com.wllfengshu.core.model;
+package com.wllfengshu.common.model;
 
 import com.wllfengshu.common.entity.TableInfo;
 

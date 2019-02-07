@@ -145,6 +145,9 @@ public class FileUtil {
                 return;
             }
             File file = new File(newPath);
+            if (file.getParentFile()!=null && !file.getParentFile().exists()){
+                file.getParentFile().mkdirs();
+            }
             if (!file.exists()){
                 file.createNewFile();
             }
