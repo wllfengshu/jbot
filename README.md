@@ -17,7 +17,7 @@ jbot
 
 ## 技术选型
 
-### 后端技术:
+### 后端技术
 技术 | 名称
 ----|------
 Spring Framework | 容器  
@@ -27,7 +27,7 @@ Druid | 数据库连接池
 Swagger2 | 接口测试框架
 Maven | 项目构建管理
 
-#### 前端技术:
+#### 前端技术
 技术 | 名称 
 ----|------
 jQuery | 函式库
@@ -55,14 +55,28 @@ AngularJS | JS框架
 
 ## 环境搭建
 
-### 开发工具:
+### 开发工具
 - MySql: 数据库
 - Tomcat: 应用服务器
 
-### 开发环境：
+### 开发环境
 - Jdk8+
 - Mysql5.5+
 - Maven3.5+
+
+### 本项目使用方法
+
+- 1、启动mysql,并且创建一个名为test的数据库（待生成项目实体类对应的表都必须在test库中创建好）
+- 2、设置jbot运行的环境变量
+      
+      - 数据库连接地址： db_url   eg:jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      - 数据库用户名： db_username    eg:root
+      - 数据库密码： db_paasword    eg:root
+  注：如果不想设置环境变量，可以手动修改web模块中的application.yml文件
+  
+- 3、启动web模块中的WebApplication(直接在main方法上右键启动即可)
+- 4、使用浏览器打开http://localhost:8080/swagger-ui.html进行接口测试
+- 5、使用浏览器打开http://localhost:8080/index.html进入jbot主页面
 
 ### 资源下载
 - JDK8 [https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html "JDK8")
