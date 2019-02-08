@@ -20,7 +20,7 @@ public class StringUtil {
     }
 
     /**
-     * 判断字符串是否只使用字母、数字、点，不超过50个字符
+     * 判断字符串是否只使用字母、数字、点，不超过100个字符
      * @param str
      * @return true 验证通过
      *          false 验证不通过

@@ -76,19 +76,20 @@ AngularJS | JS框架
 3、serviceImpl放的在service包里的impl包里；
 4、生成的rest包含swagger，可以使用http://localhost:8080/swagger-ui.html访问；
 5、生成的每张表都对应“增删改查”的方法，可以直接使用；
+6、请确保每张表的主键名为id(如果不为id，请手动在生成的entity中使用@Id指明主键)；
 ```
 
 ## 演示地址
 
-演示地址：
+演示地址：https://wllfengshu.github.io/jbot/
 
 ## 预览图
 
-- 使用http://localhost:8080/swagger-ui.html 访问
+- 使用http://localhost:8080/swagger-ui.html 访问（jbot接口图）
 
 ![swagger](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/swagger.png)
 
-- 使用http://localhost:8080/index.html 访问
+- 使用http://localhost:8080/index.html 访问（jbot界面图）
 
 ![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/web.png)
 
@@ -98,14 +99,18 @@ AngularJS | JS框架
 
 - 生成的项目结构
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/genProject.png)
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/project.jpg)
+
+- 生成的项目dao
+
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/dao.jpg)
 
 - 生成的项目entity
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/genEntity.png)
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/entity.jpg)
 
 - 生成的项目mapper
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/genMapper.png)
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/mapper.jpg)
 
 ## jbot相关博客

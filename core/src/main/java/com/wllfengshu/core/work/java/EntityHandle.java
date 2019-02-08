@@ -69,6 +69,9 @@ public class EntityHandle {
             if ("id".equals(field.getFieldName())){//如果是id，则默认为主键
                 sb.append("\t@Id\r\n");
             }
+            if ("Date".equals(StringUtil.sqlType2JavaType(field.getFieldType()))){
+                sb.append("\t@JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\", timezone=\"GMT+8\")\r\n");
+            }
             sb.append("\t@Column(name = \""+field.getFieldName()+"\")\r\n");
             sb.append("\tprivate "+StringUtil.sqlType2JavaType(field.getFieldType())+" "+StringUtil.underlineToHump(field.getFieldName()) +";\r\n\r\n ");
         }
