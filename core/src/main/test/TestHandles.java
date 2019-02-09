@@ -1,13 +1,8 @@
 
 import com.wllfengshu.core.after.AfterHandle;
-import com.wllfengshu.core.work.DockerfileHandle;
-import com.wllfengshu.core.work.PomHandle;
-import com.wllfengshu.core.work.ReadmeHandle;
-import com.wllfengshu.core.work.StartupHandle;
+import com.wllfengshu.core.work.common.CommonHandle;
 import com.wllfengshu.core.work.java.*;
-import com.wllfengshu.core.work.resources.LogbackHandle;
 import com.wllfengshu.core.work.resources.MapperHandle;
-import com.wllfengshu.core.work.resources.PropertiesHandle;
 import org.junit.Test;
 
 /**
@@ -29,32 +24,7 @@ public class TestHandles extends TestSuper {
 
     @Test
     public void testStartupHandles(){
-        StartupHandle.start(requestModel);
-    }
-
-    @Test
-    public void testReadmeHandles(){
-        ReadmeHandle.start(requestModel);
-    }
-
-    @Test
-    public void testPomHandles(){
-        PomHandle.start(requestModel);
-    }
-
-    @Test
-    public void testDockerfileHandles(){
-        DockerfileHandle.start(requestModel);
-    }
-
-    @Test
-    public void testPropertiesHandles(){
-        PropertiesHandle.start(requestModel);
-    }
-
-    @Test
-    public void testLogbackHandles(){
-        LogbackHandle.start(requestModel);
+        CommonHandle.start(requestModel);
     }
 
     @Test

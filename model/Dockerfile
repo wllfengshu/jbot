@@ -1,4 +1,4 @@
-# Generated in [20190101000000]
+# project model
 FROM registry:5000/jdk8:base
 # Expose the API port
 EXPOSE 8080

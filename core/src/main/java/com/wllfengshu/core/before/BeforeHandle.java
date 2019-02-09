@@ -26,7 +26,7 @@ public class BeforeHandle {
         createPackageName(model.getPackageBasePath());
         //3、复制dockerfile、pom、startup、readme等文件
         copyConfFile(model.getProjectPath());
-        //4、复制config、utils等文件夹
+        //4、复制configs、utils、exception、aop等文件夹
         copyConfDir(model.getPackageBasePath());
         //5、复制resources中的logback、application等文件
         copyResource(model.getResourcesPath());
@@ -83,7 +83,7 @@ public class BeforeHandle {
     }
 
     private static void copyConfDir(String packageBasePath){
-        String[] fileName={"configs","utils"};
+        String[] fileName={"configs","utils","exception","aop"};
         for (String f:fileName) {
             FileUtil.copyDir(Collective.MODEL_PROJECT_HOME_JAVA_PACKAGE_BASE+"/"+f,packageBasePath+"/"+f);
         }
