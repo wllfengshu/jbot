@@ -1,6 +1,8 @@
 # java项目生成器
 
 [![GitHub stars](https://img.shields.io/github/stars/wllfengshu/jbot.svg?style=social&label=Stars)](https://github.com/wllfengshu/jbot)
+[![GitHub stars](https://img.shields.io/github/stars/wllfengshu/jbot.svg?style=social&label=Fork)](https://github.com/wllfengshu/jbot)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## 项目介绍
 

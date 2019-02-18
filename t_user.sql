@@ -13,6 +13,10 @@ File Encoding         : 65001
 Date: 2019-01-13 02:00:24
 */
 
+CREATE DATABASE IF NOT EXISTS test Character Set UTF8;
+
+use test;
+
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
