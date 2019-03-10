@@ -39,10 +39,10 @@ public class FileDownloadUtil {
             e.printStackTrace();
         }finally {
             try {
-                if (bis!=null){
+                if (bis != null){
                     bis.close();
                 }
-                if (bos!=null){
+                if (bos != null){
                     bos.close();
                 }
             }catch (Exception e){

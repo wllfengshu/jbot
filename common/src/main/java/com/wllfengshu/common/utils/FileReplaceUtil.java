@@ -38,11 +38,11 @@ public class FileReplaceUtil {
             e.printStackTrace();
         } finally {
             try {
-                out.flush();
-                if (out!=null) {
+                if (out != null) {
+                    out.flush();
                     out.close();
                 }
-                if (in!=null) {
+                if (in != null) {
                     in.close();
                 }
             } catch (Exception e) {

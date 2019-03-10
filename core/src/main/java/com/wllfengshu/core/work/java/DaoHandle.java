@@ -11,15 +11,15 @@ import com.wllfengshu.common.utils.StringUtil;
  */
 public class DaoHandle {
 
-    public static void start(RequestModel requestModel){
+    public static void start(RequestModel model){
         //1、生成对应的dao文件
-        genFile(requestModel);
+        genFile(model);
     }
 
-    private static void genFile(RequestModel requestModel){
-        for (TableModel t:requestModel.getTableModels()) {
-            String dao=genData(t.getTableNameFUDTU(),t.getEntityClassName(),requestModel.getDaoPack(),requestModel.getUtilsPack());
-            FileUtil.createFile(requestModel.getJavaPath()+"/"+StringUtil.spotToSlash(t.getDaoClassName())+".java",dao);
+    private static void genFile(RequestModel model){
+        for (TableModel t:model.getTableModels()) {
+            String dao=genData(t.getTableNameFUDTU(),t.getEntityClassPack(),model.getDaoPack(),model.getUtilsPack());
+            FileUtil.createFile(model.getJavaPath()+"/"+StringUtil.spotToSlash(t.getDaoClassPack())+".java",dao);
         }
     }
 

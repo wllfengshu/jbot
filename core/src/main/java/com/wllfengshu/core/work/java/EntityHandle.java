@@ -13,15 +13,15 @@ import com.wllfengshu.common.utils.StringUtil;
  */
 public class EntityHandle {
 
-    public static void start(RequestModel requestModel){
+    public static void start(RequestModel model){
         //1、生成对应的entity文件
-        genFile(requestModel);
+        genFile(model);
     }
 
-    private static void genFile(RequestModel requestModel){
-        for (TableModel t:requestModel.getTableModels()) {
-            String entity=genData(t.getTableNameFUDTU(),requestModel.getEntityPack(),t.getTableInfo());
-            FileUtil.createFile(requestModel.getJavaPath()+"/"+StringUtil.spotToSlash(t.getEntityClassName())+".java",entity);
+    private static void genFile(RequestModel model){
+        for (TableModel t:model.getTableModels()) {
+            String entity=genData(t.getTableNameFUDTU(),model.getEntityPack(),t.getTableInfo());
+            FileUtil.createFile(model.getJavaPath()+"/"+StringUtil.spotToSlash(t.getEntityClassPack())+".java",entity);
         }
     }
 

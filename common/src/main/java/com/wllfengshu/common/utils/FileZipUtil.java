@@ -16,12 +16,20 @@ public class FileZipUtil {
      * @param inputFile
      */
     public static void fileToZip(String zipFileName,String inputFile){
+        ZipOutputStream out = null;
         try {
-            ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileName));
+            out = new ZipOutputStream(new FileOutputStream(zipFileName));
             zip(out,new File(inputFile),"");
-            out.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (out != null){
+                    out.close();
+                }
+            }catch (Exception e){
+
+            }
         }
     }
 

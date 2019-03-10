@@ -13,15 +13,15 @@ import com.wllfengshu.common.utils.StringUtil;
  */
 public class MapperHandle {
 
-    public static void start(RequestModel requestModel){
+    public static void start(RequestModel model){
         //1、生成对应的xml文件
-        genFile(requestModel);
+        genFile(model);
     }
 
-    private static void genFile(RequestModel requestModel){
-        for (TableModel t:requestModel.getTableModels()) {
-            String mapper=genData(t.getDaoClassName(),t.getEntityClassName(),t.getTableInfo(),t.getTableNameFUDTU());
-            FileUtil.createFile(requestModel.getResourcesPath()+"/mapper/"+t.getTableNameFUDTU()+".xml",mapper);
+    private static void genFile(RequestModel model){
+        for (TableModel t:model.getTableModels()) {
+            String mapper=genData(t.getDaoClassPack(),t.getEntityClassPack(),t.getTableInfo(),t.getTableNameFUDTU());
+            FileUtil.createFile(model.getResourcesPath()+"/mapper/"+t.getTableNameFUDTU()+".xml",mapper);
         }
     }
 

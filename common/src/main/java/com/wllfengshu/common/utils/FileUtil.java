@@ -11,7 +11,7 @@ import java.util.List;
 public class FileUtil {
 
     /**
-     * 把配置文件读到List中
+     * 把文件读到List中
      *       注意：1、一行只允许一个字符串；
      *             2、以#开头的字符串将被忽略；
      * @param input
@@ -38,10 +38,10 @@ public class FileUtil {
             e.printStackTrace();
         }finally{
             try {
-                if (reader!=null){
+                if (reader != null){
                     reader.close();
                 }
-                if (br!=null){
+                if (br != null){
                     br.close();
                 }
             }catch (Exception e){
@@ -74,10 +74,10 @@ public class FileUtil {
             e.printStackTrace();
         }finally {
             try{
-                if (bw!=null){
+                if (bw != null){
                     bw.close();
                 }
-                if (fw!=null){
+                if (fw != null){
                     fw.close();
                 }
             }catch (Exception e){
@@ -115,7 +115,7 @@ public class FileUtil {
             if (!(new File(newPath)).exists()) {
                 (new File(newPath)).mkdir();
             }
-            if (filePath==null){
+            if (filePath == null){
                 return;
             }
             for (int i = 0; i < filePath.length; i++) {
@@ -162,10 +162,10 @@ public class FileUtil {
             e.printStackTrace();
         }finally {
             try {
-                if (out!=null){
+                if (out != null){
                     out.close();
                 }
-                if (in!=null){
+                if (in != null){
                     in.close();
                 }
             }catch (Exception e1){

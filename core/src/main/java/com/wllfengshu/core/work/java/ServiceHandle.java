@@ -11,31 +11,32 @@ import com.wllfengshu.common.utils.StringUtil;
  */
 public class ServiceHandle {
 
-    public static void start(RequestModel requestModel){
+    public static void start(RequestModel model){
         //1、生成对应的service文件
-        genFile(requestModel);
+        genFile(model);
 }
 
-    private static void genFile(RequestModel requestModel){
-        for (TableModel t:requestModel.getTableModels()) {
-            String service= genData(t.getTableNameFUDTU(),t.getEntityClassName(),requestModel.getServicePack());
-            FileUtil.createFile(requestModel.getJavaPath()+"/"+StringUtil.spotToSlash(t.getServiceClassName())+".java",service);
+    private static void genFile(RequestModel model){
+        for (TableModel t:model.getTableModels()) {
+            String service= genData(t.getTableNameFUDTU(),t.getEntityClassPack(),model.getServicePack(),model.getExceptionPack());
+            FileUtil.createFile(model.getJavaPath()+"/"+StringUtil.spotToSlash(t.getServiceClassPack())+".java",service);
         }
     }
 
-    private static String genData(String tableNameFUDTU,String entityClassName,String servicePack){
+    private static String genData(String tableNameFUDTU,String entityClassName,String servicePack,String exceptionPack){
         StringBuffer sb=new StringBuffer();
         sb.append("package "+servicePack+";\r\n\r\n");
         sb.append("import "+entityClassName+";\r\n");
+        sb.append("import "+exceptionPack+".CustomException;\r\n");
         sb.append("import org.springframework.stereotype.Service;\r\n");
         sb.append("import java.util.Map;\r\n\r\n");
         sb.append("@Service\r\n");
         sb.append("public interface "+tableNameFUDTU+"Service {\r\n\r\n");
-        sb.append("\tMap<String, Object> insert("+tableNameFUDTU+" entity);\r\n");
-        sb.append("\tMap<String, Object> delete(Integer id);\r\n");
-        sb.append("\tMap<String, Object> update("+tableNameFUDTU+" entity);\r\n");
-        sb.append("\tMap<String, Object> select(Integer id);\r\n");
-        sb.append("\tMap<String, Object> selects(Map<String, Object> params);\r\n");
+        sb.append("\tMap<String, Object> insert("+tableNameFUDTU+" entity,String sessionId)throws CustomException;\r\n");
+        sb.append("\tMap<String, Object> delete(Integer id,String sessionId)throws CustomException;\r\n");
+        sb.append("\tMap<String, Object> update("+tableNameFUDTU+" entity,String sessionId)throws CustomException;\r\n");
+        sb.append("\tMap<String, Object> select(Integer id,String sessionId)throws CustomException;\r\n");
+        sb.append("\tMap<String, Object> selects(Map<String, Object> params,String sessionId)throws CustomException;\r\n");
         sb.append("\r\n}\r\n");
         return sb.toString();
     }

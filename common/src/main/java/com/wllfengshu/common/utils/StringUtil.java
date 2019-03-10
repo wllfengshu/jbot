@@ -10,13 +10,13 @@ import java.util.List;
 public class StringUtil {
 
     /**
-     * 判断字符串是否只使用字母、数字、-连字符、_下划线，不超过50个字符
+     * 判断字符串是否只使用字母、数字、-连字符、_下划线
      * @param str
      * @return true 验证通过
      *          false 验证不通过
      */
     public static boolean checkWEU(String str){
-        return str.matches("^[a-zA-Z0-9][\\w-_]{1,49}$");
+        return str.matches("^[a-zA-Z0-9][\\w-_]{0,50}$");
     }
 
     /**
@@ -36,35 +36,27 @@ public class StringUtil {
     public static String sqlType2JavaType(String sqlType){
         if (sqlType.equalsIgnoreCase("bit")) {
             return "Boolean";
-        } else if (sqlType.equalsIgnoreCase("tinyint")) {
-            return "Byte";
-        } else if (sqlType.equalsIgnoreCase("smallint")) {
-            return "Short";
-        } else if (sqlType.equalsIgnoreCase("int")) {
+        } else if (sqlType.equalsIgnoreCase("tinyint")
+                || sqlType.equalsIgnoreCase("smallint")
+                || sqlType.equalsIgnoreCase("int")) {
             return "Integer";
         } else if (sqlType.equalsIgnoreCase("bigint")) {
             return "Long";
-        } else if (sqlType.equalsIgnoreCase("float")) {
-            return "Float";
-        } else if (sqlType.equalsIgnoreCase("decimal")
+        } else if (sqlType.equalsIgnoreCase("float")
+                || sqlType.equalsIgnoreCase("decimal")
                 || sqlType.equalsIgnoreCase("numeric")
                 || sqlType.equalsIgnoreCase("real")
                 || sqlType.equalsIgnoreCase("money")
                 || sqlType.equalsIgnoreCase("double")
                 || sqlType.equalsIgnoreCase("smallmoney")) {
             return "Double";
-        } else if (sqlType.equalsIgnoreCase("varchar")
-                || sqlType.equalsIgnoreCase("char")
-                || sqlType.equalsIgnoreCase("nvarchar")
-                || sqlType.equalsIgnoreCase("nchar")
-                || sqlType.equalsIgnoreCase("text")) {
-            return "String";
         } else if (sqlType.equalsIgnoreCase("datetime")) {
             return "Date";
         } else if (sqlType.equalsIgnoreCase("image")) {
             return "Blod";
+        } else {
+            return "String";
         }
-        return "String";
     }
 
     /**

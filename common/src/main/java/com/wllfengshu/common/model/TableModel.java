@@ -9,34 +9,34 @@ import com.wllfengshu.common.entity.TableInfo;
 public class TableModel {
 
     /**
-     * 首字母大写，并且去掉了下划线的表名,eg:User
+     * 首字母大写、驼峰形式的表名,eg:User
      */
     private String tableNameFUDTU;
 
     /**
-     * 首字母小写，并且去掉了下划线的表名,eg:user
+     * 首字母小写、驼峰形式的表名,eg:user
      */
     private String tableNameFLDTU;
 
     /**
-     * 待生成entity的class名,eg:com.wllfenghu.dns.entity.UserEntity
+     * 待生成entity的class路径,eg:com.wllfenghu.dns.entity.UserEntity
      */
-    private String entityClassName;
+    private String entityClassPack;
 
     /**
-     * 待生成dao的class名,eg:com.wllfenghu.dns.dao.UserDao
+     * 待生成dao的class路径,eg:com.wllfenghu.dns.dao.UserDao
      */
-    private String daoClassName;
+    private String daoClassPack;
 
     /**
-     * 待生成service的class名,eg:com.wllfenghu.dns.service.UserService
+     * 待生成service的class路径,eg:com.wllfenghu.dns.service.UserService
      */
-    private String serviceClassName;
+    private String serviceClassPack;
 
     /**
-     * 待生成serviceImpl的class名,eg:com.wllfenghu.dns.service.impl.UserServiceImpl
+     * 待生成serviceImpl的class路径,eg:com.wllfenghu.dns.service.impl.UserServiceImpl
      */
-    private String serviceImplClassName;
+    private String serviceImplClassPack;
 
     /**
      * 表信息
@@ -59,36 +59,36 @@ public class TableModel {
         this.tableNameFLDTU = tableNameFLDTU;
     }
 
-    public String getEntityClassName() {
-        return entityClassName;
+    public String getEntityClassPack() {
+        return entityClassPack;
     }
 
-    public void setEntityClassName(String entityClassName) {
-        this.entityClassName = entityClassName;
+    public void setEntityClassPack(String entityClassPack) {
+        this.entityClassPack = entityClassPack;
     }
 
-    public String getDaoClassName() {
-        return daoClassName;
+    public String getDaoClassPack() {
+        return daoClassPack;
     }
 
-    public void setDaoClassName(String daoClassName) {
-        this.daoClassName = daoClassName;
+    public void setDaoClassPack(String daoClassPack) {
+        this.daoClassPack = daoClassPack;
     }
 
-    public String getServiceClassName() {
-        return serviceClassName;
+    public String getServiceClassPack() {
+        return serviceClassPack;
     }
 
-    public void setServiceClassName(String serviceClassName) {
-        this.serviceClassName = serviceClassName;
+    public void setServiceClassPack(String serviceClassPack) {
+        this.serviceClassPack = serviceClassPack;
     }
 
-    public String getServiceImplClassName() {
-        return serviceImplClassName;
+    public String getServiceImplClassPack() {
+        return serviceImplClassPack;
     }
 
-    public void setServiceImplClassName(String serviceImplClassName) {
-        this.serviceImplClassName = serviceImplClassName;
+    public void setServiceImplClassPack(String serviceImplClassPack) {
+        this.serviceImplClassPack = serviceImplClassPack;
     }
 
     public TableInfo getTableInfo() {
@@ -104,10 +104,10 @@ public class TableModel {
         return "TableModel{" +
                 "tableNameFUDTU='" + tableNameFUDTU + '\'' +
                 ", tableNameFLDTU='" + tableNameFLDTU + '\'' +
-                ", entityClassName='" + entityClassName + '\'' +
-                ", daoClassName='" + daoClassName + '\'' +
-                ", serviceClassName='" + serviceClassName + '\'' +
-                ", serviceImplClassName='" + serviceImplClassName + '\'' +
+                ", entityClassPack='" + entityClassPack + '\'' +
+                ", daoClassPack='" + daoClassPack + '\'' +
+                ", serviceClassPack='" + serviceClassPack + '\'' +
+                ", serviceImplClassPack='" + serviceImplClassPack + '\'' +
                 ", tableInfo=" + tableInfo +
                 '}';
     }

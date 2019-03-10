@@ -44,6 +44,21 @@ public class RequestModel {
     private String serviceImplPack;
 
     /**
+     * 待生成aop的包名：eg:com.wllfengshu.dns.aop
+     */
+    private String aopPack;
+
+    /**
+     * 待生成configs的包名：eg:com.wllfengshu.dns.configs
+     */
+    private String configsPack;
+
+    /**
+     * 待生成exception的包名：eg:com.wllfengshu.dns.exception
+     */
+    private String exceptionPack;
+
+    /**
      * 待生成utils的包名：eg:com.wllfengshu.dns.utils
      */
     private String utilsPack;
@@ -129,6 +144,38 @@ public class RequestModel {
         this.serviceImplPack = serviceImplPack;
     }
 
+    public String getAopPack() {
+        return aopPack;
+    }
+
+    public void setAopPack(String aopPack) {
+        this.aopPack = aopPack;
+    }
+
+    public String getConfigsPack() {
+        return configsPack;
+    }
+
+    public void setConfigsPack(String configsPack) {
+        this.configsPack = configsPack;
+    }
+
+    public String getExceptionPack() {
+        return exceptionPack;
+    }
+
+    public void setExceptionPack(String exceptionPack) {
+        this.exceptionPack = exceptionPack;
+    }
+
+    public String getUtilsPack() {
+        return utilsPack;
+    }
+
+    public void setUtilsPack(String utilsPack) {
+        this.utilsPack = utilsPack;
+    }
+
     public String getProjectPath() {
         return projectPath;
     }
@@ -169,14 +216,6 @@ public class RequestModel {
         this.tableModels = tableModels;
     }
 
-    public String getUtilsPack() {
-        return utilsPack;
-    }
-
-    public void setUtilsPack(String utilsPack) {
-        this.utilsPack = utilsPack;
-    }
-
     @Override
     public String toString() {
         return "RequestModel{" +
@@ -187,6 +226,9 @@ public class RequestModel {
                 ", daoPack='" + daoPack + '\'' +
                 ", servicePack='" + servicePack + '\'' +
                 ", serviceImplPack='" + serviceImplPack + '\'' +
+                ", aopPack='" + aopPack + '\'' +
+                ", configsPack='" + configsPack + '\'' +
+                ", exceptionPack='" + exceptionPack + '\'' +
                 ", utilsPack='" + utilsPack + '\'' +
                 ", projectPath='" + projectPath + '\'' +
                 ", javaPath='" + javaPath + '\'' +

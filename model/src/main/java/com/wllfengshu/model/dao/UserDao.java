@@ -9,6 +9,8 @@ import java.util.Map;
 
 @Repository
 public interface UserDao extends MyMapper<TUser> {
+
 	List<TUser> selectUsers(Map<String, Object> params);
     Integer selectUsersCount(Map<String, Object> params);
+
 }

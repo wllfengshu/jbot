@@ -7,6 +7,8 @@ import com.wllfengshu.common.utils.FileUtil;
 import com.wllfengshu.common.utils.StringUtil;
 import com.wllfengshu.common.model.RequestModel;
 import com.wllfengshu.common.model.TableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.List;
  */
 public class BeforeHandle {
 
+    private static Logger logger = LoggerFactory.getLogger(BeforeHandle.class);
+
     public static RequestModel start(String projectName, String packageName, DBInfo dbInfo){
         //0、建立请求的模型
-        RequestModel model=buildRequestModel(projectName, packageName, dbInfo);
-        //1、创建项目名
+        RequestModel model = buildRequestModel(projectName, packageName, dbInfo);
+        //1、创建项目名文件夹
         createProjectName(model.getProjectPath());
         //2、创建包
         createPackageName(model.getPackageBasePath());
@@ -48,6 +52,9 @@ public class BeforeHandle {
         model.setDaoPack(packageName+"."+projectName+".dao");
         model.setServicePack(packageName+"."+projectName+".service");
         model.setServiceImplPack(packageName+"."+projectName+".service.impl");
+        model.setAopPack(packageName+"."+projectName+".aop");
+        model.setConfigsPack(packageName+"."+projectName+".configs");
+        model.setExceptionPack(packageName+"."+projectName+".exception");
         model.setUtilsPack(packageName+"."+projectName+".utils");
         //处理table信息
         List<TableModel> tables = new ArrayList<>();
@@ -55,15 +62,15 @@ public class BeforeHandle {
             TableModel table = new TableModel();
             table.setTableNameFUDTU(StringUtil.toFirstCharUpperCase(StringUtil.underlineToHump(tableInfo.getTableName())));
             table.setTableNameFLDTU(StringUtil.toFirstCharLowCase(StringUtil.underlineToHump(tableInfo.getTableName())));
-            table.setEntityClassName(model.getEntityPack()+"."+table.getTableNameFUDTU());
-            table.setDaoClassName(model.getDaoPack()+"."+table.getTableNameFUDTU()+"Dao");
-            table.setServiceClassName(model.getServicePack()+"."+table.getTableNameFUDTU()+"Service");
-            table.setServiceImplClassName(model.getServiceImplPack()+"."+table.getTableNameFUDTU()+"ServiceImpl");
+            table.setEntityClassPack(model.getEntityPack()+"."+table.getTableNameFUDTU());
+            table.setDaoClassPack(model.getDaoPack()+"."+table.getTableNameFUDTU()+"Dao");
+            table.setServiceClassPack(model.getServicePack()+"."+table.getTableNameFUDTU()+"Service");
+            table.setServiceImplClassPack(model.getServiceImplPack()+"."+table.getTableNameFUDTU()+"ServiceImpl");
             table.setTableInfo(tableInfo);
             tables.add(table);
         }
         model.setTableModels(tables);
-        System.out.println("数据信息已经打包完毕，准备生成项目，数据如下："+model);
+        logger.info("数据信息已经打包完毕，准备生成项目，数据：{}"+model);
         return model;
     }
 
