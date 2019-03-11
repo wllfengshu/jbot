@@ -66,6 +66,9 @@ public class EntityHandle {
     private static String genAttrs(TableInfo tableInfo) {
         StringBuffer sb = new StringBuffer();
         for (FieldInfo field : tableInfo.getFields()) {
+            sb.append("\t/**\r\n");
+            sb.append("\t * "+field.getFieldComment()==null?"":field.getFieldComment()+"\r\n");
+            sb.append("\t **/\r\n");
             if ("id".equals(field.getFieldName())){//如果是id，则默认为主键
                 sb.append("\t@Id\r\n");
             }

@@ -16,6 +16,11 @@ public class FieldInfo {
      */
     private String fieldType = null;
 
+    /**
+     * 字段注解
+     */
+    private String fieldComment = null;
+
 
     public String getFieldName() {
         return fieldName;
@@ -33,11 +38,20 @@ public class FieldInfo {
         this.fieldType = fieldType;
     }
 
+    public String getFieldComment() {
+        return fieldComment;
+    }
+
+    public void setFieldComment(String fieldComment) {
+        this.fieldComment = fieldComment;
+    }
+
     @Override
     public String toString() {
         return "FieldInfo{" +
                 "fieldName='" + fieldName + '\'' +
                 ", fieldType='" + fieldType + '\'' +
+                ", fieldComment='" + fieldComment + '\'' +
                 '}';
     }
 }

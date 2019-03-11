@@ -9,13 +9,14 @@
 			<collection property="fields" ofType="com.wllfengshu.common.entity.FieldInfo">
 				<result property="fieldName" column="fieldName"/>
 				<result property="fieldType" column="fieldType"/>
+				<result property="fieldComment" column="fieldComment"/>
 			</collection>
 		</collection>
 	</resultMap>
 
 	<select id="getDBInfo" parameterType="java.lang.String" resultMap="dbMap">
 		SELECT
-			#{dbName} as dbName, `table_name` as tableName, `column_name` as fieldName, `data_type` as fieldType
+			#{dbName} as dbName, `table_name` as tableName, `column_name` as fieldName, `data_type` as fieldType, `column_comment` as fieldComment
 		FROM information_schema.`columns`
 		<where>
 			table_schema = #{dbName} and table_name in (
