@@ -69,6 +69,12 @@ public class RequestModel {
     private String projectPath;
 
     /**
+     * 待生成项目doc文档存在路径，eg:/home/listen/Apps/dns/doc
+     */
+    private String docPath;
+
+
+    /**
      * 待生成项目java文件夹所在路径，eg:/home/listen/Apps/dns/src/main/java
      */
     private String javaPath;
@@ -184,6 +190,14 @@ public class RequestModel {
         this.projectPath = projectPath;
     }
 
+    public String getDocPath() {
+        return docPath;
+    }
+
+    public void setDocPath(String docPath) {
+        this.docPath = docPath;
+    }
+
     public String getJavaPath() {
         return javaPath;
     }
@@ -231,6 +245,7 @@ public class RequestModel {
                 ", exceptionPack='" + exceptionPack + '\'' +
                 ", utilsPack='" + utilsPack + '\'' +
                 ", projectPath='" + projectPath + '\'' +
+                ", docPath='" + docPath + '\'' +
                 ", javaPath='" + javaPath + '\'' +
                 ", resourcesPath='" + resourcesPath + '\'' +
                 ", packageBasePath='" + packageBasePath + '\'' +

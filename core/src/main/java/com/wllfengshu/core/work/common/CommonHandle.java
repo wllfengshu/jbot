@@ -7,6 +7,7 @@ import com.wllfengshu.common.utils.StringUtil;
 
 /**
  * 通用Handle,用来替换文件中的“项目名”和“包名”
+ * @author wllfengshu
  */
 public class CommonHandle {
 

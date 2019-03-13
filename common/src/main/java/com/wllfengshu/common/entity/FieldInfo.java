@@ -7,20 +7,34 @@ package com.wllfengshu.common.entity;
 public class FieldInfo {
 
     /**
-     * 字段名
+     * 字段名称（eg:username）
      */
     private String fieldName = null;
 
     /**
-     * 字段类型
+     * 字段类型（eg:varchar）
      */
     private String fieldType = null;
 
     /**
-     * 字段注解
+     * 列注释（eg:用户名）
      */
-    private String fieldComment = null;
+    private String columnComment = null;
 
+    /**
+     * 是否允许为空（eg:NO）
+     */
+    private String isNullable = null;
+
+    /**
+     * 列类型（eg:varchar(32)）
+     */
+    private String columnType = null;
+
+    /**
+     * 列约束（eg:PRI主键约束;UNI唯一约束;MUL可以重复）
+     */
+    private String columnKey = null;
 
     public String getFieldName() {
         return fieldName;
@@ -38,12 +52,36 @@ public class FieldInfo {
         this.fieldType = fieldType;
     }
 
-    public String getFieldComment() {
-        return fieldComment;
+    public String getColumnComment() {
+        return columnComment;
     }
 
-    public void setFieldComment(String fieldComment) {
-        this.fieldComment = fieldComment;
+    public void setColumnComment(String columnComment) {
+        this.columnComment = columnComment;
+    }
+
+    public String getIsNullable() {
+        return isNullable;
+    }
+
+    public void setIsNullable(String isNullable) {
+        this.isNullable = isNullable;
+    }
+
+    public String getColumnType() {
+        return columnType;
+    }
+
+    public void setColumnType(String columnType) {
+        this.columnType = columnType;
+    }
+
+    public String getColumnKey() {
+        return columnKey;
+    }
+
+    public void setColumnKey(String columnKey) {
+        this.columnKey = columnKey;
     }
 
     @Override
@@ -51,7 +89,10 @@ public class FieldInfo {
         return "FieldInfo{" +
                 "fieldName='" + fieldName + '\'' +
                 ", fieldType='" + fieldType + '\'' +
-                ", fieldComment='" + fieldComment + '\'' +
+                ", columnComment='" + columnComment + '\'' +
+                ", isNullable='" + isNullable + '\'' +
+                ", columnType='" + columnType + '\'' +
+                ", columnKey='" + columnKey + '\'' +
                 '}';
     }
 }

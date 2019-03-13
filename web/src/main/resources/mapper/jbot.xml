@@ -9,14 +9,24 @@
 			<collection property="fields" ofType="com.wllfengshu.common.entity.FieldInfo">
 				<result property="fieldName" column="fieldName"/>
 				<result property="fieldType" column="fieldType"/>
-				<result property="fieldComment" column="fieldComment"/>
+				<result property="columnComment" column="columnComment"/>
+				<result property="isNullable" column="isNullable"/>
+				<result property="columnType" column="columnType"/>
+				<result property="columnKey" column="columnKey"/>
 			</collection>
 		</collection>
 	</resultMap>
 
 	<select id="getDBInfo" parameterType="java.lang.String" resultMap="dbMap">
 		SELECT
-			#{dbName} as dbName, `table_name` as tableName, `column_name` as fieldName, `data_type` as fieldType, `column_comment` as fieldComment
+			#{dbName} dbName,
+			`table_name` tableName,
+			`column_name` fieldName,
+			`data_type` fieldType,
+			`column_comment` columnComment,
+			`is_nullable` isNullable,
+			`column_type` columnType,
+			`column_key` columnKey
 		FROM information_schema.`columns`
 		<where>
 			table_schema = #{dbName} and table_name in (

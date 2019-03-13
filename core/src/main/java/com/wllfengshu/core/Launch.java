@@ -5,6 +5,7 @@ import com.wllfengshu.common.model.RequestModel;
 import com.wllfengshu.core.after.AfterHandle;
 import com.wllfengshu.core.before.BeforeHandle;
 import com.wllfengshu.core.work.common.CommonHandle;
+import com.wllfengshu.core.work.doc.DocHandle;
 import com.wllfengshu.core.work.java.*;
 import com.wllfengshu.core.work.resources.MapperHandle;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class Launch {
 
     private static Logger logger = LoggerFactory.getLogger(Launch.class);
     private static List<Future<Boolean>> futures = new ArrayList<>();
-    private static ExecutorService executorService = Executors.newFixedThreadPool(3);
+    private static ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     public static boolean start(String projectName, String packageName, DBInfo dbInfo){
         logger.info("jbot core,Launch,start-------->dbInfo:%s,projectName:%s,packageName:%s",dbInfo,projectName,packageName);
@@ -47,6 +48,11 @@ public class Launch {
             //4、resources文件修改
             futures.add(executorService.submit(() -> {
                 MapperHandle.start(model);
+                return true;
+            }));
+            //5、doc文件修改
+            futures.add(executorService.submit(() -> {
+                DocHandle.start(model);
                 return true;
             }));
             for (Future<Boolean> future : futures) {

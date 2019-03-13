@@ -26,15 +26,17 @@ public class BeforeHandle {
         RequestModel model = buildRequestModel(projectName, packageName, dbInfo);
         //1、创建项目名文件夹
         createProjectName(model.getProjectPath());
-        //2、创建包
+        //2、创建doc文档文件夹
+        createDocName(model.getDocPath());
+        //3、创建包
         createPackageName(model.getPackageBasePath());
-        //3、复制dockerfile、pom、startup、readme等文件
+        //4、复制dockerfile、pom、startup、readme等文件
         copyConfFile(model.getProjectPath());
-        //4、复制configs、utils、exception、aop等文件夹
+        //5、复制configs、utils、exception、aop等文件夹
         copyConfDir(model.getPackageBasePath());
-        //5、复制resources中的logback、application等文件
+        //6、复制resources中的logback、application等文件
         copyResource(model.getResourcesPath());
-        //6、复制Application文件
+        //7、复制Application文件
         copyApplication(model.getPackageBasePath(),model.getProjectName());
         return model;
     }
@@ -44,6 +46,7 @@ public class BeforeHandle {
         model.setProjectName(projectName);
         model.setPackageName(packageName);
         model.setProjectPath(Collective.TARGET_PROJECT_HOME+"/"+projectName);
+        model.setDocPath(model.getProjectPath()+"/doc");
         model.setJavaPath(model.getProjectPath()+"/src/main/java");
         model.setResourcesPath(model.getProjectPath()+"/src/main/resources");
         model.setPackageBasePath(model.getJavaPath()+"/"+StringUtil.spotToSlash(packageName)+"/"+projectName);
@@ -72,6 +75,10 @@ public class BeforeHandle {
         model.setTableModels(tables);
         logger.info("数据信息已经打包完毕，准备生成项目，数据：{}"+model);
         return model;
+    }
+
+    private static void createDocName(String docPath){
+        FileUtil.createDir(docPath);
     }
 
     private static void createProjectName(String projectPath){
