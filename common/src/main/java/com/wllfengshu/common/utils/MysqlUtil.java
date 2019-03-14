@@ -22,6 +22,7 @@ public class MysqlUtil {
 	 * @return
 	 */
 	public static List<DBInfo> getDBInfo(ConnectInfo connectInfo){
+		logger.info("开始从用户数据库中获取表信息，connectInfo dbIp:{}",connectInfo.getDbIp());
 		List<DBInfo> dbInfos = new ArrayList<>();
 		DBInfo dbInfo = new DBInfo();
 		Connection conn = null;
@@ -88,6 +89,7 @@ public class MysqlUtil {
 				e.printStackTrace();
 			}
 		}
+		logger.info("从用户数据库中获取数据完毕");
 		return dbInfos;
 	}
 

@@ -24,6 +24,7 @@ public class FileDownloadUtil {
      * @param response 请求体
      */
     public static void download(String fileName, HttpServletResponse response){
+        logger.info("开始文件下载，文件名：{}",fileName);
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
         try {
@@ -40,6 +41,7 @@ public class FileDownloadUtil {
                     break;
                 bos.write(buff, 0, bytesRead);
             }
+            logger.info("文件下载完成");
         }catch (Exception e){
             e.printStackTrace();
         }finally {

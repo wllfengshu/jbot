@@ -22,6 +22,7 @@ public class FileReplaceUtil {
      * @param newStr 替换后内容
      */
     public static void replace(String filePath,String[] oldStr,String[] newStr){
+        logger.info("开始替换文件内容，fielPath:{},oldStr size:{},newStr size:{}",filePath,oldStr.length,newStr.length);
         if (oldStr.length>newStr.length){
             return;
         }
@@ -54,6 +55,7 @@ public class FileReplaceUtil {
                 e.printStackTrace();
             }
         }
+        logger.info("文件替换完成");
     }
 
 }

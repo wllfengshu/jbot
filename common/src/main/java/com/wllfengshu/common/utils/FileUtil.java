@@ -23,6 +23,7 @@ public class FileUtil {
      * @return
      */
     public static List readFile2Set(String input){
+        logger.info("开始把文件读到List中，input size:{}",input.length());
         ArrayList<String> items = new ArrayList<>();
         File file = new File(input);
         if (!file.exists()){
@@ -53,6 +54,7 @@ public class FileUtil {
                 e.printStackTrace();
             }
         }
+        logger.info("文件读到List中完毕");
         return items;
     }
 

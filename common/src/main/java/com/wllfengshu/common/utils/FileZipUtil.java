@@ -21,6 +21,7 @@ public class FileZipUtil {
      * @param inputFile
      */
     public static void fileToZip(String zipFileName,String inputFile){
+        logger.info("开始压缩文件，zipFileName:{},inputFile:{}",zipFileName,inputFile);
         ZipOutputStream out = null;
         try {
             out = new ZipOutputStream(new FileOutputStream(zipFileName));
@@ -36,6 +37,7 @@ public class FileZipUtil {
 
             }
         }
+        logger.info("文件压缩完毕");
     }
 
     private static void zip(ZipOutputStream out, File f, String base) {

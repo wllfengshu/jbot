@@ -2,6 +2,7 @@ package com.wllfengshu.web.service.impl;
 
 import com.wllfengshu.common.constant.Collective;
 import com.wllfengshu.common.utils.FileDownloadUtil;
+import com.wllfengshu.common.utils.FileUtil;
 import com.wllfengshu.common.utils.MysqlUtil;
 import com.wllfengshu.core.Launch;
 import com.wllfengshu.web.dao.JbotDao;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,9 +62,13 @@ public class JbotServiceImpl implements JbotService {
 		}
 		//调用生成项目的入口类
 		if (Launch.start(projectName, packageName, dbInfo)){
+			//下载生成的项目
 			FileDownloadUtil.download(Collective.TARGET_PROJECT_HOME+"/"+projectName+".zip",response);
 			result.put("isSuccess",true);
 			result.put("msg","生成项目成功");
+			//删除生成的项目文件
+			FileUtil.deleteFile(Collective.TARGET_PROJECT_HOME+"/"+projectName+".zip");
+			FileUtil.deleteDir(new File(Collective.TARGET_PROJECT_HOME+"/"+projectName));
 		}else {
 			response.setStatus(412);
 			result.put("isSuccess",false);
