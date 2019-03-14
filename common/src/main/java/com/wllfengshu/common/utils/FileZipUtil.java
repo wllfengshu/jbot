@@ -1,5 +1,8 @@
 package com.wllfengshu.common.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -9,6 +12,8 @@ import java.util.zip.ZipOutputStream;
  * @author wllfengshu
  */
 public class FileZipUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(FileZipUtil.class);
 
     /**
      * 递归的把文件压缩为zip文件

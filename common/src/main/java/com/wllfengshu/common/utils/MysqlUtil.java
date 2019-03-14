@@ -1,0 +1,105 @@
+package com.wllfengshu.common.utils;
+ 
+import com.wllfengshu.common.entity.ConnectInfo;
+import com.wllfengshu.common.entity.DBInfo;
+import com.wllfengshu.common.entity.FieldInfo;
+import com.wllfengshu.common.entity.TableInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class MysqlUtil {
+
+	private static Logger logger = LoggerFactory.getLogger(MysqlUtil.class);
+
+	/**
+	 * 向指定数据库中获取表结构
+	 * @param connectInfo
+	 * @return
+	 */
+	public static List<DBInfo> getDBInfo(ConnectInfo connectInfo){
+		List<DBInfo> dbInfos = new ArrayList<>();
+		DBInfo dbInfo = new DBInfo();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			//1 获取数据库连接
+			String url = "jdbc:mysql://"
+					+connectInfo.getDbIp()
+					+":"
+					+connectInfo.getDbPort()
+					+"/"
+					+connectInfo.getDbName()
+					+"?useUnicode=true&autoReconnect=true&characterEncoding=UTF-8";
+			Class.forName(connectInfo.getDbDriver());
+			conn = DriverManager.getConnection(url,connectInfo.getDbUsername(),connectInfo.getDbPassword());
+			stmt = conn.createStatement();
+			dbInfo.setDbName(connectInfo.getDbName());//设置数据库名
+			//2 执行sql获取指定数据库中所有的表
+			String sql="SELECT `table_name` FROM information_schema.`tables` WHERE table_schema = '"+connectInfo.getDbName()+"' and table_type = 'base table'";
+			logger.info("get table info sql:{}",sql);
+			rs = stmt.executeQuery(sql);
+			List<TableInfo> tis = new ArrayList<>();
+			while (rs.next()){
+				TableInfo ti = new TableInfo();
+				ti.setTableName(rs.getString("table_name"));
+				tis.add(ti);
+			}
+			dbInfo.setTables(tis);
+			//3 再执行sql获取每个表中所有的字段
+			for(TableInfo ti:tis) {
+				sql = "SELECT `column_name` AS fieldName, `data_type` AS fieldType, `column_comment` AS columnComment, `is_nullable` AS isNullable, `column_type` AS columnType , `column_key` AS columnKey FROM information_schema.`columns` WHERE table_schema = '"+connectInfo.getDbName()+"' AND table_name = '"+ti.getTableName()+"'";
+				logger.info("get field info sql:{}",sql);
+				rs = stmt.executeQuery(sql);
+				List<FieldInfo> fis = new ArrayList<>();
+				while (rs.next()) {
+					FieldInfo fi = new FieldInfo();
+					fi.setFieldName(rs.getString("fieldName"));
+					fi.setFieldType(rs.getString("fieldType"));
+					fi.setColumnComment(rs.getString("columnComment"));
+					fi.setColumnKey(rs.getString("columnKey"));
+					fi.setColumnType(rs.getString("columnType"));
+					fi.setIsNullable(rs.getString("isNullable"));
+					fis.add(fi);
+				}
+				ti.setFields(fis);//这里的ti是引用类型
+			}
+			dbInfos.add(dbInfo);
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally {
+			//4 关闭连接
+			try {
+				if (rs!=null){
+					rs.close();
+				}
+				if (stmt!=null){
+					stmt.close();
+				}
+				if (conn!=null){
+					conn.close();
+				}
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		return dbInfos;
+	}
+
+	public static void main(String[] args) {
+		ConnectInfo c = new ConnectInfo();
+		c.setDbDriver("com.mysql.jdbc.Driver");
+		c.setDbIp("localhost");
+		c.setDbName("test");
+		c.setDbPassword("");
+		c.setDbPort("3306");
+		c.setDbUsername("root");
+		MysqlUtil.getDBInfo(c);
+	}
+
+}

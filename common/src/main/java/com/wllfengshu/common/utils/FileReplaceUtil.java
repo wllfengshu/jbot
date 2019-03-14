@@ -1,5 +1,8 @@
 package com.wllfengshu.common.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
@@ -9,6 +12,8 @@ import java.io.PrintWriter;
  * @author wllfengshu
  */
 public class FileReplaceUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(FileReplaceUtil.class);
 
     /**
      * 替换文件内容(注意：oldStr[]元素个数必须小于等于newStr[])

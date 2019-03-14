@@ -45,7 +45,7 @@ public class Launch {
                 ServiceImplHandle.start(model);
                 return true;
             }));
-            //4、resources文件修改
+            //4、mapper文件修改
             futures.add(executorService.submit(() -> {
                 MapperHandle.start(model);
                 return true;

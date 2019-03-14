@@ -1,5 +1,8 @@
 package com.wllfengshu.common.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,6 +12,7 @@ import java.util.Date;
  */
 public class TimeUtil {
 
+    private static Logger logger = LoggerFactory.getLogger(TimeUtil.class);
     private final static SimpleDateFormat sdf_ym = new SimpleDateFormat("yyyyMM");
     private final static SimpleDateFormat sdf_ymd = new SimpleDateFormat("yyyyMMdd");
     private final static SimpleDateFormat sdf_ymdhms = new SimpleDateFormat("yyyyMMddHHmmss");

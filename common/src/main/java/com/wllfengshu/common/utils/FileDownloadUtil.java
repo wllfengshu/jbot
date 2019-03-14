@@ -1,5 +1,8 @@
 package com.wllfengshu.common.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
@@ -12,6 +15,8 @@ import java.net.URLEncoder;
  * @author wllfengshu
  */
 public class FileDownloadUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(FileDownloadUtil.class);
 
     /**
      * 文件下载

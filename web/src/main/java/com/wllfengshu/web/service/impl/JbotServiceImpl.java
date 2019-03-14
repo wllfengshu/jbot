@@ -2,6 +2,7 @@ package com.wllfengshu.web.service.impl;
 
 import com.wllfengshu.common.constant.Collective;
 import com.wllfengshu.common.utils.FileDownloadUtil;
+import com.wllfengshu.common.utils.MysqlUtil;
 import com.wllfengshu.core.Launch;
 import com.wllfengshu.web.dao.JbotDao;
 import com.wllfengshu.common.entity.ConnectInfo;
@@ -32,7 +33,11 @@ public class JbotServiceImpl implements JbotService {
 	public Map<String, Object> settingProject(ConnectInfo connectInfo){
 		Map<String, Object> result = new HashMap<>();
 		//获取数据库中的表信息
-		result.put("data",jbotDao.getDBInfo(connectInfo.getDbName()));
+		if (!"localhost".equals(connectInfo.getDbIp()) && !"127.0.0.1".equals(connectInfo.getDbIp())){
+			result.put("data", MysqlUtil.getDBInfo(connectInfo));
+		}else {
+			result.put("data", jbotDao.getDBInfo(connectInfo.getDbName()));
+		}
 		logger.info("JbotServiceImpl,settingProject-------->result:{}",result);
 		return result;
 	}

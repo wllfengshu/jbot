@@ -1,5 +1,8 @@
 package com.wllfengshu.common.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +11,8 @@ import java.util.List;
  * @author wllfengshu
  */
 public class StringUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(StringUtil.class);
 
     /**
      * 判断字符串是否只使用字母、数字、-连字符、_下划线
