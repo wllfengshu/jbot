@@ -51,10 +51,10 @@ public class DocHandle {
      * 生成头
      * @return
      */
-    private static String genHead(String tableNameFUDTU){
+    private static StringBuffer genHead(String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("# "+tableNameFUDTU+"管理\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
@@ -69,7 +69,7 @@ public class DocHandle {
      * 生成数据字典
      * @return
      */
-    private static String genDataDictionary(List<FieldInfo> fs) {
+    private static StringBuffer genDataDictionary(List<FieldInfo> fs) {
         StringBuffer sb = new StringBuffer();
         sb.append("注：PRI主键约束;UNI唯一约束;MUL可以重复\r\n\r\n");
         sb.append("| 编号 | 字段名 | 类型 | 是否允许空 | 约束 | 含义 | 备注 |\r\n");
@@ -83,14 +83,14 @@ public class DocHandle {
                      +" | "+fs.get(i).getColumnComment()
                      +" |  |\r\n");
         }
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成增加的markdown
      * @return
      */
-    private static String genInterfaceInsert(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
+    private static StringBuffer genInterfaceInsert(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
         StringBuffer sb = new StringBuffer();
         sb.append("### 1 增加\r\n\r\n");
         sb.append("`POST model/"+tableNameFLDTU+"s/"+tableNameFLDTU+"`\r\n\r\n");
@@ -112,14 +112,14 @@ public class DocHandle {
         sb.append(exceptionExample(projectName));
         sb.append("#### 1.5 业务错误码\r\n\r\n");
         sb.append(errorCode());
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成删除的markdown
      * @return
      */
-    private static String genInterfaceDelete(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
+    private static StringBuffer genInterfaceDelete(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
         StringBuffer sb = new StringBuffer();
         sb.append("### 2 删除\r\n\r\n");
         sb.append("`DELETE "+projectName+"/"+tableNameFLDTU+"s/"+tableNameFLDTU+"/{id}`\r\n\r\n");
@@ -141,14 +141,14 @@ public class DocHandle {
         sb.append(exceptionExample(projectName));
         sb.append("#### 2.5 业务错误码\r\n\r\n");
         sb.append(errorCode());
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成修改的markdown
      * @return
      */
-    private static String genInterfaceUpdate(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
+    private static StringBuffer genInterfaceUpdate(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
         StringBuffer sb = new StringBuffer();
         sb.append("### 3 修改\r\n\r\n");
         sb.append("`PUT "+projectName+"/"+tableNameFLDTU+"s/"+tableNameFLDTU+"`\r\n\r\n");
@@ -170,14 +170,14 @@ public class DocHandle {
         sb.append(exceptionExample(projectName));
         sb.append("#### 3.5 业务错误码\r\n\r\n");
         sb.append(errorCode());
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成按id查询的markdown
      * @return
      */
-    private static String genInterfaceSelect(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
+    private static StringBuffer genInterfaceSelect(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
         StringBuffer sb = new StringBuffer();
         sb.append("### 4 通过ID查询\r\n\r\n");
         sb.append("`GET "+projectName+"/"+tableNameFLDTU+"s/"+tableNameFLDTU+"/{id}`\r\n\r\n");
@@ -199,14 +199,14 @@ public class DocHandle {
         sb.append(exceptionExample(projectName));
         sb.append("#### 4.5 业务错误码\r\n\r\n");
         sb.append(errorCode());
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成查询的markdown
      * @return
      */
-    private static String genInterfaceSelects(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
+    private static StringBuffer genInterfaceSelects(String projectName,String tableNameFLDTU,List<FieldInfo> fs){
         StringBuffer sb = new StringBuffer();
         sb.append("### 5 查询\r\n\r\n");
         sb.append("`GET "+projectName+"/"+tableNameFLDTU+"s`\r\n\r\n");
@@ -228,37 +228,37 @@ public class DocHandle {
         sb.append(exceptionExample(projectName));
         sb.append("#### 4.5 业务错误码\r\n\r\n");
         sb.append(errorCode());
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成请求参数头
      * @return
      */
-    private static String requestParamsHeaders(){
+    private static StringBuffer requestParamsHeaders(){
         StringBuffer sb = new StringBuffer();
         sb.append("| 参数名 | 类型 | 是否允许空 | 位置 | 描述 | 举例 | 备注 |\r\n");
         sb.append("| ---- | ---- | ---- | ---- | ---- | ---- | ---- |\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成请求参数-entity形式
      * @return
      */
-    private static String requestParamsEntity(){
+    private static StringBuffer requestParamsEntity(){
         StringBuffer sb = new StringBuffer();
         sb.append(requestParamsHeaders());
         sb.append("| sessionId | string | 否 | header | SessionID | 2ab321c6-8869-4d20-a2d5-35e930e08132 |\r\n");
         sb.append("| entity | json | 否 | body | 实体类 |  |  |\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成请求参数-id形式
      * @return
      */
-    private static String requestParamsId(List<FieldInfo> fs){
+    private static StringBuffer requestParamsId(List<FieldInfo> fs){
         String idType="string";//默认情况下，id为string类型
         for(FieldInfo f:fs){
             if ("id".equals(f.getFieldName())){
@@ -270,44 +270,44 @@ public class DocHandle {
         sb.append(requestParamsHeaders());
         sb.append("| sessionId | string | 否 | header | SessionID | 2ab321c6-8869-4d20-a2d5-35e930e08132 |\r\n");
         sb.append("| id | "+idType+" | 否 | path | id | 1 |  |\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成请求参数-page形式
      * @return
      */
-    private static String requestParamsPage(){
+    private static StringBuffer requestParamsPage(){
         StringBuffer sb = new StringBuffer();
         sb.append(requestParamsHeaders());
         sb.append("| sessionId | string | 否 | header | SessionID | 2ab321c6-8869-4d20-a2d5-35e930e08132 |\r\n");
         sb.append("| pageNo | int | 是 | query | 页码 | 0 | 从0开始,默认为0 |\r\n");
         sb.append("| pageSize | int | 是 | query | 页面大小 | 10 | 默认为10 |\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成响应参数头
      * @return
      */
-    private static String responseParamsHeaders(){
+    private static StringBuffer responseParamsHeaders(){
         StringBuffer sb = new StringBuffer();
         sb.append("| 参数名 | 类型 | 是否允许空 | 描述 | 备注 |\r\n");
         sb.append("| ---- | ---- | ---- | ---- | ---- |\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成请求示例头request headers
      * @return
      */
-    private static String exampleRequestHeaders(){
+    private static StringBuffer exampleRequestHeaders(){
         StringBuffer sb = new StringBuffer();
         sb.append("```\r\n");
         sb.append("sessionId: d56006cc-a698-437c-a580-6fcb8e86cc62\r\n");
         sb.append("Content-Type: application/json;charset=utf-8\r\n");
         sb.append("```\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
@@ -315,7 +315,7 @@ public class DocHandle {
      * @param fs
      * @return
      */
-    private static String fieldJson(List<FieldInfo> fs){
+    private static StringBuffer fieldJson(List<FieldInfo> fs){
         StringBuffer sb = new StringBuffer();
         sb.append("```json\r\n");
         sb.append("{\r\n");
@@ -341,7 +341,7 @@ public class DocHandle {
         sb.deleteCharAt(sb.lastIndexOf(","));//删除最后多的一个逗号
         sb.append("}\r\n");
         sb.append("```\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
@@ -349,13 +349,13 @@ public class DocHandle {
      * @param fs
      * @return
      */
-    private static String fieldList(List<FieldInfo> fs){
+    private static StringBuffer fieldList(List<FieldInfo> fs){
         StringBuffer sb = new StringBuffer();
         sb.append(responseParamsHeaders());
         for(FieldInfo f:fs){
             sb.append("| "+f.getFieldName()+" | "+StringUtil.sqlType2JavaType(f.getFieldType())+" | "+f.getIsNullable()+" | "+f.getColumnComment()+" |  |\r\n");
         }
-        return sb.toString();
+        return sb;
     }
 
     /**
@@ -363,7 +363,7 @@ public class DocHandle {
      * @param fs
      * @return
      */
-    private static String fieldJsonPage(List<FieldInfo> fs){
+    private static StringBuffer fieldJsonPage(List<FieldInfo> fs){
         StringBuffer sb = new StringBuffer();
         sb.append("```json\r\n");
         sb.append("{\r\n");
@@ -394,18 +394,18 @@ public class DocHandle {
         sb.append("\t]\r\n");
         sb.append("}\r\n");
         sb.append("```\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成一个空的json
      * @return
      */
-    private static String nullJson(){
+    private static StringBuffer nullJson(){
         StringBuffer sb = new StringBuffer();
         sb.append("```json\r\n\r\n");
         sb.append("```\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
@@ -413,7 +413,7 @@ public class DocHandle {
      * @param projectName
      * @return
      */
-    private static String exceptionExample(String projectName){
+    private static StringBuffer exceptionExample(String projectName){
         StringBuffer sb = new StringBuffer();
         sb.append("```json\r\n");
         sb.append("{\r\n");
@@ -422,18 +422,18 @@ public class DocHandle {
         sb.append("\t\"instanceId\": \""+projectName+"-xyzws\"\r\n");
         sb.append("}\r\n");
         sb.append("```\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成业务错误码
      * @return
      */
-    private static String errorCode(){
+    private static StringBuffer errorCode(){
         StringBuffer sb = new StringBuffer();
         sb.append("| 错误码 | 描述 | 解决方案 |\r\n");
         sb.append("| ---- | ---- | ---- |\r\n");
         sb.append("| 14001 | 没有权限 | 检查该用户的权限 |\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 }

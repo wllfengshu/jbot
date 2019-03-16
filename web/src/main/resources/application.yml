@@ -1,4 +1,4 @@
-# ²Î¿¼ÅäÖÃhttps://blog.csdn.net/ajlzhu/article/details/81009845
+# FYI : https://blog.csdn.net/ajlzhu/article/details/81009845
 server:
   port: 8080
 spring:
@@ -26,7 +26,6 @@ spring:
     filters: stat,wall,log4j
     use-global-data-source-stat: true
     connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-#ÅäÖÃÓ³ÉäÎÄ¼ş
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   type-aliases-package: com.wllfengshu.web.entity

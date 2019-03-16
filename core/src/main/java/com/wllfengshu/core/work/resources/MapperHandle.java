@@ -40,12 +40,12 @@ public class MapperHandle {
      * 生成头
      * @return
      */
-    private static String genHead(String daoClassName){
+    private static StringBuffer genHead(String daoClassName){
         StringBuffer sb=new StringBuffer();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
         sb.append("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >\r\n");
         sb.append("<mapper namespace=\""+daoClassName+"\">\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
@@ -60,21 +60,21 @@ public class MapperHandle {
      * 对象结果映射
      * @return
      */
-    private static String genResult(String entityClassName,TableInfo tableInfo){
+    private static StringBuffer genResult(String entityClassName,TableInfo tableInfo){
         StringBuffer sb = new StringBuffer();
         sb.append("\t<resultMap type=\""+entityClassName+"\" id=\"resultMap\">\r\n");
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append("\t\t<result property=\""+StringUtil.underlineToHump(field.getFieldName())+"\" column=\""+field.getFieldName()+"\"></result>\r\n");
         }
         sb.append("\t</resultMap>\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 公共sql
      * @return
      */
-    private static String genCommonSql(TableInfo tableInfo,String tableNameFUDTU){
+    private static StringBuffer genCommonSql(TableInfo tableInfo,String tableNameFUDTU){
         StringBuffer sb = new StringBuffer();
         sb.append("\t<sql id=\"select"+tableNameFUDTU+"sWhere\">\n");
         for (FieldInfo field : tableInfo.getFields()) {
@@ -83,38 +83,38 @@ public class MapperHandle {
             sb.append("\t\t</if>\r\n");
         }
         sb.append("\t</sql>\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成查询语句（多条数据）
      * @return
      */
-    private static String genSelects(TableInfo tableInfo,String tableNameFUDTU){
+    private static StringBuffer genSelects(TableInfo tableInfo,String tableNameFUDTU){
         StringBuffer sb = new StringBuffer();
         sb.append("\t<select id=\"select"+tableNameFUDTU+"s\" parameterType=\"java.util.Map\" resultMap=\"resultMap\">\r\n");
         sb.append("\t\tSELECT * \r\n");
         sb.append("\t\tFROM "+tableInfo.getTableName()+" \r\n");
-        sb.append("\t\t<where> 1=1 \r\n");
+        sb.append("\t\t<where>\r\n\t\t\t 1=1 \r\n");
         sb.append("\t\t\t<include refid=\"select"+tableNameFUDTU+"sWhere\"/>\r\n");
         sb.append("\t\t\tlimit ${pageNo * pageSize} , ${pageSize}\r\n");
         sb.append("\t\t\t</where>\r\n\t</select>\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成查询语句（统计总数）
      * @return
      */
-    private static String genSelectsCount(TableInfo tableInfo,String tableNameFUDTU){
+    private static StringBuffer genSelectsCount(TableInfo tableInfo,String tableNameFUDTU){
         StringBuffer sb = new StringBuffer();
         sb.append("\t<select id=\"select"+tableNameFUDTU+"sCount\" parameterType=\"java.util.Map\" resultType=\"java.lang.Integer\">\r\n");
         sb.append("\t\tSELECT count(1) \r\n");
         sb.append("\t\tFROM "+tableInfo.getTableName()+" \r\n");
-        sb.append("\t\t<where> 1=1 \r\n");
+        sb.append("\t\t<where>\r\n\t\t\t 1=1 \r\n");
         sb.append("\t\t\t<include refid=\"select"+tableNameFUDTU+"sWhere\"/>\r\n");
         sb.append("\t\t\t</where>\r\n\t</select>\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 }
 

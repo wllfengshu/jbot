@@ -40,7 +40,7 @@ public class ServiceImplHandle {
      * 生成头
      * @return
      */
-    private static String genHead(String tableNameFUDTU,String serviceImplPack,String daoClassName,String entityClassName,String serviceClassName,String exceptionPack){
+    private static StringBuffer genHead(String tableNameFUDTU,String serviceImplPack,String daoClassName,String entityClassName,String serviceClassName,String exceptionPack){
         StringBuffer sb=new StringBuffer();
         sb.append("package "+serviceImplPack+";\r\n\r\n");
         sb.append("import "+serviceClassName+";\r\n");
@@ -55,7 +55,7 @@ public class ServiceImplHandle {
         sb.append("import java.util.Map;\r\n\r\n");
         sb.append("@Service\r\n");
         sb.append("public class "+tableNameFUDTU+"ServiceImpl implements "+tableNameFUDTU+"Service {\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
@@ -70,19 +70,19 @@ public class ServiceImplHandle {
      * 生成成员变量
      * @return
      */
-    private static String genMember(String tableNameFLDTU,String tableNameFUDTU){
+    private static StringBuffer genMember(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@Autowired\r\n");
         sb.append("\tprivate "+tableNameFUDTU+"Dao "+tableNameFLDTU+"Dao;\r\n\r\n");
         sb.append("\tprivate Logger logger = LoggerFactory.getLogger(getClass());\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成插入语句
      * @return
      */
-    private static String genInsert(String tableNameFLDTU,String tableNameFUDTU){
+    private static StringBuffer genInsert(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@Override\r\n");
         sb.append("\tpublic Map<String, Object> insert("+tableNameFUDTU+" entity,String sessionId)throws CustomException{\r\n");
@@ -91,14 +91,14 @@ public class ServiceImplHandle {
         sb.append("\t\t"+tableNameFLDTU+"Dao.insert(entity);\r\n");
         sb.append("\t\treturn result;\r\n");
         sb.append("\t}\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成删除语句
      * @return
      */
-    private static String genDelete(String tableNameFLDTU){
+    private static StringBuffer genDelete(String tableNameFLDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@Override\r\n");
         sb.append("\tpublic Map<String, Object> delete(Integer id,String sessionId)throws CustomException{\r\n");
@@ -107,14 +107,14 @@ public class ServiceImplHandle {
         sb.append("\t\t"+tableNameFLDTU+"Dao.deleteByPrimaryKey(id);\r\n");
         sb.append("\t\treturn result;\r\n");
         sb.append("\t}\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成更新语句
      * @return
      */
-    private static String genUpdate(String tableNameFLDTU,String tableNameFUDTU){
+    private static StringBuffer genUpdate(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@Override\r\n");
         sb.append("\tpublic Map<String, Object> update("+tableNameFUDTU+" entity,String sessionId)throws CustomException{\r\n");
@@ -123,14 +123,14 @@ public class ServiceImplHandle {
         sb.append("\t\t"+tableNameFLDTU+"Dao.updateByPrimaryKey(entity);\r\n");
         sb.append("\t\treturn result;\r\n");
         sb.append("\t}\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成查询语句（单条）
      * @return
      */
-    private static String genSelect(String tableNameFLDTU){
+    private static StringBuffer genSelect(String tableNameFLDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@Override\r\n");
         sb.append("\tpublic Map<String, Object> select(Integer id,String sessionId)throws CustomException{\r\n");
@@ -139,14 +139,14 @@ public class ServiceImplHandle {
         sb.append("\t\tresult.put(\"data\","+tableNameFLDTU+"Dao.selectByPrimaryKey(id));\r\n");
         sb.append("\t\treturn result;\r\n");
         sb.append("\t}\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成查询语句（多条）
      * @return
      */
-    private static String genSelectList(String tableNameFLDTU,String tableNameFUDTU){
+    private static StringBuffer genSelectList(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@Override\r\n");
         sb.append("\tpublic Map<String, Object> selects(Map<String, Object> params,String sessionId)throws CustomException{\r\n");
@@ -156,6 +156,6 @@ public class ServiceImplHandle {
         sb.append("\t\tresult.put(\"total\","+tableNameFLDTU+"Dao.select"+tableNameFUDTU+"sCount(params));\r\n");
         sb.append("\t\treturn result;\r\n");
         sb.append("\t}\r\n");
-        return sb.toString();
+        return sb;
     }
 }

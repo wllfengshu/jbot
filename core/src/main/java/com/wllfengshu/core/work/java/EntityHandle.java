@@ -38,7 +38,7 @@ public class EntityHandle {
      * 生成头
      * @return
      */
-    private static String genHead(String tableNameFUDTU,String entityPack,String tableName){
+    private static StringBuffer genHead(String tableNameFUDTU,String entityPack,String tableName){
         StringBuffer sb=new StringBuffer();
         sb.append("package "+entityPack+";\r\n\r\n");
         sb.append("import com.fasterxml.jackson.annotation.JsonFormat;\r\n");
@@ -48,7 +48,7 @@ public class EntityHandle {
         sb.append("@Table(name = \""+tableName+"\")\r\n");
         sb.append("public class "+tableNameFUDTU+" implements Serializable{\r\n\r\n");
         sb.append("\tprivate static final long serialVersionUID = 1L;\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
@@ -63,7 +63,7 @@ public class EntityHandle {
      * 生成属性
      * @return
      */
-    private static String genAttrs(TableInfo tableInfo) {
+    private static StringBuffer genAttrs(TableInfo tableInfo) {
         StringBuffer sb = new StringBuffer();
         for (FieldInfo field : tableInfo.getFields()) {
             sb.append("\t/**\r\n");
@@ -78,14 +78,14 @@ public class EntityHandle {
             sb.append("\t@Column(name = \""+field.getFieldName()+"\")\r\n");
             sb.append("\tprivate "+StringUtil.sqlType2JavaType(field.getFieldType())+" "+StringUtil.underlineToHump(field.getFieldName()) +";\r\n\r\n ");
         }
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成方法
      * @param
      */
-    private static String genMethod(TableInfo tableInfo) {
+    private static StringBuffer genMethod(TableInfo tableInfo) {
         StringBuffer sb = new StringBuffer();
         for (FieldInfo field : tableInfo.getFields()) {
             String fieldName=StringUtil.underlineToHump(field.getFieldName());
@@ -97,6 +97,6 @@ public class EntityHandle {
                     "\t\treturn "+fieldName+";\r\n" +
                     "\t}\r\n");
         }
-        return sb.toString();
+        return sb;
     }
 }

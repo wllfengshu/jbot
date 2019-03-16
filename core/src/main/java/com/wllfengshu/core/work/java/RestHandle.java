@@ -40,7 +40,7 @@ public class RestHandle {
      * 生成头
      * @return
      */
-    private static String genHead(String tableNameFLDTU,String tableNameFUDTU,String restPack,String serviceClassName,String entityClassName,String exceptionPack){
+    private static StringBuffer genHead(String tableNameFLDTU,String tableNameFUDTU,String restPack,String serviceClassName,String entityClassName,String exceptionPack){
         StringBuffer sb=new StringBuffer();
         sb.append("package "+restPack+";\r\n\r\n");
         sb.append("import "+serviceClassName+";\r\n");
@@ -57,7 +57,7 @@ public class RestHandle {
         sb.append("@RestController\r\n");
         sb.append("@RequestMapping(\"/"+tableNameFLDTU+"s\")\r\n");
         sb.append("public class "+tableNameFUDTU+"Rest {\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
@@ -72,19 +72,19 @@ public class RestHandle {
      * 生成成员变量
      * @return
      */
-    private static String genMember(String tableNameFLDTU,String tableNameFUDTU){
+    private static StringBuffer genMember(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@Autowired\r\n");
         sb.append("\tprivate "+tableNameFUDTU+"Service "+tableNameFLDTU+"Service;\r\n\r\n");
         sb.append("\tprivate Logger logger = LoggerFactory.getLogger(getClass());\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成插入语句
      * @return
      */
-    private static String genInsert(String tableNameFLDTU,String tableNameFUDTU){
+    private static StringBuffer genInsert(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@ApiOperation(value = \"插入\",httpMethod = \"POST\")\r\n");
         sb.append("\t@ApiImplicitParam(name = \"sessionId\", value = \"SessionId\",required = true, dataType = \"string\",paramType = \"header\")\r\n");
@@ -100,14 +100,14 @@ public class RestHandle {
         sb.append("\t\tlogger.info(\"insert entity:{}\",entity);\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.insert(entity,sessionId);\r\n");
         sb.append("\t}\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成删除语句
      * @return
      */
-    private static String genDelete(String tableNameFLDTU,String tableNameFUDTU){
+    private static StringBuffer genDelete(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@ApiOperation(value = \"删除\",httpMethod = \"DELETE\")\r\n");
         sb.append("\t@ApiImplicitParams({\r\n");
@@ -126,14 +126,14 @@ public class RestHandle {
         sb.append("\t\tlogger.info(\"delete id:{}\",id);\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.delete(id,sessionId);\r\n");
         sb.append("\t}\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成更新语句
      * @return
      */
-    private static String genUpdate(String tableNameFLDTU,String tableNameFUDTU){
+    private static StringBuffer genUpdate(String tableNameFLDTU,String tableNameFUDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@ApiOperation(value = \"修改\",httpMethod = \"PUT\")\r\n");
         sb.append("\t@ApiImplicitParam(name = \"sessionId\", value = \"SessionId\",required = true, dataType = \"string\",paramType = \"header\")\r\n");
@@ -149,14 +149,14 @@ public class RestHandle {
         sb.append("\t\tlogger.info(\"update entity:{}\",entity);\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.update(entity,sessionId);\r\n");
         sb.append("\t}\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成查询语句（单条）
      * @return
      */
-    private static String genSelect(String tableNameFLDTU){
+    private static StringBuffer genSelect(String tableNameFLDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@ApiOperation(value = \"按ID查询\",httpMethod = \"GET\")\r\n");
         sb.append("\t@ApiImplicitParams({\r\n");
@@ -175,14 +175,14 @@ public class RestHandle {
         sb.append("\t\tlogger.info(\"select id:{}\",id);\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.select(id,sessionId);\r\n");
         sb.append("\t}\r\n\r\n");
-        return sb.toString();
+        return sb;
     }
 
     /**
      * 生成查询语句（多条）
      * @return
      */
-    private static String genSelectList(String tableNameFLDTU){
+    private static StringBuffer genSelectList(String tableNameFLDTU){
         StringBuffer sb=new StringBuffer();
         sb.append("\t@ApiOperation(value = \"查询\",httpMethod = \"GET\")\r\n");
         sb.append("\t@ApiImplicitParams({\r\n");
@@ -206,6 +206,6 @@ public class RestHandle {
         sb.append("\t\tlogger.info(\"selects params:{}\",params);\r\n");
         sb.append("\t\treturn "+tableNameFLDTU+"Service.selects(params,sessionId);\r\n");
         sb.append("\t}\r\n");
-        return sb.toString();
+        return sb;
     }
 }
