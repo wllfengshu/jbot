@@ -74,6 +74,7 @@ AngularJS | JS框架
       - 数据库连接地址： db_url   eg:jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       - 数据库用户名： db_username    eg:root
       - 数据库密码： db_paasword    eg:root
+      
   注：如果不想设置环境变量，可以手动修改web模块中的application.yml文件
   
 - 3、启动web模块中的WebApplication(直接在main方法上右键启动即可)
@@ -90,11 +91,12 @@ AngularJS | JS框架
 1、生成的entity、dao、service、serviceImpl、rest分别放到对应的包里，文件名称为表名首字母大写、去掉下划线、驼峰结构；
 2、生成的entity的属性名为表字段名的驼峰形式；
 3、serviceImpl放的在service包里的impl包里；
-4、生成的rest包含swagger，可以使用http://localhost:8080/swagger-ui.html访问；
+4、生成的rest包含swagger，可以使用http://localhost:8080/项目名/swagger-ui.html访问；
 5、生成的每张表都对应“增删改查”的方法，可以直接使用；
 6、请确保每张表的主键名为id(如果不为id，请手动在生成的entity中使用@Id指明主键)；
 ```
-
+  注：本项目不支持联合主键，如果是联合主键，请参考自行百度，按照对应的方法修改本项目生成的目标项目
+  
 ## 演示地址
 
 演示地址：https://wllfengshu.github.io/jbot/
@@ -107,26 +109,30 @@ AngularJS | JS框架
 
 - 使用http://localhost:8080/index.html 访问（jbot界面图）
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/web.png)
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/web.jpg)
 
-- 生成的项目的效果图（使用http://localhost:8080/swagger-ui.html 访问）
+- 生成的项目的效果图（使用http://localhost:8080/dnc/swagger-ui.html 访问）
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/genSwagger.png)
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genSwagger.jpg)
 
 - 生成的项目结构
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/project.jpg)
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genProject.jpg)
 
 - 生成的项目dao
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/dao.jpg)
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genDao.jpg)
 
 - 生成的项目entity
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/entity.jpg)
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genEntity.jpg)
 
 - 生成的项目mapper
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/mapper.jpg)
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genMapper.jpg)
+
+- 生成的项目markdown接口文档
+
+![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genMarkdown.jpg)
 
 ## jbot相关博客

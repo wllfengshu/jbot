@@ -7,7 +7,7 @@
 ```lua
 web
 ├── setting ── 负责设置数据库信息，并返回表信息
-├── produce ── 开始生成目标项目的入口
+├── produce ── 开始生成目标项目
 ```
 
 ## 技术选型
@@ -39,8 +39,12 @@ connectInfo | json | 是 | body | 数据库连接实体类（数据库连接信�
 ---- | ---- | ---- | ---- | ----
 dbName | string | 是 | 数据库名
 tableName | string | 是 | 表名 |
-fieldName | string | 是 | 字段名 |
-fieldType | string | 是 | 字段类型 |
+fieldName | string | 是 | 字段名称（eg:username） |
+fieldType | string | 是 | 字段类型（eg:varchar） |
+columnComment | string | 是 | 列注释（eg:用户名） |
+isNullable | string | 是 | 是否允许为空（eg:NO） |
+columnType | string | 是 | 列类型（eg:varchar(32)） |
+columnKey | string | 是 | 列约束（eg:PRI主键约束;UNI唯一约束;MUL可以重复） |
 tables | array | 是 | 表的集合 |
 fields | array | 是 | 字段的集合 |
 

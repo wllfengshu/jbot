@@ -8,6 +8,7 @@
 common
 ├── constant -- 系统所需的常量
 ├── entity -- 系统所需的实体类
+├── model -- 系统所需的model
 ├── utils -- 系统所需的工具类
 ```
 
