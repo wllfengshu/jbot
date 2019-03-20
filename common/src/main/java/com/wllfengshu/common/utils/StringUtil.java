@@ -15,7 +15,8 @@ public class StringUtil {
     private static Logger logger = LoggerFactory.getLogger(StringUtil.class);
 
     /**
-     * 判断字符串是否只使用字母、数字、-连字符、_下划线
+     * 判断字符串：
+     *     以字母开头，只允许字母、数字、-连字符、_下划线，不能以-和_结尾
      * @param str
      * @return true 验证通过
      *          false 验证不通过
@@ -25,7 +26,8 @@ public class StringUtil {
     }
 
     /**
-     * 判断字符串是否只使用字母、数字、点，不超过100个字符
+     * 判断字符串：
+     *     以字母开头，只允许字母、数字、点，不能以点结尾
      * @param str
      * @return true 验证通过
      *          false 验证不通过
@@ -39,25 +41,25 @@ public class StringUtil {
      * @return
      */
     public static String sqlType2JavaType(String sqlType){
-        if (sqlType.equalsIgnoreCase("bit")) {
+        if ("bit".equalsIgnoreCase(sqlType)) {
             return "Boolean";
-        } else if (sqlType.equalsIgnoreCase("tinyint")
-                || sqlType.equalsIgnoreCase("smallint")
-                || sqlType.equalsIgnoreCase("int")) {
+        } else if ("tinyint".equalsIgnoreCase(sqlType)
+                || "smallint".equalsIgnoreCase(sqlType)
+                || "int".equalsIgnoreCase(sqlType)) {
             return "Integer";
-        } else if (sqlType.equalsIgnoreCase("bigint")) {
+        } else if ("bigint".equalsIgnoreCase(sqlType)) {
             return "Long";
-        } else if (sqlType.equalsIgnoreCase("float")
-                || sqlType.equalsIgnoreCase("decimal")
-                || sqlType.equalsIgnoreCase("numeric")
-                || sqlType.equalsIgnoreCase("real")
-                || sqlType.equalsIgnoreCase("money")
-                || sqlType.equalsIgnoreCase("double")
-                || sqlType.equalsIgnoreCase("smallmoney")) {
+        } else if ("float".equalsIgnoreCase(sqlType)
+                || "decimal".equalsIgnoreCase(sqlType)
+                || "numeric".equalsIgnoreCase(sqlType)
+                || "real".equalsIgnoreCase(sqlType)
+                || "money".equalsIgnoreCase(sqlType)
+                || "double".equalsIgnoreCase(sqlType)
+                || "smallmoney".equalsIgnoreCase(sqlType)) {
             return "Double";
-        } else if (sqlType.equalsIgnoreCase("datetime")) {
+        } else if ("datetime".equalsIgnoreCase(sqlType)) {
             return "Date";
-        } else if (sqlType.equalsIgnoreCase("image")) {
+        } else if ("image".equalsIgnoreCase(sqlType)) {
             return "Blod";
         } else {
             return "String";
@@ -151,8 +153,8 @@ public class StringUtil {
      */
     public static String underlineToHump(String para){
         StringBuilder result=new StringBuilder();
-        String a[]=para.split("_");
-        for(String s:a){
+        String[] temp=para.split("_");
+        for(String s:temp){
             if (!para.contains("_")){
                 result.append(s);
                 continue;
@@ -173,7 +175,7 @@ public class StringUtil {
      */
     public static String humpToUnderline(String para){
         StringBuilder sb=new StringBuilder(para);
-        int temp=0;//定位
+        int temp=0;
         for(int i=0;i<para.length();i++){
             if(Character.isUpperCase(para.charAt(i))){
                 sb.insert(i+temp, "_");

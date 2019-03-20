@@ -259,7 +259,8 @@ public class DocHandle {
      * @return
      */
     private static StringBuffer requestParamsId(List<FieldInfo> fs){
-        String idType="string";//默认情况下，id为string类型
+        //默认情况下，id为string类型
+        String idType="string";
         for(FieldInfo f:fs){
             if ("id".equals(f.getFieldName())){
                 idType=StringUtil.sqlType2JavaType(f.getFieldType());
@@ -338,7 +339,8 @@ public class DocHandle {
                     sb.append("\t\""+f.getFieldName()+"\" : \"string\",\r\n");
             }
         }
-        sb.deleteCharAt(sb.lastIndexOf(","));//删除最后多的一个逗号
+        //删除最后多的一个逗号
+        sb.deleteCharAt(sb.lastIndexOf(","));
         sb.append("}\r\n");
         sb.append("```\r\n\r\n");
         return sb;
@@ -389,7 +391,8 @@ public class DocHandle {
                     sb.append("\t\t\t\""+f.getFieldName()+"\" : \"string\",\r\n");
             }
         }
-        sb.deleteCharAt(sb.lastIndexOf(","));//删除最后多的一个逗号
+        //删除最后多的一个逗号
+        sb.deleteCharAt(sb.lastIndexOf(","));
         sb.append("\t\t}\r\n");
         sb.append("\t]\r\n");
         sb.append("}\r\n");

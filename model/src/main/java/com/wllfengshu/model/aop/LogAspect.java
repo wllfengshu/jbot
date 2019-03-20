@@ -7,6 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * 日志的aop
+ * @author wllfengshu
+ */
 @Component
 @Aspect
 public class LogAspect {

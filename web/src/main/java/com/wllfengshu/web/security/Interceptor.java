@@ -35,7 +35,7 @@ public class Interceptor {
      *          true 通过
      */
     public static boolean checkProject(String deci){
-        if (null==deci || "".equals(deci) || deci.length()<2 || !StringUtil.checkWEU(deci) || black.contains(deci)){
+        if (StringUtil.isEmpty(deci) || deci.length()<2 || deci.length()>50 || !StringUtil.checkWEU(deci) || black.contains(deci)){
             return false;
         }
         return true;
@@ -48,7 +48,7 @@ public class Interceptor {
      *          true 通过
      */
     public static boolean checkPackage(String deci){
-        if (null==deci || "".equals(deci) || deci.length()<2 || !StringUtil.checkWD(deci) || black.contains(deci)){
+        if (StringUtil.isEmpty(deci) || deci.length()<2 || deci.length()>100 || !StringUtil.checkWD(deci) || black.contains(deci)){
             return false;
         }
         return true;

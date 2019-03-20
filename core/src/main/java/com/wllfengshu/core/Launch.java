@@ -1,5 +1,6 @@
 package com.wllfengshu.core;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.wllfengshu.common.entity.DBInfo;
 import com.wllfengshu.common.model.RequestModel;
 import com.wllfengshu.core.after.AfterHandle;
@@ -13,18 +14,25 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * 把model工程按照需求进行修改
+ * @author wllfengshu
  */
 public class Launch {
 
     private static Logger logger = LoggerFactory.getLogger(Launch.class);
     private static List<Future<Boolean>> futures = new ArrayList<>();
-    private static ExecutorService executorService = Executors.newFixedThreadPool(4);
+    private static ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
+    private static ExecutorService executorService = new ThreadPoolExecutor(
+                                                        5,
+                                                        50,
+                                                        5000L,
+                                                        TimeUnit.MILLISECONDS,
+                                                        new LinkedBlockingQueue<>(1024),
+                                                        namedThreadFactory,
+                                                        new ThreadPoolExecutor.AbortPolicy());
 
     public static boolean start(String projectName, String packageName, DBInfo dbInfo){
         logger.info("jbot core,Launch,start-------->dbInfo:%s,projectName:%s,packageName:%s",dbInfo,projectName,packageName);

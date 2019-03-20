@@ -85,31 +85,59 @@ fields | array | 是 | 字段的集合 |
           "fields": [
             {
               "fieldName": "id",
-              "fieldType": "int"
+              "fieldType": "int",
+              "columnComment": "ID",
+              "isNullable": "NO",
+              "columnType": "int(11)",
+              "columnKey": "PRI"
             },
             {
               "fieldName": "username",
-              "fieldType": "varchar"
+              "fieldType": "varchar",
+              "columnComment": "用户名",
+              "isNullable": "NO",
+              "columnType": "varchar(64)",
+              "columnKey": "PRI"
             },
             {
               "fieldName": "password",
-              "fieldType": "varchar"
+              "fieldType": "varchar",
+              "columnComment": "",
+              "isNullable": "YES",
+              "columnType": "varchar(255)",
+              "columnKey": ""
             },
             {
               "fieldName": "create_time",
-              "fieldType": "datetime"
+              "fieldType": "datetime",
+              "columnComment": "",
+              "isNullable": "YES",
+              "columnType": "datetime",
+              "columnKey": ""
             },
             {
               "fieldName": "update_time",
-              "fieldType": "datetime"
+              "fieldType": "datetime",
+              "columnComment": "",
+              "isNullable": "YES",
+              "columnType": "datetime",
+              "columnKey": ""
             },
             {
               "fieldName": "delete_time",
-              "fieldType": "datetime"
+              "fieldType": "datetime",
+              "columnComment": "",
+              "isNullable": "YES",
+              "columnType": "datetime",
+              "columnKey": ""
             },
             {
               "fieldName": "is_delete",
-              "fieldType": "int"
+              "fieldType": "int",
+              "columnComment": "",
+              "isNullable": "YES",
+              "columnType": "int(1)",
+              "columnKey": ""
             }
           ]
         }
@@ -177,32 +205,60 @@ msg | string | 否 | 错误信息 | 仅失败时有，成功直接返回“项�
             "tableName": "t_user",
             "fields": [
                 {
-                    "fieldName": "id",
-                    "fieldType": "int"
+                  "fieldName": "id",
+                  "fieldType": "int",
+                  "columnComment": "ID",
+                  "isNullable": "NO",
+                  "columnType": "int(11)",
+                  "columnKey": "PRI"
                 },
                 {
-                    "fieldName": "username",
-                    "fieldType": "varchar"
+                  "fieldName": "username",
+                  "fieldType": "varchar",
+                  "columnComment": "用户名",
+                  "isNullable": "NO",
+                  "columnType": "varchar(64)",
+                  "columnKey": "PRI"
                 },
                 {
-                    "fieldName": "password",
-                    "fieldType": "varchar"
+                  "fieldName": "password",
+                  "fieldType": "varchar",
+                  "columnComment": "",
+                  "isNullable": "YES",
+                  "columnType": "varchar(255)",
+                  "columnKey": ""
                 },
                 {
-                    "fieldName": "create_time",
-                    "fieldType": "datetime"
+                  "fieldName": "create_time",
+                  "fieldType": "datetime",
+                  "columnComment": "",
+                  "isNullable": "YES",
+                  "columnType": "datetime",
+                  "columnKey": ""
                 },
                 {
-                    "fieldName": "update_time",
-                    "fieldType": "datetime"
+                  "fieldName": "update_time",
+                  "fieldType": "datetime",
+                  "columnComment": "",
+                  "isNullable": "YES",
+                  "columnType": "datetime",
+                  "columnKey": ""
                 },
                 {
-                    "fieldName": "delete_time",
-                    "fieldType": "datetime"
+                  "fieldName": "delete_time",
+                  "fieldType": "datetime",
+                  "columnComment": "",
+                  "isNullable": "YES",
+                  "columnType": "datetime",
+                  "columnKey": ""
                 },
                 {
-                    "fieldName": "is_delete",
-                    "fieldType": "int"
+                  "fieldName": "is_delete",
+                  "fieldType": "int",
+                  "columnComment": "",
+                  "isNullable": "YES",
+                  "columnType": "int(1)",
+                  "columnKey": ""
                 }
             ]
         }

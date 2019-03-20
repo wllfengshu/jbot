@@ -18,7 +18,6 @@ public class DBInfo {
      */
     private List<TableInfo> tables = null;
 
-
     public String getDbName() {
         return dbName;
     }

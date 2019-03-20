@@ -36,7 +36,6 @@ public class ConnectInfo {
      */
     private String dbDriver = null;
 
-
     public String getDbIp() {
         return dbIp;
     }

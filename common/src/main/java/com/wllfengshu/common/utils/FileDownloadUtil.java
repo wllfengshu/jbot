@@ -37,8 +37,9 @@ public class FileDownloadUtil {
             byte[] buff = new byte[2048];
             while (true) {
                 int bytesRead;
-                if (-1 == (bytesRead = bis.read(buff, 0, buff.length)))
+                if (-1 == (bytesRead = bis.read(buff, 0, buff.length))) {
                     break;
+                }
                 bos.write(buff, 0, bytesRead);
             }
             logger.info("文件下载完成");

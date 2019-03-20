@@ -18,7 +18,6 @@ public class TableInfo {
      */
     private List<FieldInfo> fields = null;
 
-
     public String getTableName() {
         return tableName;
     }

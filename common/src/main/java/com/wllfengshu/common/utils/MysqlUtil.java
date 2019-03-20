@@ -11,7 +11,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * mysql工具类-获取指定数据库的表结构信息
+ * @author wllfengshu
+ */
 public class MysqlUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(MysqlUtil.class);
@@ -40,7 +43,8 @@ public class MysqlUtil {
 			Class.forName(connectInfo.getDbDriver());
 			conn = DriverManager.getConnection(url,connectInfo.getDbUsername(),connectInfo.getDbPassword());
 			stmt = conn.createStatement();
-			dbInfo.setDbName(connectInfo.getDbName());//设置数据库名
+			//设置数据库名
+			dbInfo.setDbName(connectInfo.getDbName());
 			//2 执行sql获取指定数据库中所有的表
 			String sql="SELECT `table_name` FROM information_schema.`tables` WHERE table_schema = '"+connectInfo.getDbName()+"' and table_type = 'base table'";
 			logger.info("get table info sql:{}",sql);
@@ -68,7 +72,8 @@ public class MysqlUtil {
 					fi.setIsNullable(rs.getString("isNullable"));
 					fis.add(fi);
 				}
-				ti.setFields(fis);//这里的ti是引用类型
+				//这里的ti是引用类型
+				ti.setFields(fis);
 			}
 			dbInfos.add(dbInfo);
 		}catch (Exception e){

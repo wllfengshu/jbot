@@ -33,7 +33,7 @@ public class JbotServiceImpl implements JbotService {
 
 	@Override
 	public Map<String, Object> settingProject(ConnectInfo connectInfo){
-		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<>(16);
 		//获取数据库中的表信息
 		if (!"localhost".equals(connectInfo.getDbIp()) && !"127.0.0.1".equals(connectInfo.getDbIp())){
 			result.put("data", MysqlUtil.getDBInfo(connectInfo));
@@ -46,7 +46,7 @@ public class JbotServiceImpl implements JbotService {
 
 	@Override
 	public Map<String, Object> produceProject(String projectName, String packageName, DBInfo dbInfo, HttpServletResponse response){
-		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> result = new HashMap<>(16);
 		//检测projectName和packageName不能是特殊字符串
 		if (!Interceptor.checkProject(projectName)){
 			response.setStatus(410);

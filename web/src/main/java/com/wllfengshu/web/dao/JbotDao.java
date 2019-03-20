@@ -11,5 +11,10 @@ import java.util.List;
  */
 @Repository
 public interface JbotDao {
+	/**
+	 * 获取指定数据库中表结构
+	 * @param dbName
+	 * @return
+	 */
 	List<DBInfo> getDBInfo(String dbName);
 }

@@ -13,6 +13,20 @@ import java.util.Map;
  */
 @Service
 public interface JbotService {
+	/**
+	 * 设置数据库连接信息
+	 * @param connectInfo
+	 * @return
+	 */
 	Map<String, Object> settingProject(ConnectInfo connectInfo);
+
+	/**
+	 * 生成目标项目
+	 * @param projectName
+	 * @param packageName
+	 * @param dbInfo
+	 * @param response
+	 * @return
+	 */
 	Map<String, Object> produceProject(String projectName, String packageName, DBInfo dbInfo, HttpServletResponse response);
 }

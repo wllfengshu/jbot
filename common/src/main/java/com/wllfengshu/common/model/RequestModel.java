@@ -73,7 +73,6 @@ public class RequestModel {
      */
     private String docPath;
 
-
     /**
      * 待生成项目java文件夹所在路径，eg:/home/listen/Apps/dns/src/main/java
      */

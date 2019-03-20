@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 自定义异常的handler
+ * @author wllfengshu
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

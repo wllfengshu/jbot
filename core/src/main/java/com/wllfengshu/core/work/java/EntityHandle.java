@@ -69,7 +69,8 @@ public class EntityHandle {
             sb.append("\t/**\r\n");
             sb.append("\t * "+field.getColumnComment()+"\r\n");
             sb.append("\t */\r\n");
-            if ("id".equals(field.getFieldName())){//如果是id，则默认为主键
+            //如果是id，则默认为主键
+            if ("id".equals(field.getFieldName())){
                 sb.append("\t@Id\r\n");
             }
             if ("Date".equals(StringUtil.sqlType2JavaType(field.getFieldType()))){

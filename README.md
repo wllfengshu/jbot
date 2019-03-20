@@ -135,4 +135,9 @@ AngularJS | JS框架
 
 ![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genMarkdown.jpg)
 
+- 生成的项目示例
+
+[https://github.com/wllfengshu/jbot-dnc](https://github.com/wllfengshu/jbot-dnc "生成项目示例")
+
+
 ## jbot相关博客

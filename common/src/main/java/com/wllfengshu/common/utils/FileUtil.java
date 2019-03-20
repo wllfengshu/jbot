@@ -126,11 +126,11 @@ public class FileUtil {
                 return;
             }
             for (int i = 0; i < filePath.length; i++) {
-                if ((new File(sourcePath + file.separator + filePath[i])).isDirectory()) {
-                    copyDir(sourcePath + file.separator + filePath[i], newPath + file.separator + filePath[i]);
+                if ((new File(sourcePath + File.separator + filePath[i])).isDirectory()) {
+                    copyDir(sourcePath + File.separator + filePath[i], newPath + File.separator + filePath[i]);
                 }
-                if (new File(sourcePath + file.separator + filePath[i]).isFile()) {
-                    copyFile(sourcePath + file.separator + filePath[i], newPath + file.separator + filePath[i]);
+                if (new File(sourcePath + File.separator + filePath[i]).isFile()) {
+                    copyFile(sourcePath + File.separator + filePath[i], newPath + File.separator + filePath[i]);
                 }
             }
         }catch (Exception e){
