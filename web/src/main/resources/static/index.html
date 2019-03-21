@@ -16,20 +16,20 @@
 		</div>
 		<div id="step1" style="background-color: #FFFFCC;width: 100%;height: 100%;">
 			<h2>步骤一：设置项目名</h2>
-			<a style="color: red;">注：项目名必须大于1个字符，不能以数字开头。例如：jbot</a>
+			<a style="color: red;">注：以字母开头，只允许字母、数字、-连字符、_下划线，不能以-和_结尾，长度大于1小于50。例如：jbot</a>
 			<div class="control-group form-horizontal" >
 				<label class="control-label" for="projectName">请输入项目名：</label>
 				<div class="controls">
-					<input id="projectName" type="text" placeholder="字母、数字、下划线、中划线" class="input-xlarge">
+					<input id="projectName" type="text" placeholder="项目名" class="input-xlarge">
 				</div>
 			</div>
 			<div id="step2" style="background-color: #CCFFFF;width: 100%;height: 100%;">
-				<a style="color: red;">注：包名必须大于1个字符，各个部分都不能以数字开头，不能以“点”结尾，不能含有除“点”外的其他特殊字符。例如：com.wllfengshu</a>
 				<h2>步骤二：设置包名</h2>
+				<a style="color: red;">注：以字母开头，只允许字母、数字、点，不能以点结尾，长度大于1小于100；子包都不能以数字开头，子包不能超过10层。例如：com.wllfengshu</a>
 				<div class="control-group form-horizontal" >
 					<label class="control-label" for="packageName">请输入包名：</label>
 					<div class="controls">
-						<input id="packageName" type="text" placeholder="字母、点、不含项目名" class="input-xlarge">
+						<input id="packageName" type="text" placeholder="包名，不含项目名" class="input-xlarge">
 					</div>
 				</div>
 				<div id="step3" style="background-color: #FFCCCC;width: 100%;height: 100%;">
@@ -206,10 +206,10 @@
                     function(_data,_status) {
                         switch (_status){
 							case 410:
-                                alert("项目名不能为关键字");
+                                alert("项目名不符合规范");
                                 break;
                             case 411:
-                                alert("包名不能为关键字");
+                                alert("包名不符合规范");
                                 break;
                             default:
                                 alert("生成项目失败，请稍后重试...");

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 日志的aop
- * @author wllfengshu
+ * @author
  */
 @Component
 @Aspect

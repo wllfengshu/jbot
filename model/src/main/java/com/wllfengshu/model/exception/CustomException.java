@@ -2,7 +2,7 @@ package com.wllfengshu.model.exception;
 
 /**
  * 自定义异常
- * @author wllfengshu
+ * @author
  */
 public class CustomException extends Exception {
 

@@ -29,26 +29,26 @@ public class Interceptor {
     }
 
     /**
-     * 检查project
+     * 检查project(只能使用字母、数字、中划线、下划线，不超过50个字符)
      * @param deci
      * @return false 不通过
      *          true 通过
      */
     public static boolean checkProject(String deci){
-        if (StringUtil.isEmpty(deci) || deci.length()<2 || deci.length()>50 || !StringUtil.checkWEU(deci) || black.contains(deci)){
+        if (StringUtil.isEmpty(deci) || deci.length()<2 || deci.length()>50 || !StringUtil.checkProjectName(deci) || black.contains(deci)){
             return false;
         }
         return true;
     }
 
     /**
-     * 检查package(只能使用字母、点，不超过100个字符)
+     * 检查package(只能使用字母、数字、点，不超过100个字符)
      * @param deci
      * @return false 不通过
      *          true 通过
      */
     public static boolean checkPackage(String deci){
-        if (StringUtil.isEmpty(deci) || deci.length()<2 || deci.length()>100 || !StringUtil.checkWD(deci) || black.contains(deci)){
+        if (StringUtil.isEmpty(deci) || deci.length()<2 || deci.length()>100 || !StringUtil.checkPackageName(deci) || black.contains(deci)){
             return false;
         }
         return true;

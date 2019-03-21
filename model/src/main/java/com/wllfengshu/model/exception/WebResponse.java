@@ -2,7 +2,7 @@ package com.wllfengshu.model.exception;
 
 /**
  * web请求的响应
- * @author wllfengshu
+ * @author
  */
 public class WebResponse {
 

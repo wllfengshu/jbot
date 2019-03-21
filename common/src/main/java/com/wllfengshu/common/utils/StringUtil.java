@@ -16,24 +16,40 @@ public class StringUtil {
 
     /**
      * 判断字符串：
-     *     以字母开头，只允许字母、数字、-连字符、_下划线，不能以-和_结尾
+     *     以字母开头，只允许字母、数字、-连字符、_下划线，不能以-和_结尾，长度大于1小于100
      * @param str
      * @return true 验证通过
      *          false 验证不通过
      */
-    public static boolean checkWEU(String str){
-        return str.matches("^[a-zA-Z0-9][\\w-_]{0,50}$");
+    public static boolean checkProjectName(String str){
+        return str.matches("^[a-zA-Z][a-zA-Z-_\\d]*[a-zA-Z\\d]{1,100}$");
     }
 
     /**
      * 判断字符串：
-     *     以字母开头，只允许字母、数字、点，不能以点结尾
+     *     以字母开头，只允许字母、数字、点，各个部分都不能以数字开头，不能以点结尾，长度大于1小于100
      * @param str
      * @return true 验证通过
      *          false 验证不通过
      */
-    public static boolean checkWD(String str){
-        return str.matches("^[a-zA-Z0-9][\\w.]{1,99}$");
+    public static boolean checkPackageName(String str){
+        //1 验证以字母开头，只允许字母、数字、点，不能以点结尾，长度大于1小于100
+        if(!str.matches("^[a-zA-Z][a-zA-Z\\.\\d]*[a-zA-Z\\d]{1,100}$")){
+            return false;
+        }
+        //2 验证各个部分
+        String[] splits = str.split("\\.");
+        //2.1 子部分不能超过10层
+        if (splits.length<1 || splits.length>10){
+            return false;
+        }
+        for(String s:splits){
+            //2.2 必须以字母开头，只允许字母、数字，长度大于0
+            if (!s.matches("^[a-zA-Z][a-zA-Z\\d]{0,50}$")){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -135,7 +151,7 @@ public class StringUtil {
     /**
      * 把字符串按正则表达式分割，转为list
      * @param listStr
-     * @param regex
+     * @param regex 注意：这里需要转义，eg: 双斜线 \\.
      * @return
      */
     public static List<String> stringToList(String listStr,String regex){
