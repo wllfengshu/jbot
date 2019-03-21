@@ -34,7 +34,7 @@ public class FileZipUtil {
                     out.close();
                 }
             }catch (Exception e){
-
+                e.printStackTrace();
             }
         }
         logger.info("文件压缩完毕");

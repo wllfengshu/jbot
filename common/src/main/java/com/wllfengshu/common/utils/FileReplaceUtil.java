@@ -27,6 +27,10 @@ public class FileReplaceUtil {
             return;
         }
         File file = new File(filePath);
+        if (!file.exists()){
+            logger.error("待替换文件不存在，filePath:{}",filePath);
+            return;
+        }
         Long fileLength = file.length();
         byte[] fileContext = new byte[fileLength.intValue()];
         FileInputStream in = null;

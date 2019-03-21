@@ -29,6 +29,10 @@ public class FileDownloadUtil {
         BufferedOutputStream bos = null;
         try {
             File file = new File(fileName);
+            if (!file.exists()){
+                logger.error("待下载文件不存在，fileName:{}",fileName);
+                return;
+            }
             response.setCharacterEncoding("UTF-8");
             response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
             response.setHeader("Content-Length", String.valueOf(file.length()));
