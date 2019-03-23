@@ -12,8 +12,8 @@ DIR=logs/"$ImageName"$(hostname)
 mkdir -p $DIR
 cd $DIR
 
-echo 'jbot back starting...'
+echo 'jbot web back starting...'
 
 export LANG=zh_CN.UTF-8
 export instanceId=$hostname
-java -Dfile.encoding=UTF8 -jar /home/listen/Apps/jbot-0.0.1-SNAPSHOT.jar
+java -Dfile.encoding=UTF8 -jar /home/listen/Apps/web-0.0.1-SNAPSHOT.jar
