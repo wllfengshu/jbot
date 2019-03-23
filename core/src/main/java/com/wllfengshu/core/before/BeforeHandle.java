@@ -90,23 +90,28 @@ public class BeforeHandle {
     }
 
     private static void copyConfFile(String projectPath){
-        String[] fileName={"Dockerfile","pom.xml","README.md","startup.sh"};
+        String[] fileName={"/Dockerfile","/pom.xml","/README.md","/startup.sh"};
         for (String f:fileName) {
-            FileUtil.copyFile(Collective.MODEL_PROJECT_HOME+"/"+f,projectPath+"/"+f);
+            FileUtil.copyFile(Collective.MODEL_PROJECT_HOME+f,projectPath+"/"+f);
         }
     }
 
     private static void copyConfDir(String packageBasePath){
-        String[] fileName={"configs","utils","exception","aop"};
+        String[] fileName={"/configs/Swagger2Config.java",
+                           "/utils/MyMapper.java",
+                           "/exception/CustomException.java",
+                           "/exception/GlobalExceptionHandler.java",
+                           "/exception/WebResponse.java",
+                           "/aop/LogAspect.java"};
         for (String f:fileName) {
-            FileUtil.copyDir(Collective.MODEL_PROJECT_HOME_JAVA_PACKAGE_BASE+"/"+f,packageBasePath+"/"+f);
+            FileUtil.copyFile(Collective.MODEL_PROJECT_HOME_JAVA_PACKAGE_BASE+f,packageBasePath+"/"+f);
         }
     }
 
     private static void copyResource(String resourcesPath){
-        String[] fileName={"logback.xml","application.yml"};
+        String[] fileName={"/logback.xml","/application.yml"};
         for (String f:fileName) {
-            FileUtil.copyFile(Collective.MODEL_PROJECT_HOME_RESOURCES+"/"+f,resourcesPath+"/"+f);
+            FileUtil.copyFile(Collective.MODEL_PROJECT_HOME_RESOURCES+f,resourcesPath+"/"+f);
         }
     }
 

@@ -2,9 +2,7 @@ package com.wllfengshu.web.security;
 
 import com.wllfengshu.common.utils.FileUtil;
 import com.wllfengshu.common.utils.StringUtil;
-import org.springframework.util.ClassUtils;
 
-import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +20,7 @@ public class Interceptor {
             black.addAll(Arrays.asList(
                     "java","model","xml"
             ));
-            black.addAll(FileUtil.readFile2Set(URLDecoder.decode(ClassUtils.getDefaultClassLoader().getResource("public/javaKeys").getPath(),"UTF-8")));
+            black.addAll(FileUtil.readFile2Set("public/javaKeys"));
         }catch (Exception e){
             e.printStackTrace();
         }

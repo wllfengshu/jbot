@@ -24,9 +24,9 @@ public class Collective {
     public static final String MODEL_PACKAGE_NAME = "com.wllfengshu";
 
     /**
-     * 模板项目根路径，eg:./model
+     * 模板项目根路径，eg:/model
      */
-    public static final String MODEL_PROJECT_HOME = "./"+MODEL_PROJECT_NAME;
+    public static final String MODEL_PROJECT_HOME = "public/"+MODEL_PROJECT_NAME;
 
     /**
      * 模板项目java文件夹路径，eg:./model/src/main/java

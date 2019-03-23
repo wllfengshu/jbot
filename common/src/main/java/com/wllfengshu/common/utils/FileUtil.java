@@ -2,6 +2,8 @@ package com.wllfengshu.common.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,21 +21,23 @@ public class FileUtil {
      * 把文件读到List中
      *       注意：1、一行只允许一个字符串；
      *             2、以#开头的字符串将被忽略；
-     * @param input
+     * @param fileName
      * @return
      */
-    public static List readFile2Set(String input){
-        logger.info("开始把文件读到List中，inputFileName:{}",input);
+    public static List readFile2Set(String fileName){
+        logger.info("开始把文件读到List中，fileName:{}",fileName);
         ArrayList<String> items = new ArrayList<>();
-        File file = new File(input);
-        if (!file.exists()){
-            logger.error("把文件读到List中时，文件不存在");
+        Resource resource = new ClassPathResource(fileName);
+        if (!resource.exists()){
+            logger.error("把文件读到List中时，资源文件不存在");
             return items;
         }
-        FileReader reader = null;
+        InputStream input = null;
+        Reader reader = null;
         BufferedReader br = null;
         try {
-            reader = new FileReader(file);
+            input = resource.getInputStream();
+            reader = new InputStreamReader(input, "UTF-8");
             br = new BufferedReader(reader);
             String temp = null;
             while (null != (temp = br.readLine())) {
@@ -45,11 +49,14 @@ public class FileUtil {
             e.printStackTrace();
         }finally{
             try {
+                if (br != null){
+                    br.close();
+                }
                 if (reader != null){
                     reader.close();
                 }
-                if (br != null){
-                    br.close();
+                if (input != null){
+                    input.close();
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -112,47 +119,20 @@ public class FileUtil {
     }
 
     /**
-     * 复制文件夹
-     * @param sourcePath
-     * @param newPath
-     */
-    public static void copyDir(String sourcePath, String newPath) {
-        try {
-            File file = new File(sourcePath);
-            String[] filePath = file.list();
-            if (!(new File(newPath)).exists()) {
-                (new File(newPath)).mkdir();
-            }
-            if (filePath == null){
-                return;
-            }
-            for (int i = 0; i < filePath.length; i++) {
-                if ((new File(sourcePath + File.separator + filePath[i])).isDirectory()) {
-                    copyDir(sourcePath + File.separator + filePath[i], newPath + File.separator + filePath[i]);
-                }
-                if (new File(sourcePath + File.separator + filePath[i]).isFile()) {
-                    copyFile(sourcePath + File.separator + filePath[i], newPath + File.separator + filePath[i]);
-                }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 复制文件
      * @param oldPath
      * @param newPath
      */
     public static void copyFile(String oldPath, String newPath) {
-        FileInputStream in = null;
+        logger.info("开始复制文件，oldPath:{},newPath:{}",oldPath,newPath);
+        Resource resource = new ClassPathResource(oldPath);
+        if (!resource.exists()){
+            logger.error("复制文件时，资源文件不存在");
+            return;
+        }
+        InputStream input = null;
         FileOutputStream out = null;
         try {
-            File oldFile = new File(oldPath);
-            if (!oldFile.exists()){
-                logger.error("待复制文件不存在，oldFilePath:{}",oldPath);
-                return;
-            }
             File file = new File(newPath);
             if (file.getParentFile()!=null && !file.getParentFile().exists()){
                 file.getParentFile().mkdirs();
@@ -160,11 +140,11 @@ public class FileUtil {
             if (!file.exists()){
                 file.createNewFile();
             }
-            in = new FileInputStream(oldFile);
+            input = resource.getInputStream();
             out = new FileOutputStream(file);
             byte[] buffer = new byte[2048];
             int readByte = 0;
-            while ((readByte = in.read(buffer)) != -1) {
+            while ((readByte = input.read(buffer)) != -1) {
                 out.write(buffer, 0, readByte);
             }
         }catch (Exception e){
@@ -174,8 +154,8 @@ public class FileUtil {
                 if (out != null){
                     out.close();
                 }
-                if (in != null){
-                    in.close();
+                if (input != null){
+                    input.close();
                 }
             }catch (Exception e1){
                 e1.printStackTrace();
