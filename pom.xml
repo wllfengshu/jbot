@@ -17,7 +17,6 @@
     <modules>
         <module>core</module>
         <module>web</module>
-        <module>model</module>
         <module>common</module>
     </modules>
 
