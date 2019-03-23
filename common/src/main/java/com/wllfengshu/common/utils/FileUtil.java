@@ -46,7 +46,7 @@ public class FileUtil {
                 }
             }
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("把文件读到List中时异常",e);
         }finally{
             try {
                 if (br != null){
@@ -59,7 +59,7 @@ public class FileUtil {
                     input.close();
                 }
             }catch (Exception e){
-                e.printStackTrace();
+                logger.error("把文件读到List中时异常 finally",e);
             }
         }
         logger.info("文件读到List中完毕");
@@ -86,7 +86,7 @@ public class FileUtil {
             bw = new BufferedWriter(fw);
             bw.write(content);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("创建文件异常",e);
         }finally {
             try{
                 if (bw != null){
@@ -96,7 +96,7 @@ public class FileUtil {
                     fw.close();
                 }
             }catch (Exception e){
-                e.printStackTrace();
+                logger.error("创建文件异常",e);
             }
         }
     }
@@ -148,7 +148,7 @@ public class FileUtil {
                 out.write(buffer, 0, readByte);
             }
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("复制文件异常",e);
         }finally {
             try {
                 if (out != null){
@@ -157,8 +157,8 @@ public class FileUtil {
                 if (input != null){
                     input.close();
                 }
-            }catch (Exception e1){
-                e1.printStackTrace();
+            }catch (Exception e){
+                logger.error("复制文件异常",e);
             }
         }
     }

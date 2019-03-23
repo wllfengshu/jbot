@@ -48,7 +48,7 @@ public class FileDownloadUtil {
             }
             logger.info("文件下载完成");
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("下载文件异常",e);
         }finally {
             try {
                 if (bis != null){
@@ -58,7 +58,7 @@ public class FileDownloadUtil {
                     bos.close();
                 }
             }catch (Exception e){
-                e.printStackTrace();
+                logger.error("下载文件异常 finally",e);
             }
         }
     }

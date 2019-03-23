@@ -77,7 +77,7 @@ public class MysqlUtil {
 			}
 			dbInfos.add(dbInfo);
 		}catch (Exception e){
-			e.printStackTrace();
+			logger.error("从用户数据库中获取表信息异常",e);
 		}finally {
 			//4 关闭连接
 			try {
@@ -91,7 +91,7 @@ public class MysqlUtil {
 					conn.close();
 				}
 			}catch (Exception e){
-				e.printStackTrace();
+				logger.error("从用户数据库中获取表信息异常 finally",e);
 			}
 		}
 		logger.info("从用户数据库中获取数据完毕");

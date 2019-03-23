@@ -27,14 +27,14 @@ public class FileZipUtil {
             out = new ZipOutputStream(new FileOutputStream(zipFileName));
             zip(out,new File(inputFile),"");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("压缩文件异常",e);
         } finally {
             try {
                 if (out != null){
                     out.close();
                 }
             }catch (Exception e){
-                e.printStackTrace();
+                logger.error("压缩文件异常",e);
             }
         }
         logger.info("文件压缩完毕");
@@ -59,14 +59,14 @@ public class FileZipUtil {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("zip 异常",e);
         }finally{
             try {
                 if (in != null) {
                     in.close();
                 }
-            } catch (Exception e2) {
-                e2.printStackTrace();
+            } catch (Exception e) {
+                logger.error("zip 异常 finally",e);
             }
         }
     }

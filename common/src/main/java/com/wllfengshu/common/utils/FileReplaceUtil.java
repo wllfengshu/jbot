@@ -24,6 +24,7 @@ public class FileReplaceUtil {
     public static void replace(String filePath,String[] oldStr,String[] newStr){
         logger.info("开始替换文件内容，fielPath:{},oldStr size:{},newStr size:{}",filePath,oldStr.length,newStr.length);
         if (oldStr.length>newStr.length){
+            logger.error("oldStr元素个数:{}必须小于等于newStr:{}",oldStr.length,newStr.length);
             return;
         }
         File file = new File(filePath);
@@ -45,7 +46,7 @@ public class FileReplaceUtil {
             out = new PrintWriter(filePath);
             out.write(str);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("替换文件内容异常",e);
         } finally {
             try {
                 if (out != null) {
@@ -56,7 +57,7 @@ public class FileReplaceUtil {
                     in.close();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("替换文件内容异常 finally",e);
             }
         }
         logger.info("文件替换完成");

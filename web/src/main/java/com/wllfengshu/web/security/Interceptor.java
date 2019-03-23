@@ -2,6 +2,8 @@ package com.wllfengshu.web.security;
 
 import com.wllfengshu.common.utils.FileUtil;
 import com.wllfengshu.common.utils.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,6 +15,7 @@ import java.util.Set;
  */
 public class Interceptor {
 
+    private static Logger logger = LoggerFactory.getLogger(Interceptor.class);
     private static Set<String> black = new HashSet<>();
 
     static {
@@ -22,7 +25,7 @@ public class Interceptor {
             ));
             black.addAll(FileUtil.readFile2Set("public/javaKeys"));
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("对项目名、包名进行过滤异常",e);
         }
     }
 
