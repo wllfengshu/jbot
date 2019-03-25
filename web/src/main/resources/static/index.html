@@ -38,37 +38,31 @@
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbIp">请输入IP：</label>
 						<div class="controls">
-							<input id="dbIp" value="127.0.0.1" type="text" placeholder="例如：127.0.0.1" class="input-xlarge">
+							<input ng-model="dbIp" id="dbIp" value="127.0.0.1" type="text" placeholder="例如：127.0.0.1" class="input-xlarge">
 						</div>
 					</div>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbPort">请输入端口：</label>
 						<div class="controls">
-							<input id="dbPort" value="3306" type="text" placeholder="例如：3306" class="input-xlarge">
+							<input ng-model="dbPort" id="dbPort" value="3306" type="text" placeholder="例如：3306" class="input-xlarge">
 						</div>
 					</div>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbName">请输入数据库名：</label>
 						<div class="controls">
-							<input id="dbName" value="test" type="text" placeholder="例如：user" class="input-xlarge">
+							<input ng-model="dbName" id="dbName" value="test" type="text" placeholder="例如：test" class="input-xlarge">
 						</div>
 					</div>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbUsername">请输入数据库用户名：</label>
 						<div class="controls">
-							<input id="dbUsername" value="root" type="text" placeholder="例如：root" class="input-xlarge">
+							<input ng-model="dbUsername" id="dbUsername" value="root" type="text" placeholder="例如：root" class="input-xlarge">
 						</div>
 					</div>
 					<div class="control-group form-horizontal" >
 						<label class="control-label" for="dbPassword">请输入数据库密码：</label>
 						<div class="controls">
-							<input id="dbPassword" value="root" type="text" placeholder="例如：root" class="input-xlarge">
-						</div>
-					</div>
-					<div class="control-group form-horizontal" >
-						<label class="control-label" for="dbDriver">请输入数据库驱动名：</label>
-						<div class="controls">
-							<input id="dbDriver" value="com.mysql.jdbc.Driver" type="text" placeholder="例如：com.mysql.jdbc.Driver" class="input-xlarge">
+							<input ng-model="dbPassword" id="dbPassword" value="root" type="text" placeholder="例如：root" class="input-xlarge">
 						</div>
 					</div>
 					<div id="step4" style="background-color: #99CCCC;width: 100%;height: 100%;">
@@ -119,15 +113,32 @@
 	<script type="text/javascript">
 		var app=angular.module('jbot',[]);
 		app.controller('jbotController',function($scope,$http){
+		    //初始化项目
+            $http.get(
+                '/jbot/init'
+            ).success(
+                function(_data){
+                    var _dbInfo = _data["data"];
+					$scope.dbIp=_dbInfo["dbIp"];
+                    $scope.dbPort=_dbInfo["dbPort"];
+                    $scope.dbName=_dbInfo["dbName"];
+                    $scope.dbUsername=_dbInfo["dbUsername"];
+                    $scope.dbPassword=_dbInfo["dbPassword"];
+                }
+            ).error(
+                function() {
+                    alert("系统异常，请稍后重试...");
+                }
+            );
+
 			//设置项目
 			$scope.settingProjectFun=function(){
 				var _connectInfo = {
-		    		dbIp: $("#dbIp").val(),
-	    			dbPort: $("#dbPort").val(),
-	    			dbName: $("#dbName").val(),
-	    			dbUsername: $("#dbUsername").val(),
-	    			dbPassword: $("#dbPassword").val(),
-	    			dbDriver: $("#dbDriver").val()
+		    		dbIp: $scope.dbIp,
+	    			dbPort: $scope.dbPort,
+	    			dbName: $scope.dbName,
+	    			dbUsername: $scope.dbUsername,
+	    			dbPassword: $scope.dbPassword
 	    		};
 	    		$http.post(
    					'/jbot/setting',
@@ -171,7 +182,7 @@
 			$scope.produceProjectFun=function(){
 				var _projectName=$("#projectName").val();
 				var _packageName=$("#packageName").val();
-				var _dbName=$("#dbName").val();
+				var _dbName=$scope.dbName;
 				if(!_projectName){
 					alert("项目名不能为空");
 					return;

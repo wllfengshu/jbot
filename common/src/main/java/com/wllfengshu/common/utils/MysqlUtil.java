@@ -40,7 +40,7 @@ public class MysqlUtil {
 					+"/"
 					+connectInfo.getDbName()
 					+"?useUnicode=true&autoReconnect=true&characterEncoding=UTF-8";
-			Class.forName(connectInfo.getDbDriver());
+			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(url,connectInfo.getDbUsername(),connectInfo.getDbPassword());
 			stmt = conn.createStatement();
 			//设置数据库名
@@ -100,7 +100,6 @@ public class MysqlUtil {
 
 	public static void main(String[] args) {
 		ConnectInfo c = new ConnectInfo();
-		c.setDbDriver("com.mysql.jdbc.Driver");
 		c.setDbIp("localhost");
 		c.setDbName("test");
 		c.setDbPassword("");

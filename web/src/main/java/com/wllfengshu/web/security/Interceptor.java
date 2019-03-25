@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 对项目名、包名进行过滤
+ * 参数检测
  * @author wllfengshu
  */
 public class Interceptor {
@@ -54,4 +54,19 @@ public class Interceptor {
         }
         return true;
     }
+
+    /**
+     * 检查数据库端口(0到65535的整数)
+     * @param dbPort
+     * @return false 不通过
+     *          true 通过
+     */
+    public static boolean checkDbPort(String dbPort){
+        if (Integer.valueOf(dbPort)>0 && Integer.valueOf(dbPort)<65535){
+            return true;
+        }
+        return false;
+    }
+
+
 }

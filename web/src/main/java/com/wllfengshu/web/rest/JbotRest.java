@@ -25,17 +25,32 @@ public class JbotRest {
     private JbotService jbotService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    @ApiOperation(value = "初始化项目",httpMethod = "GET")
+    @ApiResponses({
+            @ApiResponse(code=400, message="IllegalParam"),
+            @ApiResponse(code=401, message="获取服务器数据库配置失败")
+    })
+    @RequestMapping(value = "/init",method = RequestMethod.GET)
+    public Map<String, Object> initProject(
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        logger.info("JbotRest,init");
+        return jbotService.initProject();
+    }
+
     @ApiOperation(value = "设置项目",httpMethod = "POST")
     @ApiResponses({
-            @ApiResponse(code=400, message="IllegalParam")
+            @ApiResponse(code=400, message="IllegalParam"),
+            @ApiResponse(code=411, message="数据库端口不合法"),
+            @ApiResponse(code=412, message="获取数据库表结构失败")
     })
     @RequestMapping(value = "/setting",method = RequestMethod.POST)
     public Map<String, Object> settingProject(
-            @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）注：暂且不可自定义数据库信息",required = true) ConnectInfo connectInfo,
+            @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）",required = true) ConnectInfo connectInfo,
             HttpServletRequest request,
             HttpServletResponse response) {
         logger.info("JbotRest,getTableFromDB-------->connectInfo:{}",connectInfo);
-        return jbotService.settingProject(connectInfo);
+        return jbotService.settingProject(connectInfo, response);
     }
 
     @ApiOperation(value = "生成项目",httpMethod = "POST")
@@ -45,8 +60,9 @@ public class JbotRest {
     })
     @ApiResponses({
             @ApiResponse(code=400, message="IllegalParam"),
-            @ApiResponse(code=410, message="project name Illegal"),
-            @ApiResponse(code=411, message="package name Illegal"),
+            @ApiResponse(code=421, message="项目名不合法"),
+            @ApiResponse(code=422, message="包名不合法"),
+            @ApiResponse(code=423, message="生成项目失败")
     })
     @RequestMapping(value = "/produce",method = RequestMethod.POST)
     public Map<String, Object> produceProject(
@@ -56,6 +72,6 @@ public class JbotRest {
             HttpServletRequest request,
             HttpServletResponse response) {
         logger.info("JbotRest,produceProject-------->dbInfo:{},projectName:{},packageName:{}",dbInfo,projectName,packageName);
-        return jbotService.produceProject(projectName, packageName, dbInfo,response);
+        return jbotService.produceProject(projectName, packageName, dbInfo, response);
     }
 }

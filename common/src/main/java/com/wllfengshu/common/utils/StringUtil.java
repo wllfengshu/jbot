@@ -1,8 +1,10 @@
 package com.wllfengshu.common.utils;
 
+import com.wllfengshu.common.entity.ConnectInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -201,4 +203,43 @@ public class StringUtil {
         return sb.toString().toUpperCase();
     }
 
+    /**
+     * 获取服务器ip
+     * @return
+     */
+    public static String getServerIp(){
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        }catch (Exception e){
+            logger.error("获取服务器ip异常");
+        }
+        return null;
+    }
+
+    /**
+     * 获取服务器配置的数据库信息
+     * @return
+     */
+    public static ConnectInfo getServerDbConnect(){
+        ConnectInfo ci = new ConnectInfo();
+        String dbUrl = System.getenv("db_url");
+        //1 截取出ip:port/dbName
+        String temp = dbUrl.substring("jdbc:mysql://".length(),
+                                            dbUrl.contains("?")?dbUrl.indexOf("?"):dbUrl.length());
+        //2 分离ip(如果环境变量中是本地ip，则使用服务器ip)
+        String[] ipPortDb = temp.split(":");
+        if ("localhost".equals(ipPortDb[0])
+            || "127.0.0.1".equals(ipPortDb[0])){
+            ci.setDbIp(StringUtil.getServerIp());
+        }else {
+            ci.setDbIp(ipPortDb[0]);
+        }
+        //3 分离port和dbName
+        String[] portDb = ipPortDb[1].split("/");
+        ci.setDbPort(portDb[0]);
+        ci.setDbName(portDb[1]);
+        ci.setDbUsername(System.getenv("db_username"));
+        ci.setDbPassword(System.getenv("db_password"));
+        return ci;
+    }
 }

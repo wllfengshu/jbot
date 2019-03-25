@@ -13,18 +13,25 @@ import java.util.Map;
  */
 @Service
 public interface JbotService {
+
 	/**
-	 * 设置数据库连接信息
-	 * @param connectInfo
+	 * 初始化
 	 * @return
 	 */
-	Map<String, Object> settingProject(ConnectInfo connectInfo);
+	Map<String, Object> initProject();
+
+	/**
+	 * 设置数据库连接信息
+	 * @param connectInfo 用户自定义数据库连接信息
+	 * @return
+	 */
+	Map<String, Object> settingProject(ConnectInfo connectInfo, HttpServletResponse response);
 
 	/**
 	 * 生成目标项目
-	 * @param projectName
-	 * @param packageName
-	 * @param dbInfo
+	 * @param projectName 项目名
+	 * @param packageName 包名
+	 * @param dbInfo 数据库实体类（选择的表的集合）
 	 * @param response
 	 * @return
 	 */

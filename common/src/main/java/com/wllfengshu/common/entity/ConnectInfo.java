@@ -31,11 +31,6 @@ public class ConnectInfo {
      */
     private String dbPassword = null;
 
-    /**
-     * 数据库driver
-     */
-    private String dbDriver = null;
-
     public String getDbIp() {
         return dbIp;
     }
@@ -76,14 +71,6 @@ public class ConnectInfo {
         this.dbPassword = dbPassword;
     }
 
-    public String getDbDriver() {
-        return dbDriver;
-    }
-
-    public void setDbDriver(String dbDriver) {
-        this.dbDriver = dbDriver;
-    }
-
     @Override
     public String toString() {
         return "ConnectInfo{" +
@@ -92,7 +79,6 @@ public class ConnectInfo {
                 ", dbName='" + dbName + '\'' +
                 ", dbUsername='" + dbUsername + '\'' +
                 ", dbPassword='" + dbPassword + '\'' +
-                ", dbDriver='" + dbDriver + '\'' +
                 '}';
     }
 }
