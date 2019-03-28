@@ -1,7 +1,7 @@
 package com.wllfengshu.jbot.core;
 
 import com.wllfengshu.jbot.common.exception.CustomException;
-import com.wllfengshu.jbot.web.entity.DBInfo;
+import com.wllfengshu.jbot.web.entity.DbInfo;
 import com.wllfengshu.jbot.web.entity.FieldInfo;
 import com.wllfengshu.jbot.web.entity.TableInfo;
 import com.wllfengshu.jbot.core.before.BeforeHandle;
@@ -17,13 +17,13 @@ public class TestSuper {
 
     private static String projectName = "exam";
     private static String packageName = "com.tiandixuanwu";
-    private static DBInfo dbInfo = null;
+    private static DbInfo dbInfo = null;
 
     protected static RequestModel requestModel = null;
 
     @BeforeClass
     public static void before() throws CustomException {
-        dbInfo = new DBInfo();
+        dbInfo = new DbInfo();
         dbInfo.setDbName("school");
         ArrayList<TableInfo> tables = new ArrayList<>();
 

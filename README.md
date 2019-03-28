@@ -75,11 +75,11 @@ AngularJS | JS框架
       - 数据库用户名： db_username    eg:root
       - 数据库密码： db_paasword    eg:root
       
-  注：如果不想设置环境变量，可以手动修改web模块中的application.yml文件
+  注：如果不想设置环境变量，可以手动修改application.yml文件
   
-- 3、启动web模块中的WebApplication(直接在main方法上右键启动即可)
+- 3、启动JbotApplication(直接在main方法上右键启动即可)
 - 4、使用浏览器打开http://localhost:8080/swagger-ui.html进行接口测试
-- 5、使用浏览器打开http://localhost:8080/index.html进入jbot主页面
+- 5、使用浏览器打开http://localhost:8080进入jbot主页面
 
 ### 资源下载
 - JDK8 [https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html "JDK8")
@@ -105,9 +105,9 @@ AngularJS | JS框架
 
 - 使用http://localhost:8080/swagger-ui.html 访问（jbot接口图）
 
-![swagger](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/swagger.png)
+![swagger](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.1.0/jbotSwagger.jpg)
 
-- 使用http://localhost:8080/index.html 访问（jbot界面图）
+- 使用http://localhost:8080 访问（jbot界面图）
 
 ![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/web.jpg)
 

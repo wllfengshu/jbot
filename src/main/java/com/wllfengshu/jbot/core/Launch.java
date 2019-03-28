@@ -1,7 +1,7 @@
 package com.wllfengshu.jbot.core;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.wllfengshu.jbot.web.entity.DBInfo;
+import com.wllfengshu.jbot.web.entity.DbInfo;
 import com.wllfengshu.jbot.common.model.RequestModel;
 import com.wllfengshu.jbot.core.after.AfterHandle;
 import com.wllfengshu.jbot.core.before.BeforeHandle;
@@ -34,7 +34,7 @@ public class Launch {
                                                         namedThreadFactory,
                                                         new ThreadPoolExecutor.AbortPolicy());
 
-    public static boolean start(String projectName, String packageName, DBInfo dbInfo){
+    public static boolean start(String projectName, String packageName, DbInfo dbInfo){
         logger.info("jbot core,Launch,start-------->dbInfo:%s,projectName:%s,packageName:%s",dbInfo,projectName,packageName);
         try {
             //1、准备工作

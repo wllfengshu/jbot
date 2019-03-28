@@ -24,7 +24,7 @@ public class MysqlUtil {
 	 * @param connectInfo
 	 * @return
 	 */
-	public static List<TableInfo> getDBInfo(ConnectInfo connectInfo)throws CustomException {
+	public static List<TableInfo> getDbInfo(ConnectInfo connectInfo)throws CustomException {
 		logger.info("开始从用户数据库中获取表信息，connectInfo dbIp:{}",connectInfo.getDbIp());
 		List<TableInfo> tableInfos = new ArrayList<>();
 		Connection conn = null;

@@ -1,7 +1,7 @@
 package com.wllfengshu.jbot.web.rest;
 
 import com.wllfengshu.jbot.web.entity.ConnectInfo;
-import com.wllfengshu.jbot.web.entity.DBInfo;
+import com.wllfengshu.jbot.web.entity.DbInfo;
 import com.wllfengshu.jbot.common.exception.CustomException;
 import com.wllfengshu.jbot.web.service.JbotService;
 import io.swagger.annotations.*;
@@ -63,7 +63,7 @@ public class JbotRest {
     public Map<String, Object> produceProject(
             @RequestParam(value = "projectName") String projectName,
             @RequestParam(value = "packageName") String packageName,
-            @RequestBody @ApiParam(value = "数据库实体类（选择的表的集合）",required = true) DBInfo dbInfo,
+            @RequestBody @ApiParam(value = "数据库实体类（选择的表的集合）",required = true) DbInfo dbInfo,
             HttpServletRequest request,
             HttpServletResponse response) throws CustomException {
         logger.info("JbotRest,produceProject-------->dbInfo:{},projectName:{},packageName:{}",dbInfo,projectName,packageName);

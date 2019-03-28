@@ -1,7 +1,7 @@
 package com.wllfengshu.jbot.core.before;
 
 import com.wllfengshu.jbot.common.constant.Collective;
-import com.wllfengshu.jbot.web.entity.DBInfo;
+import com.wllfengshu.jbot.web.entity.DbInfo;
 import com.wllfengshu.jbot.web.entity.TableInfo;
 import com.wllfengshu.jbot.common.exception.CustomException;
 import com.wllfengshu.jbot.common.utils.FileUtil;
@@ -22,7 +22,7 @@ public class BeforeHandle {
 
     private static Logger logger = LoggerFactory.getLogger(BeforeHandle.class);
 
-    public static RequestModel start(String projectName, String packageName, DBInfo dbInfo)throws CustomException {
+    public static RequestModel start(String projectName, String packageName, DbInfo dbInfo)throws CustomException {
         //0、建立请求的模型
         RequestModel model = buildRequestModel(projectName, packageName, dbInfo);
         //1、创建项目名文件夹
@@ -42,7 +42,7 @@ public class BeforeHandle {
         return model;
     }
 
-    private static RequestModel buildRequestModel(String projectName, String packageName, DBInfo dbInfo)throws CustomException {
+    private static RequestModel buildRequestModel(String projectName, String packageName, DbInfo dbInfo)throws CustomException {
         RequestModel model = new RequestModel();
         model.setProjectName(projectName);
         model.setPackageName(packageName);

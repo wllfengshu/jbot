@@ -6,7 +6,7 @@ import java.util.List;
  * 数据库实体类
  * @author wllfengshu
  */
-public class DBInfo {
+public class DbInfo {
 
     /**
      * 数据库名
@@ -36,7 +36,7 @@ public class DBInfo {
 
     @Override
     public String toString() {
-        return "DBInfo{" +
+        return "DbInfo{" +
                 "dbName='" + dbName + '\'' +
                 ", tables=" + tables +
                 '}';

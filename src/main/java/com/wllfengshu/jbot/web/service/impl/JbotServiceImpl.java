@@ -9,7 +9,7 @@ import com.wllfengshu.jbot.common.utils.StringUtil;
 import com.wllfengshu.jbot.core.Launch;
 import com.wllfengshu.jbot.web.dao.JbotDao;
 import com.wllfengshu.jbot.web.entity.ConnectInfo;
-import com.wllfengshu.jbot.web.entity.DBInfo;
+import com.wllfengshu.jbot.web.entity.DbInfo;
 import com.wllfengshu.jbot.common.security.Interceptor;
 import com.wllfengshu.jbot.web.service.JbotService;
 import org.slf4j.Logger;
@@ -66,16 +66,16 @@ public class JbotServiceImpl implements JbotService {
 		}
 		//5 获取数据库中的表信息
 		if ("localhost".equals(connectInfo.getDbIp()) || "127.0.0.1".equals(connectInfo.getDbIp()) || StringUtil.getServerIp().equals(connectInfo.getDbIp())){
-			result.put("data", jbotDao.getDBInfo(connectInfo.getDbName()));
+			result.put("data", jbotDao.getDbInfo(connectInfo.getDbName()));
 		}else {
-			result.put("data", MysqlUtil.getDBInfo(connectInfo));
+			result.put("data", MysqlUtil.getDbInfo(connectInfo));
 		}
 		logger.info("JbotServiceImpl,settingProject-------->result:{}",result);
 		return result;
 	}
 
 	@Override
-	public Map<String, Object> produceProject(String projectName, String packageName, DBInfo dbInfo, HttpServletResponse response)throws CustomException {
+	public Map<String, Object> produceProject(String projectName, String packageName, DbInfo dbInfo, HttpServletResponse response)throws CustomException {
 		Map<String, Object> result = new HashMap<>(16);
 		//1 检测项目名是否合法
 		if (!Interceptor.checkProject(projectName)){
