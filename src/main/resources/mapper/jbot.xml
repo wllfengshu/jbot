@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wllfengshu.jbot.web.dao.JbotDao">
+
+	<resultMap type="com.wllfengshu.jbot.web.entity.TableInfo" id="resMap">
+		<result property="tableName" column="tableName"/>
+		<collection property="fields" ofType="com.wllfengshu.jbot.web.entity.FieldInfo">
+			<result property="fieldName" column="fieldName"/>
+			<result property="fieldType" column="fieldType"/>
+			<result property="columnComment" column="columnComment"/>
+			<result property="isNullable" column="isNullable"/>
+			<result property="columnType" column="columnType"/>
+			<result property="columnKey" column="columnKey"/>
+		</collection>
+	</resultMap>
+
+	<select id="getDBInfo" parameterType="java.lang.String" resultMap="resMap">
+		SELECT
+			`table_name` tableName,
+			`column_name` fieldName,
+			`data_type` fieldType,
+			`column_comment` columnComment,
+			`is_nullable` isNullable,
+			`column_type` columnType,
+			`column_key` columnKey
+		FROM information_schema.`columns`
+		<where>
+			table_schema = #{dbName} and table_name in (
+				SELECT `table_name` FROM information_schema.`tables` WHERE table_schema = #{dbName} and table_type = 'base table'
+			)
+		</where>
+	</select>
+
+</mapper>
