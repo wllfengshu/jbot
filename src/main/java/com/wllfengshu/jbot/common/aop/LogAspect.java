@@ -18,26 +18,22 @@ public class LogAspect {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
-     * 当sql执行时间超过该值时，进行warn级别的打印
-     */
-    private long warnWhenOverTime = 5 * 1000L;
-
-    /**
      * 打印sql执行的时间
      * @param joinPoint
      * @return
      * @throws Throwable
+     * 	  切入点解释：
+     *      第一个 * 代表任意修饰符及任意返回值
+     *      第二个 * 定义在web包或者子包
+     *      第三个 * 任意方法
+     *      .. 匹配任意数量的参数
      */
-    @Around("execution( * com.welljoint.query.dao.*.*(..))")
+    @Around("execution( * com.wllfengshu.jbot.web.dao.*.*(..))")
     public Object logSqlExecution(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
         Object result = joinPoint.proceed();
         long costTime = System.currentTimeMillis() - startTime;
-        if (costTime > warnWhenOverTime) {
-            logger.warn("execute sql : {} costTime: [{}] ms",joinPoint.getSignature().getName(), costTime);
-        } else {
-            logger.info("execute sql : {} costTime: [{}] ms",joinPoint.getSignature().getName(), costTime);
-        }
+        logger.info("执行dao的方法:{},耗时:{}ms",joinPoint.getSignature().getName(), costTime);
         return result;
     }
 
@@ -47,12 +43,12 @@ public class LogAspect {
      * @return
      * @throws Throwable
      */
-    @Around("execution( * com.welljoint.query.rest..*.*(..))")
+    @Around("execution( * com.wllfengshu.jbot.web.rest.*.*(..))")
     public Object webLog(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
         Object result = joinPoint.proceed();
         long costTime = System.currentTimeMillis() - startTime;
-        logger.info("request: {} cost: {}",joinPoint.getSignature().getName(),costTime);
+        logger.info("请求rest的方法:{},耗时:{}ms",joinPoint.getSignature().getName(),costTime);
         return result;
     }
 

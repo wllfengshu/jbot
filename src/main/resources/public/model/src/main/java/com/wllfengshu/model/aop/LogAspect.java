@@ -47,7 +47,7 @@ public class LogAspect {
      * @return
      * @throws Throwable
      */
-    @Around("execution( * com.wllfengshu.model.rest..*.*(..))")
+    @Around("execution( * com.wllfengshu.model.rest.*.*(..))")
     public Object webLog(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
         Object result = joinPoint.proceed();

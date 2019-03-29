@@ -25,9 +25,9 @@ public class FileUtil {
      * @param fileName
      * @return
      */
-    public static List readFile2Set(String fileName)throws CustomException {
+    public static List<String> readFile2Set(String fileName)throws CustomException {
         logger.info("开始把文件读到List中，fileName:{}",fileName);
-        ArrayList<String> items = new ArrayList<>();
+        List<String> items = new ArrayList<>();
         Resource resource = new ClassPathResource(fileName);
         if (!resource.exists()){
             logger.error("把文件读到List中时，资源文件不存在");
@@ -107,16 +107,12 @@ public class FileUtil {
      * @param destDirName
      * @return
      */
-    public static boolean createDir(String destDirName) throws CustomException {
+    public static void createDir(String destDirName) throws CustomException {
         File dir = new File(destDirName);
-        if (dir.exists()) {
-            return true;
+        if (dir.exists() && dir.isDirectory()) {
+            return;
         }
-        if (dir.mkdirs()) {
-            return true;
-        } else {
-            return false;
-        }
+        dir.mkdirs();
     }
 
     /**

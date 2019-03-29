@@ -35,7 +35,7 @@ public class Launch {
                                                         new ThreadPoolExecutor.AbortPolicy());
 
     public static boolean start(String projectName, String packageName, DbInfo dbInfo){
-        logger.info("jbot core,Launch,start-------->dbInfo:%s,projectName:%s,packageName:%s",dbInfo,projectName,packageName);
+        logger.info("jbot core,Launch,start-------->dbInfo:{},projectName:{},packageName:{}",dbInfo,projectName,packageName);
         try {
             //1、准备工作
             RequestModel model = BeforeHandle.start(projectName, packageName, dbInfo);
@@ -72,7 +72,7 @@ public class Launch {
             AfterHandle.start(model);
             return true;
         }catch (Exception e){
-            e.printStackTrace();
+            logger.error("core start exception",e);
         }
         return false;
     }
