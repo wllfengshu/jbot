@@ -11,6 +11,9 @@
 	</head>
 
 	<body ng-app="jbot" ng-controller="jbotController" ng-init="initProjectFun()">
+		<div id="loading" style="position:fixed; top:0px; left:0px; width:100%; height:100%; display:none; background-color:#000; opacity: 0.3; z-index:99999;"> 
+			<div style="font-size: 50px;vertical-align: middle;width:200px; height:100px; position: absolute; top:50%; left:50%; margin-top: -50px; margin-left:-50px;">加载中...</div>
+		</div>
 		<div style="text-align:center;height: 80px;margin-top: 20px;">
 			<h1>使用本工具可以一键生成swagger+springboot+spring+mybatis项目</h1>
 		</div>
@@ -112,6 +115,93 @@
 	</body>
 	<script type="text/javascript">
 		var app=angular.module('jbot',[]);
+
+		//添加自定义拦截器
+		app.config(["$httpProvider", function ($httpProvider) {
+	        $httpProvider.interceptors.push('loadingInterceptor');
+	        $httpProvider.interceptors.push('errorInterceptor'); 
+	     }]);
+	     
+	     //自定义拦截器 --加载loading蒙版
+	    app.factory('loadingInterceptor', function($rootScope) {
+	        var timestampMarker = {
+	            request: function (config) {
+	                $("#loading").show();
+	                return config;
+	            },
+	            response: function (response) {
+	                $("#loading").hide();
+	                return response;
+	            }
+	        };
+	        return timestampMarker;
+	    });
+     	
+     	//自定义拦截器 --统一异常处理
+     	app.factory('errorInterceptor',function($q){
+     		return {
+				request: function(config) {
+					return config;
+				},
+				requestError: function(err) {
+					return $q.reject(err);
+				},
+				response: function(res) {
+					return res;
+				},
+				responseError: function(err) {
+					if(400 === err.status){
+						var _data=err.data instanceof ArrayBuffer?JSON.parse(String.fromCharCode.apply(null, new Uint8Array(err.data))):err.data;
+                        switch (_data["errorCode"]){
+                            case 10001:
+                                alert("数据库地址不合法");
+                                break;
+                            case 10002:
+                                alert("数据库端口不合法");
+                                break;
+                            case 10003:
+                                alert("数据库名不合法");
+                                break;
+                            case 10004:
+                                alert("数据库用户名不合法");
+                                break;
+                            case 10005:
+                                alert("数据库密码不合法");
+                                break;
+                            case 10006:
+                                alert("项目名不合法");
+                                break;
+                            case 10007:
+                                alert("包名不合法");
+                                break;
+                            case 10008:
+                                alert("生成项目失败");
+                                break;
+                            case 10009:
+                                alert("从用户数据库中获取表信息异常");
+                                break;
+                            case 10010:
+                                alert("下载文件异常");
+                                break;
+                            case 10011:
+                                alert("替换文件内容异常");
+                                break;
+                            case 10012:
+                                alert("压缩文件异常");
+                                break;
+                            default:
+                                alert("操作失败，请稍后重试...");
+                        }
+					}else{
+						alert("系统异常，请稍后重试...");
+					}
+					$("#loading").hide();
+					return $q.reject(err);
+				}
+			};
+     	});
+     	
+		//控制器
 		app.controller('jbotController',function($scope,$http){
 
 		    //初始化项目
@@ -130,10 +220,6 @@
 						$scope.dbName=_dbInfo["dbName"];
 						$scope.dbUsername=_dbInfo["dbUsername"];
 						$scope.dbPassword=_dbInfo["dbPassword"];
-					}
-				).error(
-                    function() {
-						alert("系统异常，请稍后重试...");
 					}
 				);
             };
@@ -175,31 +261,6 @@
 				        }
 				        $scope.todos=_tableInfo;
 	    			}
-                ).error(
-                    function(_data,_status) {
-                        switch (_status){
-                            case 10001:
-                                alert("数据库地址不合法");
-                                break;
-                            case 10002:
-                                alert("数据库端口不合法");
-                                break;
-                            case 10003:
-                                alert("数据库名不合法");
-                                break;
-                            case 10004:
-                                alert("数据库用户名不合法");
-                                break;
-                            case 10005:
-                                alert("数据库密码不合法");
-                                break;
-                            case 10009:
-                                alert("从用户数据库中获取表信息异常");
-                                break;
-                            default:
-                                alert("获取表结构失败，请稍后重试...");
-                        }
-                    }
                 );
 			};
 
@@ -247,32 +308,7 @@
 						a.target = '_blank';
 						a.click();
 	    			}
-	    		).error(
-                    function(_data,_status) {
-                        switch (_status){
-							case 10006:
-                                alert("项目名不合法");
-                                break;
-                            case 10007:
-                                alert("包名不合法");
-                                break;
-                            case 10008:
-                                alert("生成项目失败");
-                                break;
-                            case 10010:
-                                alert("下载文件异常");
-                                break;
-                            case 10011:
-                                alert("替换文件内容异常");
-                                break;
-                            case 10012:
-                                alert("压缩文件异常");
-                                break;
-                            default:
-                                alert("生成项目失败，请稍后重试...");
-						}
-                    }
-				);
+	    		);
 			}
 		});
 		

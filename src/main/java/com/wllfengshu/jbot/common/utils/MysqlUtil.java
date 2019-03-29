@@ -38,7 +38,7 @@ public class MysqlUtil {
 					+connectInfo.getDbPort()
 					+"/"
 					+connectInfo.getDbName()
-					+"?useUnicode=true&autoReconnect=true&characterEncoding=UTF-8";
+					+"?useUnicode=true&autoReconnect=true&characterEncoding=UTF-8&connectTimeout=3000&socketTimeout=6000";
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(url,connectInfo.getDbUsername(),connectInfo.getDbPassword());
 			stmt = conn.createStatement();

@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
         webResponse.setErrorCode(exception.getExceptionName().getCode());
         webResponse.setErrorMessage(exception.getMessage());
         webResponse.setInstanceId(System.getenv("instanceId"));
-        resp.setStatus(exception.getExceptionName().getCode());
+        resp.setStatus(400);
         exception.printStackTrace();
         return webResponse;
     }
@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public WebResponse exceptionHandler(Exception ex) {
         WebResponse webResponse = new WebResponse();
-        webResponse.setErrorCode(400);
+        webResponse.setErrorCode(500);
         webResponse.setErrorMessage(ClassUtils.getShortName(ex.getClass()));
         ex.printStackTrace();
         return webResponse;
