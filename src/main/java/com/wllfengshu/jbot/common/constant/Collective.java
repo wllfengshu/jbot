@@ -4,6 +4,7 @@ import com.wllfengshu.jbot.common.utils.StringUtil;
 
 /**
  * 公共常量集合
+ *
  * @author wllfengshu
  */
 public class Collective {
@@ -26,20 +27,20 @@ public class Collective {
     /**
      * 模板项目根路径，eg:/model
      */
-    public static final String MODEL_PROJECT_HOME = "public/"+MODEL_PROJECT_NAME;
+    public static final String MODEL_PROJECT_HOME = "public/" + MODEL_PROJECT_NAME;
 
     /**
      * 模板项目java文件夹路径，eg:./model/src/main/java
      */
-    public static final String MODEL_PROJECT_HOME_JAVA = MODEL_PROJECT_HOME+"/src/main/java";
+    public static final String MODEL_PROJECT_HOME_JAVA = MODEL_PROJECT_HOME + "/src/main/java";
 
     /**
      * 模板项目resources文件夹路径，eg:./model/src/main/resources
      */
-    public static final String MODEL_PROJECT_HOME_RESOURCES = MODEL_PROJECT_HOME+"/src/main/resources";
+    public static final String MODEL_PROJECT_HOME_RESOURCES = MODEL_PROJECT_HOME + "/src/main/resources";
 
     /**
      * 模板项目基础包路径，eg:./model/src/main/java/com/wllfengshu/model
      */
-    public static final String MODEL_PROJECT_HOME_JAVA_PACKAGE_BASE = MODEL_PROJECT_HOME_JAVA+"/"+StringUtil.spotToSlash(MODEL_PACKAGE_NAME+"/"+MODEL_PROJECT_NAME);
+    public static final String MODEL_PROJECT_HOME_JAVA_PACKAGE_BASE = MODEL_PROJECT_HOME_JAVA + "/" + StringUtil.spotToSlash(MODEL_PACKAGE_NAME + "/" + MODEL_PROJECT_NAME);
 }

@@ -13,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * swagger配置
+ *
  * @author wllfengshu
  */
 @Configuration
@@ -33,7 +34,7 @@ public class Swagger2Config {
         return new ApiInfoBuilder()
                 .title("Jbot RESTful APIs")
                 .description("")
-                .contact(new Contact("wllfengshu","https://github.com/wllfengshu/jbot","wllfengshu@163.com"))
+                .contact(new Contact("wllfengshu", "https://github.com/wllfengshu/jbot", "wllfengshu@163.com"))
                 .version("1.0")
                 .build();
     }

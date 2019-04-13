@@ -9,10 +9,14 @@ import java.util.Map;
 @Service
 public interface UserService {
 
-	Map<String, Object> insert(TUser user,String sessionId)throws CustomException;
-	Map<String, Object> delete(Integer id,String sessionId)throws CustomException;
-	Map<String, Object> update(TUser user,String sessionId)throws CustomException;
-	Map<String, Object> select(Integer id,String sessionId)throws CustomException;
-	Map<String, Object> selects(Map<String, Object> params,String sessionId)throws CustomException;
+    Map<String, Object> insert(TUser user, String sessionId) throws CustomException;
+
+    Map<String, Object> delete(Integer id, String sessionId) throws CustomException;
+
+    Map<String, Object> update(TUser user, String sessionId) throws CustomException;
+
+    Map<String, Object> select(Integer id, String sessionId) throws CustomException;
+
+    Map<String, Object> selects(Map<String, Object> params, String sessionId) throws CustomException;
 
 }

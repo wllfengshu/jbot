@@ -6,17 +6,17 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * dao
  * @author wllfengshu
  */
 @Repository
 public interface JbotDao {
 
-	/**
-	 * 获取指定数据库中表结构
-	 * @param dbName
-	 * @return
-	 */
-	List<DbInfo> getDbInfo(String dbName);
+    /**
+     * 获取指定数据库中表结构
+     *
+     * @param dbName
+     * @return
+     */
+    List<DbInfo> getDbInfo(String dbName);
 
 }

@@ -2,6 +2,7 @@ package com.wllfengshu.jbot.common.exception;
 
 /**
  * 自定义异常响应
+ *
  * @author wllfengshu
  */
 public class WebResponse {
@@ -10,7 +11,7 @@ public class WebResponse {
     private Integer errorCode;
     private String instanceId;
 
-    public WebResponse(String errorMessage,Integer errorCode) {
+    public WebResponse(String errorMessage, Integer errorCode) {
         this.errorMessage = errorMessage;
         this.errorCode = errorCode;
         this.instanceId = System.getenv("instanceId");

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 日志的aop
+ *
  * @author
  */
 @Component
@@ -20,10 +21,11 @@ public class LogAspect {
     /**
      * 当sql执行时间超过该值时，进行warn级别的打印
      */
-    private long warnWhenOverTime = 5 * 1000L;
+    private static final long WARN_WHEN_OVER_TIME = 5 * 1000L;
 
     /**
      * 打印sql执行的时间
+     *
      * @param joinPoint
      * @return
      * @throws Throwable
@@ -33,16 +35,17 @@ public class LogAspect {
         long startTime = System.currentTimeMillis();
         Object result = joinPoint.proceed();
         long costTime = System.currentTimeMillis() - startTime;
-        if (costTime > warnWhenOverTime) {
-            logger.warn("execute sql : {} costTime: [{}] ms",joinPoint.getSignature().getName(), costTime);
+        if (costTime > WARN_WHEN_OVER_TIME) {
+            logger.warn("execute sql : {} costTime: [{}] ms", joinPoint.getSignature().getName(), costTime);
         } else {
-            logger.info("execute sql : {} costTime: [{}] ms",joinPoint.getSignature().getName(), costTime);
+            logger.info("execute sql : {} costTime: [{}] ms", joinPoint.getSignature().getName(), costTime);
         }
         return result;
     }
 
     /**
      * 打印Web请求的执行时间
+     *
      * @param joinPoint
      * @return
      * @throws Throwable
@@ -52,7 +55,7 @@ public class LogAspect {
         long startTime = System.currentTimeMillis();
         Object result = joinPoint.proceed();
         long costTime = System.currentTimeMillis() - startTime;
-        logger.info("request: {} cost: {}",joinPoint.getSignature().getName(),costTime);
+        logger.info("request: {} cost: {}", joinPoint.getSignature().getName(), costTime);
         return result;
     }
 

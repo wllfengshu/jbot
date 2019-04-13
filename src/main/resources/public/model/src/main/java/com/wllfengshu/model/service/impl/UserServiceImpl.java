@@ -15,48 +15,48 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserDao userDao;
-	private Logger logger = LoggerFactory.getLogger(getClass());
+    @Autowired
+    private UserDao userDao;
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public Map<String, Object> insert(TUser entity,String sessionId)throws CustomException {
-        logger.info("insert entity:{}",entity);
+    public Map<String, Object> insert(TUser entity, String sessionId) throws CustomException {
+        logger.info("insert entity:{}", entity);
         Map<String, Object> result = new HashMap<>();
         userDao.insert(entity);
         return result;
     }
 
     @Override
-    public Map<String, Object> delete(Integer id,String sessionId)throws CustomException{
-        logger.info("delete id:{}",id);
+    public Map<String, Object> delete(Integer id, String sessionId) throws CustomException {
+        logger.info("delete id:{}", id);
         Map<String, Object> result = new HashMap<>();
         userDao.deleteByPrimaryKey(id);
         return result;
     }
 
     @Override
-    public Map<String, Object> update(TUser entity,String sessionId)throws CustomException{
-        logger.info("update entity:{}",entity);
+    public Map<String, Object> update(TUser entity, String sessionId) throws CustomException {
+        logger.info("update entity:{}", entity);
         Map<String, Object> result = new HashMap<>();
         userDao.updateByPrimaryKey(entity);
         return result;
     }
 
     @Override
-    public Map<String, Object> select(Integer id,String sessionId)throws CustomException{
-        logger.info("select id:{}",id);
+    public Map<String, Object> select(Integer id, String sessionId) throws CustomException {
+        logger.info("select id:{}", id);
         Map<String, Object> result = new HashMap<>();
-        result.put("data",userDao.selectByPrimaryKey(id));
+        result.put("data", userDao.selectByPrimaryKey(id));
         return result;
     }
 
     @Override
-    public Map<String, Object> selects(Map<String, Object> params,String sessionId)throws CustomException{
-        logger.info("selects params:{}",params);
+    public Map<String, Object> selects(Map<String, Object> params, String sessionId) throws CustomException {
+        logger.info("selects params:{}", params);
         Map<String, Object> result = new HashMap<>();
-        result.put("data",userDao.selectUsers(params));
-        result.put("total",userDao.selectUsersCount(params));
+        result.put("data", userDao.selectUsers(params));
+        result.put("total", userDao.selectUsersCount(params));
         return result;
     }
 

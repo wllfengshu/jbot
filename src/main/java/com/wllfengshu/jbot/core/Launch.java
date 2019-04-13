@@ -18,6 +18,7 @@ import java.util.concurrent.*;
 
 /**
  * 把model工程按照需求进行修改
+ *
  * @author wllfengshu
  */
 public class Launch {
@@ -26,16 +27,16 @@ public class Launch {
     private static List<Future<Boolean>> futures = new ArrayList<>();
     private static ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("demo-pool-%d").build();
     private static ExecutorService executorService = new ThreadPoolExecutor(
-                                                        5,
-                                                        50,
-                                                        5000L,
-                                                        TimeUnit.MILLISECONDS,
-                                                        new LinkedBlockingQueue<>(1024),
-                                                        namedThreadFactory,
-                                                        new ThreadPoolExecutor.AbortPolicy());
+                                                            5,
+                                                            50,
+                                                            5000L,
+                                                            TimeUnit.MILLISECONDS,
+                                                            new LinkedBlockingQueue<>(1024),
+                                                            namedThreadFactory,
+                                                            new ThreadPoolExecutor.AbortPolicy());
 
-    public static boolean start(String projectName, String packageName, DbInfo dbInfo){
-        logger.info("jbot core,Launch,start-------->dbInfo:{},projectName:{},packageName:{}",dbInfo,projectName,packageName);
+    public static boolean start(String projectName, String packageName, DbInfo dbInfo) {
+        logger.info("jbot core,Launch,start-------->dbInfo:{},projectName:{},packageName:{}", dbInfo, projectName, packageName);
         try {
             //1、准备工作
             RequestModel model = BeforeHandle.start(projectName, packageName, dbInfo);
@@ -64,15 +65,15 @@ public class Launch {
                 return true;
             }));
             for (Future<Boolean> future : futures) {
-                if (!future.isDone()){
+                if (!future.isDone()) {
                     future.get();
                 }
             }
             //5、善后工作
             AfterHandle.start(model);
             return true;
-        }catch (Exception e){
-            logger.error("core start exception",e);
+        } catch (Exception e) {
+            logger.error("core start exception", e);
         }
         return false;
     }

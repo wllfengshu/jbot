@@ -2,6 +2,7 @@ package com.wllfengshu.jbot.common.exception;
 
 /**
  * 自定义异常错误码
+ *
  * @author wllfengshu
  */
 public class CustomException extends Exception {
@@ -36,16 +37,15 @@ public class CustomException extends Exception {
         //替换文件内容异常
         FailedReplaceFile(10011),
         //压缩文件异常
-        FailedZipFile(10012)
-        ;
+        FailedZipFile(10012);
 
         private int code;
 
-        ExceptionName(int code){
-            this.code=code;
+        ExceptionName(int code) {
+            this.code = code;
         }
 
-        public int getCode(){
+        public int getCode() {
             return code;
         }
     }

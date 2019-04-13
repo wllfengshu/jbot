@@ -10,44 +10,47 @@ import java.util.List;
 
 /**
  * 字符串工具类
+ *
  * @author wllfengshu
  */
 public class StringUtil {
 
-    private static Logger logger = LoggerFactory.getLogger(StringUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(StringUtil.class);
 
     /**
      * 判断字符串：
      *     以字母开头，只允许字母、数字、-连字符、_下划线，不能以-和_结尾，长度大于1小于100
+     *
      * @param str
      * @return true 验证通过
      *          false 验证不通过
      */
-    public static boolean checkProjectName(String str){
+    public static boolean checkProjectName(String str) {
         return str.matches("^[a-zA-Z][a-zA-Z-_\\d]*[a-zA-Z\\d]{1,100}$");
     }
 
     /**
      * 判断字符串：
      *     以字母开头，只允许字母、数字、点，各个部分都不能以数字开头，不能以点结尾，长度大于1小于100
+     *
      * @param str
      * @return true 验证通过
      *          false 验证不通过
      */
-    public static boolean checkPackageName(String str){
+    public static boolean checkPackageName(String str) {
         //1 验证以字母开头，只允许字母、数字、点，不能以点结尾，长度大于1小于100
-        if(!str.matches("^[a-zA-Z][a-zA-Z\\.\\d]*[a-zA-Z\\d]{1,100}$")){
+        if (!str.matches("^[a-zA-Z][a-zA-Z\\.\\d]*[a-zA-Z\\d]{1,100}$")) {
             return false;
         }
         //2 验证各个部分
         String[] splits = str.split("\\.");
         //2.1 子部分不能超过10层
-        if (splits.length<1 || splits.length>10){
+        if (splits.length < 1 || splits.length > 10) {
             return false;
         }
-        for(String s:splits){
+        for (String s : splits) {
             //2.2 必须以字母开头，只允许字母、数字，长度大于0
-            if (!s.matches("^[a-zA-Z][a-zA-Z\\d]{0,50}$")){
+            if (!s.matches("^[a-zA-Z][a-zA-Z\\d]{0,50}$")) {
                 return false;
             }
         }
@@ -56,9 +59,10 @@ public class StringUtil {
 
     /**
      * 把数据库中字段的类型，转换为java中的类型
+     *
      * @return
      */
-    public static String sqlType2JavaType(String sqlType){
+    public static String sqlType2JavaType(String sqlType) {
         if ("bit".equalsIgnoreCase(sqlType)) {
             return "Boolean";
         } else if ("tinyint".equalsIgnoreCase(sqlType)
@@ -86,65 +90,70 @@ public class StringUtil {
 
     /**
      * 点转斜杠
+     *
      * @param str
      * @return
      */
-    public static String spotToSlash(String str){
-        return str.replace('.','/');
+    public static String spotToSlash(String str) {
+        return str.replace('.', '/');
     }
 
     /**
      * 删除单词开头的t_
+     *
      * @param str
      * @return
      */
-    public static String delTUnderline(String str){
-        if (str.startsWith("t_") && str.length()>2){
-            return str.substring(2,str.length());
+    public static String delTUnderline(String str) {
+        if (str.startsWith("t_") && str.length() > 2) {
+            return str.substring(2, str.length());
         }
         return str;
     }
 
     /**
      * 把单词首字母变为大写
+     *
      * @param str
      * @return
      */
-    public static String toFirstCharUpperCase(String str){
-        if (isEmpty(str)){
+    public static String toFirstCharUpperCase(String str) {
+        if (isEmpty(str)) {
             return null;
         }
-        if (str.length()>=2){
-            return str.substring(0,1).toUpperCase()+str.substring(1);
-        }else {
+        if (str.length() >= 2) {
+            return str.substring(0, 1).toUpperCase() + str.substring(1);
+        } else {
             return str.toUpperCase();
         }
     }
 
     /**
      * 把单词首字母变为小写
+     *
      * @param str
      * @return
      */
-    public static String toFirstCharLowCase(String str){
-        if (isEmpty(str)){
+    public static String toFirstCharLowCase(String str) {
+        if (isEmpty(str)) {
             return null;
         }
-        if (str.length()>=2){
-            return str.substring(0,1).toLowerCase()+str.substring(1);
-        }else {
+        if (str.length() >= 2) {
+            return str.substring(0, 1).toLowerCase() + str.substring(1);
+        } else {
             return str.toLowerCase();
         }
     }
 
     /**
      * 判断字符串是否是空
+     *
      * @param str
-     * @return ture 空
+     * @return true 空
      *          false 非空
      */
-    public static boolean isEmpty(String str){
-        if (null==str || "".equals(str)){
+    public static boolean isEmpty(String str) {
+        if (null == str || "".equals(str)) {
             return true;
         }
         return false;
@@ -152,14 +161,15 @@ public class StringUtil {
 
     /**
      * 把字符串按正则表达式分割，转为list
+     *
      * @param listStr
-     * @param regex 注意：这里需要转义，eg: 双斜线 \\.
+     * @param regex   注意：这里需要转义，eg: 双斜线 \\.
      * @return
      */
-    public static List<String> stringToList(String listStr,String regex){
+    public static List<String> stringToList(String listStr, String regex) {
         List<String> list = new ArrayList<>();
         String[] sp = listStr.split(regex);
-        for(String s:sp){
+        for (String s : sp) {
             list.add(s);
         }
         return list;
@@ -169,17 +179,17 @@ public class StringUtil {
      * 下划线命名转为驼峰命名
      * @param para 下划线命名的字符串
      */
-    public static String underlineToHump(String para){
-        StringBuilder result=new StringBuilder();
-        String[] temp=para.split("_");
-        for(String s:temp){
-            if (!para.contains("_")){
+    public static String underlineToHump(String para) {
+        StringBuilder result = new StringBuilder();
+        String[] temp = para.split("_");
+        for (String s : temp) {
+            if (!para.contains("_")) {
                 result.append(s);
                 continue;
             }
-            if(result.length()==0){
+            if (result.length() == 0) {
                 result.append(s.toLowerCase());
-            }else{
+            } else {
                 result.append(s.substring(0, 1).toUpperCase());
                 result.append(s.substring(1).toLowerCase());
             }
@@ -191,13 +201,13 @@ public class StringUtil {
      * 驼峰命名转为下划线命名
      * @param para 驼峰命名的字符串
      */
-    public static String humpToUnderline(String para){
-        StringBuilder sb=new StringBuilder(para);
-        int temp=0;
-        for(int i=0;i<para.length();i++){
-            if(Character.isUpperCase(para.charAt(i))){
-                sb.insert(i+temp, "_");
-                temp+=1;
+    public static String humpToUnderline(String para) {
+        StringBuilder sb = new StringBuilder(para);
+        int temp = 0;
+        for (int i = 0; i < para.length(); i++) {
+            if (Character.isUpperCase(para.charAt(i))) {
+                sb.insert(i + temp, "_");
+                temp += 1;
             }
         }
         return sb.toString().toUpperCase();
@@ -205,12 +215,13 @@ public class StringUtil {
 
     /**
      * 获取服务器ip
+     *
      * @return
      */
-    public static String getServerIp(){
+    public static String getServerIp() {
         try {
             return InetAddress.getLocalHost().getHostAddress();
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("获取服务器ip异常");
         }
         return null;
@@ -218,20 +229,21 @@ public class StringUtil {
 
     /**
      * 获取服务器配置的数据库信息
+     *
      * @return
      */
-    public static ConnectInfo getServerDbConnect(){
+    public static ConnectInfo getServerDbConnect() {
         ConnectInfo ci = new ConnectInfo();
         String dbUrl = System.getenv("db_url");
         //1 截取出ip:port/dbName
         String temp = dbUrl.substring("jdbc:mysql://".length(),
-                                            dbUrl.contains("?")?dbUrl.indexOf("?"):dbUrl.length());
+                dbUrl.contains("?") ? dbUrl.indexOf("?") : dbUrl.length());
         //2 分离ip(如果环境变量中是本地ip，则使用服务器ip)
         String[] ipPortDb = temp.split(":");
         if ("localhost".equals(ipPortDb[0])
-            || "127.0.0.1".equals(ipPortDb[0])){
+                || "127.0.0.1".equals(ipPortDb[0])) {
             ci.setDbIp(StringUtil.getServerIp());
-        }else {
+        } else {
             ci.setDbIp(ipPortDb[0]);
         }
         //3 分离port和dbName

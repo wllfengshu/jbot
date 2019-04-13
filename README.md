@@ -22,8 +22,7 @@ jbot
 ### 后端技术
 技术 | 名称
 ----|------
-Spring Framework | 容器  
-SpringMVC | MVC框架
+Spring Boot | 容器  
 MyBatis | ORM框架
 Druid | 数据库连接池
 Swagger2 | 接口测试框架
@@ -141,3 +140,5 @@ AngularJS | JS框架
 
 
 ## jbot相关博客
+
+[https://blog.csdn.net/tiandixuanwuliang/article/details/88931276](https://blog.csdn.net/tiandixuanwuliang/article/details/88931276)

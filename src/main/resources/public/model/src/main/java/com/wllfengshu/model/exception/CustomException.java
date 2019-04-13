@@ -2,6 +2,7 @@ package com.wllfengshu.model.exception;
 
 /**
  * 自定义异常
+ *
  * @author
  */
 public class CustomException extends Exception {
@@ -25,11 +26,11 @@ public class CustomException extends Exception {
 
         private int code;
 
-        ExceptionName(int code){
-            this.code=code;
+        ExceptionName(int code) {
+            this.code = code;
         }
 
-        public int getCode(){
+        public int getCode() {
             return code;
         }
     }

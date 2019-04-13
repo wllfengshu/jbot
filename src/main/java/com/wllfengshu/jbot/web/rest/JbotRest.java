@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * rest
  * @author wllfengshu
  */
 @RestController
@@ -26,11 +25,11 @@ public class JbotRest {
     private JbotService jbotService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @ApiOperation(value = "初始化项目",httpMethod = "GET")
+    @ApiOperation(value = "初始化项目", httpMethod = "GET")
     @ApiResponses({
-            @ApiResponse(code=400, message="IllegalParam")
+            @ApiResponse(code = 400, message = "IllegalParam")
     })
-    @RequestMapping(value = "/init",method = RequestMethod.GET)
+    @RequestMapping(value = "/init", method = RequestMethod.GET)
     public Map<String, Object> initProject(
             HttpServletRequest request,
             HttpServletResponse response) throws CustomException {
@@ -38,35 +37,35 @@ public class JbotRest {
         return jbotService.initProject();
     }
 
-    @ApiOperation(value = "设置项目",httpMethod = "POST")
+    @ApiOperation(value = "设置项目", httpMethod = "POST")
     @ApiResponses({
-            @ApiResponse(code=400, message="IllegalParam")
+            @ApiResponse(code = 400, message = "IllegalParam")
     })
-    @RequestMapping(value = "/setting",method = RequestMethod.POST)
+    @RequestMapping(value = "/setting", method = RequestMethod.POST)
     public Map<String, Object> settingProject(
-            @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）",required = true) ConnectInfo connectInfo,
+            @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）", required = true) ConnectInfo connectInfo,
             HttpServletRequest request,
             HttpServletResponse response) throws CustomException {
-        logger.info("JbotRest,getTableFromDB-------->connectInfo:{}",connectInfo);
+        logger.info("JbotRest,getTableFromDB-------->connectInfo:{}", connectInfo);
         return jbotService.settingProject(connectInfo, response);
     }
 
-    @ApiOperation(value = "生成项目",httpMethod = "POST")
+    @ApiOperation(value = "生成项目", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "projectName", value = "项目名（eg:jbot）", required = true, dataType = "string",paramType = "query"),
-            @ApiImplicitParam(name = "packageName", value = "包名（不包含项目名,eg:com.wllfengshu）", required = true, dataType = "string",paramType = "query")
+            @ApiImplicitParam(name = "projectName", value = "项目名（eg:jbot）", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "packageName", value = "包名（不包含项目名,eg:com.wllfengshu）", required = true, dataType = "string", paramType = "query")
     })
     @ApiResponses({
-            @ApiResponse(code=400, message="IllegalParam")
+            @ApiResponse(code = 400, message = "IllegalParam")
     })
-    @RequestMapping(value = "/produce",method = RequestMethod.POST)
+    @RequestMapping(value = "/produce", method = RequestMethod.POST)
     public Map<String, Object> produceProject(
             @RequestParam(value = "projectName") String projectName,
             @RequestParam(value = "packageName") String packageName,
-            @RequestBody @ApiParam(value = "数据库实体类（选择的表的集合）",required = true) DbInfo dbInfo,
+            @RequestBody @ApiParam(value = "数据库实体类（选择的表的集合）", required = true) DbInfo dbInfo,
             HttpServletRequest request,
             HttpServletResponse response) throws CustomException {
-        logger.info("JbotRest,produceProject-------->dbInfo:{},projectName:{},packageName:{}",dbInfo,projectName,packageName);
+        logger.info("JbotRest,produceProject-------->dbInfo:{},projectName:{},packageName:{}", dbInfo, projectName, packageName);
         return jbotService.produceProject(projectName, packageName, dbInfo, response);
     }
 }

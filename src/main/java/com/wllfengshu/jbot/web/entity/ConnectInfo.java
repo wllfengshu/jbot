@@ -2,6 +2,7 @@ package com.wllfengshu.jbot.web.entity;
 
 /**
  * 数据库连接信息
+ *
  * @author wllfengshu
  */
 public class ConnectInfo {

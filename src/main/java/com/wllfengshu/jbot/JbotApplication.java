@@ -8,6 +8,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * springboot启动类
+ *
  * @author wllfengshu
  */
 @SpringBootApplication
