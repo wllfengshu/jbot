@@ -1,12 +1,29 @@
-*/target/
+/target/
 
-/.git/
-/.idea/
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
+*.ipr
+mvnw
+mvnw.cmd
 
-*.jar
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
 
-*.xlsx
-
-*.xls
+### VS Code ###
+.vscode/
