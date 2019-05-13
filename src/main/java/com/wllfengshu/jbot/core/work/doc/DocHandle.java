@@ -80,7 +80,7 @@ public class DocHandle {
         sb.append("| 编号 | 字段名 | 类型 | 是否允许空 | 约束 | 含义 | 备注 |\r\n");
         sb.append("| ---- | ---- | ---- | ---- | ---- | ---- | ---- |\r\n");
         for (int i = 0; i < fs.size(); i++) {
-            sb.append(" | " + (i + 1)
+            sb.append("| " + (i + 1)
                     + " | " + fs.get(i).getFieldName()
                     + " | " + fs.get(i).getColumnType()
                     + " | " + fs.get(i).getIsNullable()
@@ -99,7 +99,7 @@ public class DocHandle {
     private static StringBuffer genInterfaceInsert(String projectName, String tableNameFLDTU, List<FieldInfo> fs) {
         StringBuffer sb = new StringBuffer();
         sb.append("### 1 增加\r\n\r\n");
-        sb.append("`POST model/" + tableNameFLDTU + "s/" + tableNameFLDTU + "`\r\n\r\n");
+        sb.append("`POST "+projectName+"/" + tableNameFLDTU + "s/" + tableNameFLDTU + "`\r\n\r\n");
         sb.append("#### 1.1 请求参数\r\n\r\n");
         sb.append(requestParamsEntity());
         sb.append("#### 1.2 响应参数\r\n\r\n");
@@ -234,9 +234,9 @@ public class DocHandle {
         sb.append(nullJson());
         sb.append("- (3) response\r\n\r\n");
         sb.append(fieldJsonPage(fs));
-        sb.append("#### 4.4 异常示例\r\n\r\n");
+        sb.append("#### 5.4 异常示例\r\n\r\n");
         sb.append(exceptionExample(projectName));
-        sb.append("#### 4.5 业务错误码\r\n\r\n");
+        sb.append("#### 5.5 业务错误码\r\n\r\n");
         sb.append(errorCode());
         return sb;
     }
@@ -458,7 +458,7 @@ public class DocHandle {
         StringBuffer sb = new StringBuffer();
         sb.append("| 错误码 | 描述 | 解决方案 |\r\n");
         sb.append("| ---- | ---- | ---- |\r\n");
-        sb.append("| 14001 | 没有权限 | 检查该用户的权限 |\r\n\r\n");
+        sb.append("| 10000 | 没有权限 | 检查该用户的权限 |\r\n\r\n");
         return sb;
     }
 }
