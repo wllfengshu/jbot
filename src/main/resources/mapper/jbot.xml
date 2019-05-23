@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wllfengshu.jbot.web.dao.JbotDao">
+<mapper namespace="com.wllfengshu.jbot.dao.JbotDAO">
 
-	<resultMap type="com.wllfengshu.jbot.web.entity.TableInfo" id="resMap">
+	<resultMap type="com.wllfengshu.jbot.model.po.Table" id="resMap">
 		<result property="tableName" column="tableName"/>
-		<collection property="fields" ofType="com.wllfengshu.jbot.web.entity.FieldInfo">
+		<collection property="fields" ofType="com.wllfengshu.jbot.model.po.Field">
 			<result property="fieldName" column="fieldName"/>
 			<result property="fieldType" column="fieldType"/>
 			<result property="columnComment" column="columnComment"/>
-			<result property="isNullable" column="isNullable"/>
+			<result property="nullable" column="nullable"/>
 			<result property="columnType" column="columnType"/>
 			<result property="columnKey" column="columnKey"/>
 		</collection>
 	</resultMap>
 
-	<select id="getDbInfo" parameterType="java.lang.String" resultMap="resMap">
+	<select id="getTable" parameterType="java.lang.String" resultMap="resMap">
 		SELECT
 			`table_name` tableName,
 			`column_name` fieldName,
 			`data_type` fieldType,
 			`column_comment` columnComment,
-			`is_nullable` isNullable,
+			`is_nullable` nullable,
 			`column_type` columnType,
 			`column_key` columnKey
 		FROM information_schema.`columns`

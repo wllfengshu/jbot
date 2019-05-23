@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.3.RELEASE</version>
+        <version>2.1.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.wllfengshu</groupId>
-    <artifactId>jbot</artifactId>
+    <groupId>${packageName}</groupId>
+    <artifactId>${projectName}</artifactId>
+    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jbot</name>
-    <description>Demo project for Spring Boot</description>
+    <name>model Maven Webapp</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -51,12 +51,13 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.2.0</version>
+            <version>1.3.2</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.45</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -70,9 +71,10 @@
             <version>1.2.36</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>4.9</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -80,33 +82,19 @@
             <version>1.1.10</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-freemarker</artifactId>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId><!--通用mapper-->
+            <version>2.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId><!--分页插件-->
+            <version>1.2.5</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
-            <version>2.6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-compress</artifactId>
-            <version>1.18</version>
         </dependency>
     </dependencies>
 
@@ -133,7 +121,7 @@
                             <addClasspath>true</addClasspath>
                             <useUniqueVersions>false</useUniqueVersions>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.wllfengshu.jbot.JbotApplication</mainClass>
+                            <mainClass>${packageName}.${projectName}.${projectName4FU}Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

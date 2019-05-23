@@ -1,14 +1,14 @@
 server:
   port: 8080
   servlet:
-      context-path: /jbot/v2
+    context-path: /${projectName}
 spring:
   application:
-    name: jbot
+    name: ${projectName}
   datasource:
-    url: ${db_url}
-    username: ${db_username}
-    password: ${db_password}
+    url: <#noparse>${</#noparse>db_url:jdbc:mysql://localhost:3306/test<#noparse>}</#noparse>
+    username: <#noparse>${</#noparse>db_username:root<#noparse>}</#noparse>
+    password: <#noparse>${</#noparse>db_password:root<#noparse>}</#noparse>
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   druid:
@@ -29,7 +29,20 @@ spring:
     connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
-  type-aliases-package: com.wllfengshu.jbot.model.po
+  type-aliases-package: ${packageName}.${projectName}.entity
   configuration:
     map-underscore-to-camel-case: true
+mapper:
+  mappers: ${packageName}.${projectName}.utils.MyMapper
+  not-empty: false
+  identity: MYSQL
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  params: count=countSql
+  support-methods-arguments: true
+
+
+
+
 
