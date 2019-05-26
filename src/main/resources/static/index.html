@@ -115,6 +115,7 @@
 	</body>
 	<script type="text/javascript">
 		var app=angular.module('jbot',[]);
+		var baseUrl="/jbot/v2";
 
 		//添加自定义拦截器
 		app.config(["$httpProvider", function ($httpProvider) {
@@ -207,7 +208,7 @@
 		    //初始化项目
             $scope.initProjectFun=function(){
 				$http.get(
-					'/jbot/init'
+                    baseUrl+'/init'
 				).success(
 					function(_data){
 						var _dbInfo = _data["data"];
@@ -250,7 +251,7 @@
 	    			dbPassword: $scope.dbPassword
 	    		};
 	    		$http.post(
-   					'/jbot/setting',
+                    baseUrl+'/setting',
     				_connectInfo
 				).success(
 	    			function(_data){
@@ -287,17 +288,9 @@
 					alert("包名不能为空");
 					return;
 				}
-				if(!$scope.dbName){
-					alert("数据库名不能为空");
-					return;
-				}
-				var _dbInfo = {
-		    		dbName: $scope.dbName,
-		    		tables: $scope.selectTables
-	    		};
 	    		$http.post(
-   					'/jbot/produce?projectName='+$scope.projectName+'&packageName='+$scope.packageName,
-    				_dbInfo,
+                    baseUrl+'/produce?projectName='+$scope.projectName+'&packageName='+$scope.packageName,
+                    $scope.selectTables,
 					{responseType:'arraybuffer'}
 				).success(
 	    			function(_data){

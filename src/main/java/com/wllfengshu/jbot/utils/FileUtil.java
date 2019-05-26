@@ -31,9 +31,11 @@ public class FileUtil {
      */
     public static void fileToZip(String zipFileName, String inputFile) throws CustomException {
         logger.info("开始压缩文件，zipFileName:{},inputFile:{}", zipFileName, inputFile);
+        FileOutputStream fos = null;
         ZipOutputStream out = null;
         try {
-            out = new ZipOutputStream(new FileOutputStream(zipFileName));
+            fos = new FileOutputStream(zipFileName);
+            out = new ZipOutputStream(fos);
             zip(out, new File(inputFile), "");
         } catch (Exception e) {
             logger.error("压缩文件异常", e);
@@ -42,6 +44,9 @@ public class FileUtil {
             try {
                 if (out != null) {
                     out.close();
+                }
+                if (fos != null) {
+                    fos.close();
                 }
             } catch (Exception e) {
                 logger.error("压缩文件异常 finally", e);
@@ -65,15 +70,16 @@ public class FileUtil {
                 File[] files = f.listFiles();
                 out.putNextEntry(new ZipEntry(base + "/"));
                 base += "/";
-                for (int i = 0; i < files.length; i++) {
-                    zip(out, files[i], base + files[i].getName());
+                for(File cf:files){
+                    zip(out, cf, base+cf.getName());
                 }
             } else {
                 out.putNextEntry(new ZipEntry(base));
                 in = new FileInputStream(f);
-                int b;
-                while ((b = in.read()) != -1) {
-                    out.write(b);
+                byte[] b = new byte[1024];
+                int n = -1;
+                while ((n=in.read(b)) != -1) {
+                    out.write(b,0,n);
                 }
             }
         } catch (Exception e) {
@@ -355,19 +361,16 @@ public class FileUtil {
      * @param dir
      */
     public static void deleteDir(File dir) throws CustomException {
+        if (!dir.exists()) {
+            return;
+        }
         if (dir.isFile()) {
+            dir.delete();
             return;
         }
         File[] files = dir.listFiles();
-        if (files != null) {
-            for (int i = 0; i < files.length; i++) {
-                File file = files[i];
-                if (file.isFile()) {
-                    file.delete();
-                } else {
-                    deleteDir(file);
-                }
-            }
+        for (File f : files) {
+            deleteDir(f);
         }
         dir.delete();
     }

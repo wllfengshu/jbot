@@ -240,8 +240,7 @@ public class StringUtil {
                 dbUrl.contains("?") ? dbUrl.indexOf("?") : dbUrl.length());
         //2 分离ip(如果环境变量中是本地ip，则使用服务器ip)
         String[] ipPortDb = temp.split(":");
-        if ("localhost".equals(ipPortDb[0])
-                || "127.0.0.1".equals(ipPortDb[0])) {
+        if ("localhost".equals(ipPortDb[0]) || "127.0.0.1".equals(ipPortDb[0])) {
             ci.setDbIp(StringUtil.getServerIp());
         } else {
             ci.setDbIp(ipPortDb[0]);

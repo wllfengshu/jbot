@@ -18,7 +18,7 @@ import java.util.Set;
 @Slf4j
 public class Interceptor {
 
-    private static Set<String> black = new HashSet<>();
+    private static final Set<String> black = new HashSet<>();
 
     static {
         try {

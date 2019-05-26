@@ -27,6 +27,7 @@ MyBatis | ORM框架
 Druid | 数据库连接池
 Swagger2 | 接口测试框架
 Maven | 项目构建管理
+Freemarker | 模板引擎
 
 #### 前端技术
 技术 | 名称 
@@ -77,8 +78,8 @@ AngularJS | JS框架
   注：如果不想设置环境变量，可以手动修改application.yml文件
   
 - 3、启动JbotApplication(直接在main方法上右键启动即可)
-- 4、使用浏览器打开http://localhost:8080/swagger-ui.html进行接口测试
-- 5、使用浏览器打开http://localhost:8080进入jbot主页面
+- 4、使用浏览器打开 http://localhost:8080/jbot/v2/swagger-ui.html 进行接口测试
+- 5、使用浏览器打开 http://localhost:8080/jbot/v2/ 进入jbot主页面
 
 ### 资源下载
 - JDK8 [https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html "JDK8")
@@ -102,11 +103,11 @@ AngularJS | JS框架
 
 ## 预览图
 
-- 使用http://localhost:8080/swagger-ui.html 访问（jbot接口图）
+- 使用 http://localhost:8080/jbot/v2/swagger-ui.html 访问（jbot接口图）
 
 ![swagger](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.1.0/jbotSwagger.jpg)
 
-- 使用http://localhost:8080 访问（jbot界面图）
+- 使用 http://localhost:8080/jbot/v2/ 访问（jbot界面图）
 
 ![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/web.jpg)
 

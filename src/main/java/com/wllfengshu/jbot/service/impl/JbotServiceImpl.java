@@ -12,7 +12,6 @@ import com.wllfengshu.jbot.security.Interceptor;
 import com.wllfengshu.jbot.service.JbotService;
 import com.wllfengshu.jbot.work.TemplateBoot;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,21 +85,17 @@ public class JbotServiceImpl implements JbotService {
             log.error("包名不合法");
             throw new CustomException("包名不合法", CustomException.ExceptionName.IllegalPackageName);
         }
-        //3 调用生成项目的入口类
-        try {
-            //3.0 生成项目
-            new TemplateBoot(projectName, packageName,tables).start();
-            //3.1 压缩生成的项目
-            FileUtil.fileToZip(Constant.TARGET_PROJECT_HOME + "/" + projectName + ".zip",Constant.TARGET_PROJECT_HOME + "/" + projectName);
-            //3.2 下载生成的项目
-            FileUtil.download(Constant.TARGET_PROJECT_HOME + "/" + projectName + ".zip", response);
-            //3.3 删除生成的项目文件
-            new File(Constant.TARGET_PROJECT_HOME + "/" + projectName + ".zip").delete();
-            FileUtils.deleteDirectory(new File(Constant.TARGET_PROJECT_HOME + "/" + projectName));
-        }catch (Exception e) {
-            log.error("生成项目失败",e);
-            throw new CustomException("生成项目失败", CustomException.ExceptionName.FailedProduceProject);
-        }
+        //3 生成项目
+        new TemplateBoot(projectName, packageName,tables).start();
+        //4 压缩生成的项目
+        String targetProjectPath = Constant.TARGET_PROJECT_HOME + "/" + projectName;
+        String targetProjectZipPath = targetProjectPath + ".zip";
+        FileUtil.fileToZip(targetProjectZipPath,targetProjectPath);
+        //5 下载生成的项目
+        FileUtil.download(targetProjectZipPath, response);
+        //6 删除生成的项目文件
+        new File(targetProjectZipPath).delete();
+        FileUtil.deleteDir(new File(targetProjectPath));
         log.info("JbotServiceImpl,produceProject-------->result:{}", result);
         return result;
     }

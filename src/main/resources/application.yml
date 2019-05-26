@@ -6,9 +6,9 @@ spring:
   application:
     name: jbot
   datasource:
-    url: ${db_url}
-    username: ${db_username}
-    password: ${db_password}
+    url: ${db_url:jdbc:mysql://localhost:3306/test}
+    username: ${db_username:root}
+    password: ${db_password:root}
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   druid:

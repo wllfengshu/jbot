@@ -9,12 +9,19 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 处理模板文件
+ *    注：文中涉及到单词缩写，其含义如下：
+ *    F = first 第一个
+ *    U = upper case 大写
+ *    L = lower case 小写
+ *    H = hump 驼峰
+ *    Ul = underline 下划线
  *
  * @author wllfengshu
  */
@@ -36,15 +43,13 @@ public class TemplateBoot {
         }
     }
 
-    private TemplateBoot(){}
-
     public TemplateBoot(String projectName, String packageName,List<Table> tables){
         this.projectName = projectName;
         this.packageName = packageName;
         this.tables = tables;
     }
 
-    public boolean start()throws CustomException{
+    public void start()throws CustomException{
         //1 准备数据
         Map<String,Object> data = new HashMap<>();
         //存入StringUtil类后，就可以在ftl文件中直接调用其静态方法
@@ -93,7 +98,6 @@ public class TemplateBoot {
             //doc
             generatorCode(data,"doc/" + tableName4FUH +"Doc.md","doc/Doc.md.ftl");
         }
-        return true;
     }
 
     /**
@@ -104,14 +108,25 @@ public class TemplateBoot {
      * @throws Exception
      */
     public void generatorCode(Map<String, Object> data, String path, String templateName){
+        Writer out = null;
         try {
             File file = new File(Constant.TARGET_PROJECT_HOME + "/" + projectName + "/" + path);
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
-            configuration.getTemplate(templateName).process(data, new FileWriter(file));
+            out = new FileWriter(file);
+            configuration.getTemplate(templateName).process(data,out);
         } catch (Exception e) {
             log.error("生成代码失败",e);
+        }finally {
+            try {
+                if (out != null) {
+                    out.flush();
+                    out.close();
+                }
+            } catch (Exception e) {
+                log.error("生成代码失败 finally", e);
+            }
         }
     }
 
