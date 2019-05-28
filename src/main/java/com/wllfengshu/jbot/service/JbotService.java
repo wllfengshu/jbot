@@ -1,8 +1,8 @@
 package com.wllfengshu.jbot.service;
 
-import com.wllfengshu.jbot.model.ConnectInfo;
+import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
 import com.wllfengshu.jbot.exception.CustomException;
-import com.wllfengshu.jbot.model.po.Table;
+import com.wllfengshu.jbot.model.Table;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +26,12 @@ public interface JbotService {
     /**
      * 设置数据库连接信息
      *
-     * @param connectInfo 用户自定义数据库连接信息
+     * @param connectInfoVO 用户自定义数据库连接信息
      * @param response
      * @return
      * @throws CustomException
      */
-    Map<String, Object> settingProject(ConnectInfo connectInfo, HttpServletResponse response) throws CustomException;
+    Map<String, Object> settingProject(ConnectInfoVO connectInfoVO, HttpServletResponse response) throws CustomException;
 
     /**
      * 生成目标项目

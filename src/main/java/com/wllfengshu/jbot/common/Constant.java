@@ -8,7 +8,7 @@ package com.wllfengshu.jbot.common;
 public class Constant {
 
     /**
-     * 目标项目存放路径
+     * 目标项目临时存放路径
      */
     public static final String TARGET_PROJECT_HOME = "/home/listen/Apps";
 

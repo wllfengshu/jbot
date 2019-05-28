@@ -1,4 +1,4 @@
-package com.wllfengshu.jbot.model.po;
+package com.wllfengshu.jbot.model;
 
 import lombok.Data;
 

@@ -2,7 +2,7 @@ package com.wllfengshu.jbot.work;
 
 import com.wllfengshu.jbot.common.Constant;
 import com.wllfengshu.jbot.exception.CustomException;
-import com.wllfengshu.jbot.model.po.Table;
+import com.wllfengshu.jbot.model.Table;
 import com.wllfengshu.jbot.utils.StringUtil;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;

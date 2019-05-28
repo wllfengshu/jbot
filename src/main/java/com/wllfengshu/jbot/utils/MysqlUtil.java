@@ -1,8 +1,8 @@
 package com.wllfengshu.jbot.utils;
 
-import com.wllfengshu.jbot.model.ConnectInfo;
-import com.wllfengshu.jbot.model.po.Field;
-import com.wllfengshu.jbot.model.po.Table;
+import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
+import com.wllfengshu.jbot.model.Field;
+import com.wllfengshu.jbot.model.Table;
 import com.wllfengshu.jbot.exception.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +23,11 @@ public class MysqlUtil {
     /**
      * 向指定数据库中获取表结构
      *
-     * @param connectInfo
+     * @param connectInfoVO
      * @return
      */
-    public static List<Table> getDbInfo(ConnectInfo connectInfo) throws CustomException {
-        logger.info("开始从用户数据库中获取表信息，connectInfo dbIp:{}", connectInfo.getDbIp());
+    public static List<Table> getDbInfo(ConnectInfoVO connectInfoVO) throws CustomException {
+        logger.info("开始从用户数据库中获取表信息，connectInfo dbIp:{}", connectInfoVO.getDbIp());
         List<Table> tables = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
@@ -35,17 +35,17 @@ public class MysqlUtil {
         try {
             //1 获取数据库连接
             String url = "jdbc:mysql://"
-                    + connectInfo.getDbIp()
+                    + connectInfoVO.getDbIp()
                     + ":"
-                    + connectInfo.getDbPort()
+                    + connectInfoVO.getDbPort()
                     + "/"
-                    + connectInfo.getDbName()
+                    + connectInfoVO.getDbName()
                     + "?useUnicode=true&autoReconnect=true&characterEncoding=UTF-8&connectTimeout=3000&socketTimeout=6000";
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(url, connectInfo.getDbUsername(), connectInfo.getDbPassword());
+            conn = DriverManager.getConnection(url, connectInfoVO.getDbUsername(), connectInfoVO.getDbPassword());
             stmt = conn.createStatement();
             //2 执行sql获取指定数据库中所有的表
-            String sql = "SELECT `table_name` FROM information_schema.`tables` WHERE table_schema = '" + connectInfo.getDbName() + "' and table_type = 'base table'";
+            String sql = "SELECT `table_name` FROM information_schema.`tables` WHERE table_schema = '" + connectInfoVO.getDbName() + "' and table_type = 'base table'";
             logger.info("get table info sql:{}", sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -55,7 +55,7 @@ public class MysqlUtil {
             }
             //3 再执行sql获取每个表中所有的字段
             for (Table ti : tables) {
-                sql = "SELECT `column_name` AS fieldName, `data_type` AS fieldType, `column_comment` AS columnComment, `is_nullable` AS nullable, `column_type` AS columnType , `column_key` AS columnKey FROM information_schema.`columns` WHERE table_schema = '" + connectInfo.getDbName() + "' AND table_name = '" + ti.getTableName() + "'";
+                sql = "SELECT `column_name` AS fieldName, `data_type` AS fieldType, `column_comment` AS columnComment, `is_nullable` AS nullable, `column_type` AS columnType , `column_key` AS columnKey FROM information_schema.`columns` WHERE table_schema = '" + connectInfoVO.getDbName() + "' AND table_name = '" + ti.getTableName() + "'";
                 logger.info("get field info sql:{}", sql);
                 rs = stmt.executeQuery(sql);
                 List<Field> fis = new ArrayList<>();

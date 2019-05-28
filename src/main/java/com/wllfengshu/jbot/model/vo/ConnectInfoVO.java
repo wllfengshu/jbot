@@ -1,4 +1,4 @@
-package com.wllfengshu.jbot.model;
+package com.wllfengshu.jbot.model.vo;
 
 import lombok.Data;
 
@@ -8,31 +8,31 @@ import lombok.Data;
  * @author wllfengshu
  */
 @Data
-public class ConnectInfo {
+public class ConnectInfoVO {
 
     /**
      * 数据库ip
      */
-    private String dbIp = null;
+    private String dbIp;
 
     /**
      * 数据库port
      */
-    private String dbPort = null;
+    private String dbPort;
 
     /**
      * 数据库name
      */
-    private String dbName = null;
+    private String dbName;
 
     /**
      * 数据库username
      */
-    private String dbUsername = null;
+    private String dbUsername;
 
     /**
      * 数据库password
      */
-    private String dbPassword = null;
+    private String dbPassword;
 
 }

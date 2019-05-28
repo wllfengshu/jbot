@@ -2,12 +2,12 @@ package com.wllfengshu.jbot.service.impl;
 
 import com.wllfengshu.jbot.common.Constant;
 import com.wllfengshu.jbot.exception.CustomException;
-import com.wllfengshu.jbot.model.po.Table;
+import com.wllfengshu.jbot.model.Table;
 import com.wllfengshu.jbot.utils.FileUtil;
 import com.wllfengshu.jbot.utils.MysqlUtil;
 import com.wllfengshu.jbot.utils.StringUtil;
 import com.wllfengshu.jbot.dao.JbotDAO;
-import com.wllfengshu.jbot.model.ConnectInfo;
+import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
 import com.wllfengshu.jbot.security.Interceptor;
 import com.wllfengshu.jbot.service.JbotService;
 import com.wllfengshu.jbot.work.TemplateBoot;
@@ -40,33 +40,33 @@ public class JbotServiceImpl implements JbotService {
     }
 
     @Override
-    public Map<String, Object> settingProject(ConnectInfo connectInfo, HttpServletResponse response) throws CustomException {
+    public Map<String, Object> settingProject(ConnectInfoVO connectInfoVO, HttpServletResponse response) throws CustomException {
         Map<String, Object> result = new HashMap<>(16);
         //1 检测数据库地址是否合法(可以是域名或IP)
-        if (StringUtil.isEmpty(connectInfo.getDbIp())) {
+        if (StringUtil.isEmpty(connectInfoVO.getDbIp())) {
             log.error("数据库地址不合法");
             throw new CustomException("数据库地址不合法", CustomException.ExceptionName.IllegalDbIp);
         }
         //2 检测数据库端口是否合法
-        if (StringUtil.isEmpty(connectInfo.getDbPort()) && Integer.valueOf(connectInfo.getDbPort()) > 0 && Integer.valueOf(connectInfo.getDbPort()) < 65535) {
+        if (StringUtil.isEmpty(connectInfoVO.getDbPort()) && Integer.valueOf(connectInfoVO.getDbPort()) > 0 && Integer.valueOf(connectInfoVO.getDbPort()) < 65535) {
             log.error("数据库端口不合法");
             throw new CustomException("数据库端口不合法", CustomException.ExceptionName.IllegalDbPort);
         }
         //3 检测数据库名是否合法
-        if (StringUtil.isEmpty(connectInfo.getDbName())) {
+        if (StringUtil.isEmpty(connectInfoVO.getDbName())) {
             log.error("数据库名不合法");
             throw new CustomException("数据库名不合法", CustomException.ExceptionName.IllegalDbName);
         }
         //4 检测数据库用户名是否合法
-        if (StringUtil.isEmpty(connectInfo.getDbPort())) {
+        if (StringUtil.isEmpty(connectInfoVO.getDbPort())) {
             log.error("数据库用户名不合法");
             throw new CustomException("数据库用户名不合法", CustomException.ExceptionName.IllegalDbUsername);
         }
         //5 获取数据库中的表信息
-        if ("localhost".equals(connectInfo.getDbIp()) || "127.0.0.1".equals(connectInfo.getDbIp()) || StringUtil.getServerIp().equals(connectInfo.getDbIp())) {
-            result.put("data", jbotDao.getTable(connectInfo.getDbName()));
+        if ("localhost".equals(connectInfoVO.getDbIp()) || "127.0.0.1".equals(connectInfoVO.getDbIp()) || StringUtil.getServerIp().equals(connectInfoVO.getDbIp())) {
+            result.put("data", jbotDao.getTables(connectInfoVO.getDbName()));
         } else {
-            result.put("data", MysqlUtil.getDbInfo(connectInfo));
+            result.put("data", MysqlUtil.getDbInfo(connectInfoVO));
         }
         log.info("JbotServiceImpl,settingProject-------->result:{}", result);
         return result;

@@ -1,8 +1,8 @@
 package com.wllfengshu.jbot.rest;
 
-import com.wllfengshu.jbot.model.ConnectInfo;
+import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
 import com.wllfengshu.jbot.exception.CustomException;
-import com.wllfengshu.jbot.model.po.Table;
+import com.wllfengshu.jbot.model.Table;
 import com.wllfengshu.jbot.service.JbotService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
@@ -42,11 +42,11 @@ public class JbotRest {
     })
     @RequestMapping(value = "/setting", method = RequestMethod.POST)
     public Map<String, Object> settingProject(
-            @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）", required = true) ConnectInfo connectInfo,
+            @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）", required = true) ConnectInfoVO connectInfoVO,
             HttpServletRequest request,
             HttpServletResponse response) throws CustomException {
-        log.info("JbotRest,getTableFromDB-------->connectInfo:{}", connectInfo);
-        return jbotService.settingProject(connectInfo, response);
+        log.info("JbotRest,getTableFromDB-------->connectInfoVO:{}", connectInfoVO);
+        return jbotService.settingProject(connectInfoVO, response);
     }
 
     @ApiOperation(value = "生成项目", httpMethod = "POST")

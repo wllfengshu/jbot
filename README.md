@@ -11,10 +11,17 @@ jbot项目可以一键生成 swagger + springBoot + spring + mybatis 项目
 ## 项目结构
 ```lua
 jbot
-├── web ── web模块
-├── core ── 核心模块
-├── model ── 模板模块
-├── common ── 公共组件模块
+├── aop ── 切面组件
+├── common ── 公共组件
+├── configs ── 配置组件
+├── dao ── DAO
+├── exception ── 异常处理组件
+├── model ── Model
+├── rest ── Rest
+├── security ── 安全控制组件
+├── service ── Service
+├── Utils ── 工具类组件
+├── work ── 模板处理核心组件
 ```
 
 ## 技术选型
@@ -27,6 +34,10 @@ MyBatis | ORM框架
 Druid | 数据库连接池
 Swagger2 | 接口测试框架
 Maven | 项目构建管理
+lombok | 代码简化工具
+logstash | 日志管理
+mapper | 通用mapper
+pagehelper | 分页插件
 Freemarker | 模板引擎
 
 #### 前端技术
@@ -38,22 +49,7 @@ AngularJS | JS框架
 
 ## 架构图
 
-![架构图](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/framework.png)
-
-## 模块依赖
-
-![模块依赖](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/dependent.png)
-
-## 模块介绍
-
-> **common**
-- common：公共组件
-> **core**
-- core：负责把模板项目变为目标项目
-> **model**
-- model：提供目标项目的模板
-> **web**
-- web：提供对外web接口
+![架构图](./img/架构图2.png)
 
 ## 环境搭建
 
@@ -69,7 +65,7 @@ AngularJS | JS框架
 ### 本项目使用方法
 
 - 1、启动mysql,并且创建一个名为test的数据库（待生成项目实体类对应的表都必须在test库中创建好）
-- 2、设置jbot运行的环境变量
+- 2、设置jbot运行的环境变量（默认配置如下）
       
       - 数据库连接地址： db_url   eg:jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       - 数据库用户名： db_username    eg:root
@@ -105,35 +101,35 @@ AngularJS | JS框架
 
 - 使用 http://localhost:8080/jbot/v2/swagger-ui.html 访问（jbot接口图）
 
-![swagger](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.1.0/jbotSwagger.jpg)
+![swagger](./img/jbotSwagger.jpg)
 
 - 使用 http://localhost:8080/jbot/v2/ 访问（jbot界面图）
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/web.jpg)
+![index](./img/web.jpg)
 
 - 生成的项目的效果图（使用http://localhost:8080/dnc/swagger-ui.html 访问）
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genSwagger.jpg)
+![index](./img/genSwagger.jpg)
 
 - 生成的项目结构
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genProject.jpg)
+![index](./img/genProject.jpg)
 
 - 生成的项目dao
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genDao.jpg)
+![index](./img/genDao.jpg)
 
 - 生成的项目entity
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genEntity.jpg)
+![index](./img/genEntity.jpg)
 
 - 生成的项目mapper
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genMapper.jpg)
+![index](./img/genMapper.jpg)
 
 - 生成的项目markdown接口文档
 
-![index](https://raw.githubusercontent.com/wllfengshu/image/master/jbot/1.0/genMarkdown.jpg)
+![index](./img/genMarkdown.jpg)
 
 - 生成的项目示例
 

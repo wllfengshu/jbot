@@ -45,17 +45,17 @@ java -jar jbot-1.0-SNAPSHOT.jar --db_url=jdbc:mysql://127.0.0.1:3306/test --db_u
 > - 注意：jenkins具体使用方法请自行百度
 
 ##### 4.1 设置项目名
-![https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%90%8D.jpg?raw=true](https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%90%8D.jpg?raw=true "https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%90%8D.jpg?raw=true")
+![project](../img/部署教程/jenkins/设置项目名.jpg)
 
 ##### 4.2 设置镜像名和版本号
-![https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%90%8D%E5%92%8C%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true](https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%90%8D%E5%92%8C%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true "https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E5%90%8D%E5%92%8C%E7%89%88%E6%9C%AC%E5%8F%B7.jpg?raw=true")
+![docker](../img/部署教程/jenkins/设置项目名和版本号.jpg)
 
 ##### 4.3 设置git
-![https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E8%AE%BE%E7%BD%AEgit.jpg?raw=true](https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E8%AE%BE%E7%BD%AEgit.jpg?raw=true "https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E8%AE%BE%E7%BD%AEgit.jpg?raw=true")
+![git](../img/部署教程/jenkins/设置git.jpg)
 
 ##### 4.4 设置maven构建参数
-![https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E6%9E%84%E5%BB%BA-maven.jpg?raw=true](https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E6%9E%84%E5%BB%BA-maven.jpg?raw=true "https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E6%9E%84%E5%BB%BA-maven.jpg?raw=true")
+![maven](../img/部署教程/jenkins/构建-maven.jpg)
 
 ##### 4.5 设置shell构建参数
-![https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E6%9E%84%E5%BB%BA-shell.jpg?raw=true](https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E6%9E%84%E5%BB%BA-shell.jpg?raw=true "https://github.com/wllfengshu/image/blob/master/jbot/%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/jenkins/%E6%9E%84%E5%BB%BA-shell.jpg?raw=true")
+![shell](../img/部署教程/jenkins/构建-shell.jpg)
 

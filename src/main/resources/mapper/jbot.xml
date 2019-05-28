@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wllfengshu.jbot.dao.JbotDAO">
 
-	<resultMap type="com.wllfengshu.jbot.model.po.Table" id="resMap">
+	<resultMap type="com.wllfengshu.jbot.model.Table" id="resMap">
 		<result property="tableName" column="tableName"/>
-		<collection property="fields" ofType="com.wllfengshu.jbot.model.po.Field">
+		<collection property="fields" ofType="com.wllfengshu.jbot.model.Field">
 			<result property="fieldName" column="fieldName"/>
 			<result property="fieldType" column="fieldType"/>
 			<result property="columnComment" column="columnComment"/>

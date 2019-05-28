@@ -1,6 +1,6 @@
 package com.wllfengshu.jbot.dao;
 
-import com.wllfengshu.jbot.model.po.Table;
+import com.wllfengshu.jbot.model.Table;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,8 +15,7 @@ public interface JbotDAO {
      * 获取指定数据库中表结构
      *
      * @param dbName
-     * @return
      */
-    List<Table> getTable(String dbName);
+    List<Table> getTables(String dbName);
 
 }

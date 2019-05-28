@@ -1,6 +1,6 @@
 package com.wllfengshu.jbot.utils;
 
-import com.wllfengshu.jbot.model.ConnectInfo;
+import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -232,8 +232,8 @@ public class StringUtil {
      *
      * @return
      */
-    public static ConnectInfo getServerDbConnect() {
-        ConnectInfo ci = new ConnectInfo();
+    public static ConnectInfoVO getServerDbConnect() {
+        ConnectInfoVO ci = new ConnectInfoVO();
         String dbUrl = System.getenv("db_url");
         //1 截取出ip:port/dbName
         String temp = dbUrl.substring("jdbc:mysql://".length(),
