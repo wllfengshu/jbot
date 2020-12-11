@@ -35,8 +35,7 @@ public class Swagger2Config {
                 .title("Jbot RESTful APIs")
                 .description("")
                 .contact(new Contact("wllfengshu", "https://github.com/wllfengshu/jbot", "wllfengshu@163.com"))
-                .version("1.0")
+                .version("2.0")
                 .build();
     }
-
 }

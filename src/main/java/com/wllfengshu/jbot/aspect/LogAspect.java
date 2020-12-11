@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
  *
  * @author wllfengshu
  */
-@Component
-@Aspect
 @Slf4j
+@Aspect
+@Component
 public class LogAspect {
 
     /**
@@ -66,5 +66,4 @@ public class LogAspect {
     public Object webLogExecution(ProceedingJoinPoint joinPoint) throws Throwable {
         return process(joinPoint,"request",WEB_WARN_WHEN_OVER_TIME);
     }
-
 }

@@ -14,7 +14,7 @@
 		</collection>
 	</resultMap>
 
-	<select id="getTable" parameterType="java.lang.String" resultMap="resMap">
+	<select id="getTables" parameterType="java.lang.String" resultMap="resMap">
 		SELECT
 			`table_name` tableName,
 			`column_name` fieldName,

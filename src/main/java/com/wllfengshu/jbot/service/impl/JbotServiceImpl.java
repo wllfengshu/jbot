@@ -1,6 +1,7 @@
 package com.wllfengshu.jbot.service.impl;
 
 import com.wllfengshu.jbot.common.Constant;
+import com.wllfengshu.jbot.configs.EnvConfig;
 import com.wllfengshu.jbot.exception.CustomException;
 import com.wllfengshu.jbot.model.Table;
 import com.wllfengshu.jbot.utils.FileUtil;
@@ -11,8 +12,9 @@ import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
 import com.wllfengshu.jbot.security.Interceptor;
 import com.wllfengshu.jbot.service.JbotService;
 import com.wllfengshu.jbot.work.TemplateBoot;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,15 +28,20 @@ import java.util.Map;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class JbotServiceImpl implements JbotService {
 
-    @Autowired
+    @NonNull
     private JbotDAO jbotDao;
+    @NonNull
+    private EnvConfig envConfig;
+    @NonNull
+    private Interceptor interceptor;
 
     @Override
     public Map<String, Object> initProject() throws CustomException {
         Map<String, Object> result = new HashMap<>(16);
-        result.put("data", StringUtil.getServerDbConnect());
+        result.put("data", StringUtil.getServerDbConnect(envConfig.getDbUrl(),envConfig.getDbUsername(),envConfig.getDbPassword()));
         log.info("JbotServiceImpl,init-------->result:{}", result);
         return result;
     }
@@ -76,17 +83,17 @@ public class JbotServiceImpl implements JbotService {
     public Map<String, Object> produceProject(String projectName, String packageName, List<Table> tables, HttpServletResponse response) throws CustomException {
         Map<String, Object> result = new HashMap<>(16);
         //1 检测项目名是否合法
-        if (!Interceptor.checkProject(projectName)) {
+        if (!interceptor.checkProject(projectName)) {
             log.error("项目名不合法");
             throw new CustomException("项目名不合法", CustomException.ExceptionName.IllegalProjectName);
         }
         //2 检测包名是否合法
-        if (!Interceptor.checkPackage(packageName)) {
+        if (!interceptor.checkPackage(packageName)) {
             log.error("包名不合法");
             throw new CustomException("包名不合法", CustomException.ExceptionName.IllegalPackageName);
         }
         //3 生成项目
-        new TemplateBoot(projectName, packageName,tables).start();
+        new TemplateBoot().start(projectName, packageName,tables);
         //4 压缩生成的项目
         String targetProjectPath = Constant.TARGET_PROJECT_HOME + "/" + projectName;
         String targetProjectZipPath = targetProjectPath + ".zip";
@@ -96,6 +103,7 @@ public class JbotServiceImpl implements JbotService {
         //6 删除生成的项目文件
         new File(targetProjectZipPath).delete();
         FileUtil.deleteDir(new File(targetProjectPath));
+        result.put("operation","success");
         log.info("JbotServiceImpl,produceProject-------->result:{}", result);
         return result;
     }

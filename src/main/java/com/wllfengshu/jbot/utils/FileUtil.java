@@ -2,8 +2,6 @@ package com.wllfengshu.jbot.utils;
 
 import com.wllfengshu.jbot.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -379,5 +377,18 @@ public class FileUtil {
             deleteDir(f);
         }
         dir.delete();
+    }
+
+    /**
+     * 参数必须是一个存在的目录
+     *
+     * @param dir
+     * @return
+     */
+    public static boolean isExistsAndDir(File dir){
+        if (null != dir && dir.exists() && dir.isDirectory()){
+            return true;
+        }
+        return false;
     }
 }

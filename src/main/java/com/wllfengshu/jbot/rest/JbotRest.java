@@ -5,8 +5,9 @@ import com.wllfengshu.jbot.exception.CustomException;
 import com.wllfengshu.jbot.model.Table;
 import com.wllfengshu.jbot.service.JbotService;
 import io.swagger.annotations.*;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +20,10 @@ import java.util.*;
 @Slf4j
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class JbotRest {
 
-    @Autowired
+    @NonNull
     private JbotService jbotService;
 
     @ApiOperation(value = "初始化项目", httpMethod = "GET")

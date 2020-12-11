@@ -23,7 +23,7 @@ public class DruidConfig {
         bean.addInitParameter("loginUsername", "root");
         bean.addInitParameter("loginPassword", "root");
         bean.addInitParameter("logSlowSql", "true");
-        //还可配置黑白名单等信息，可参考druid官网介绍
+        // 还可配置黑白名单等信息，可参考druid官网介绍
         return bean;
     }
 
@@ -32,11 +32,10 @@ public class DruidConfig {
         FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setFilter(new WebStatFilter());
         bean.addUrlPatterns("/*");
-        //过滤文件类型
+        // 过滤文件类型
         bean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
-        //监控单个url调用的sql列表
+        // 监控单个url调用的sql列表
         bean.addInitParameter("profileEnable", "true");
         return bean;
     }
-
 }

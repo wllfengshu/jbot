@@ -3,7 +3,6 @@ package com.wllfengshu.jbot.service;
 import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
 import com.wllfengshu.jbot.exception.CustomException;
 import com.wllfengshu.jbot.model.Table;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.Map;
 /**
  * @author wllfengshu
  */
-@Service
 public interface JbotService {
 
     /**

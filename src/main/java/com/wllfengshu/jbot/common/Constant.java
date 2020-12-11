@@ -13,7 +13,12 @@ public class Constant {
     public static final String TARGET_PROJECT_HOME = "/home/listen/Apps";
 
     /**
-     * 模板文件存放路径
+     * 模板文件目录名
      */
-    public static final String TEMPLATE_PATH = "./src/main/resources/templates";
+    public static final String TEMPLATE_NAME = "templates";
+
+    /**
+     * 模板文件目录路径
+     */
+    public static final String TEMPLATE_PATH = "./src/main/resources/" + TEMPLATE_NAME;
 }

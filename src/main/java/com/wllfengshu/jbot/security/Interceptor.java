@@ -3,8 +3,7 @@ package com.wllfengshu.jbot.security;
 import com.wllfengshu.jbot.utils.FileUtil;
 import com.wllfengshu.jbot.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -16,19 +15,25 @@ import java.util.Set;
  * @author wllfengshu
  */
 @Slf4j
+@Component
 public class Interceptor {
 
-    private static final Set<String> black = new HashSet<>();
+    /**
+     * 黑名单关键字
+     */
+    private static final Set<String> BLACK = new HashSet<>();
 
     static {
+        log.info("正在初始化拦截器");
         try {
-            black.addAll(Arrays.asList(
+            BLACK.addAll(Arrays.asList(
                     "java", "model", "xml"
             ));
-            black.addAll(FileUtil.readFile2Set("public/javaKeys"));
+            BLACK.addAll(FileUtil.readFile2Set("public/javaKeys"));
         } catch (Exception e) {
             log.error("对项目名、包名进行过滤异常", e);
         }
+        log.info("拦截器初始化完毕");
     }
 
     /**
@@ -38,8 +43,8 @@ public class Interceptor {
      * @return false 不通过
      *          true 通过
      */
-    public static boolean checkProject(String deci) {
-        if (StringUtil.isEmpty(deci) || deci.length() < 2 || deci.length() > 50 || !StringUtil.checkProjectName(deci) || black.contains(deci)) {
+    public boolean checkProject(String deci) {
+        if (StringUtil.isEmpty(deci) || deci.length() < 2 || deci.length() > 50 || !StringUtil.checkProjectName(deci) || BLACK.contains(deci)) {
             return false;
         }
         return true;
@@ -52,11 +57,10 @@ public class Interceptor {
      * @return false 不通过
      *          true 通过
      */
-    public static boolean checkPackage(String deci) {
-        if (StringUtil.isEmpty(deci) || deci.length() < 2 || deci.length() > 100 || !StringUtil.checkPackageName(deci) || black.contains(deci)) {
+    public boolean checkPackage(String deci) {
+        if (StringUtil.isEmpty(deci) || deci.length() < 2 || deci.length() > 100 || !StringUtil.checkPackageName(deci) || BLACK.contains(deci)) {
             return false;
         }
         return true;
     }
-
 }

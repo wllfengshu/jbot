@@ -6,9 +6,9 @@ spring:
   application:
     name: jbot
   datasource:
-    url: ${db_url:jdbc:mysql://localhost:3306/test}
-    username: ${db_username:root}
-    password: ${db_password:root}
+    url: ${db_url}
+    username: ${db_username}
+    password: ${db_password}
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   druid:
@@ -32,4 +32,6 @@ mybatis:
   type-aliases-package: com.wllfengshu.jbot.model.po
   configuration:
     map-underscore-to-camel-case: true
-
+logging:
+  level:
+    com.wllfengshu.jbot.dao: debug

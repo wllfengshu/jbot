@@ -2,8 +2,6 @@ package com.wllfengshu.jbot.utils;
 
 import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -235,12 +233,10 @@ public class StringUtil {
      *
      * @return
      */
-    public static ConnectInfoVO getServerDbConnect() {
+    public static ConnectInfoVO getServerDbConnect(String dbUrl, String username, String password) {
         ConnectInfoVO ci = new ConnectInfoVO();
-        String dbUrl = System.getenv("db_url");
         //1 截取出ip:port/dbName
-        String temp = dbUrl.substring("jdbc:mysql://".length(),
-                dbUrl.contains("?") ? dbUrl.indexOf("?") : dbUrl.length());
+        String temp = dbUrl.substring("jdbc:mysql://".length(),dbUrl.contains("?") ? dbUrl.indexOf("?") : dbUrl.length());
         //2 分离ip(如果环境变量中是本地ip，则使用服务器ip)
         String[] ipPortDb = temp.split(":");
         if ("localhost".equals(ipPortDb[0]) || "127.0.0.1".equals(ipPortDb[0])) {
@@ -252,8 +248,8 @@ public class StringUtil {
         String[] portDb = ipPortDb[1].split("/");
         ci.setDbPort(portDb[0]);
         ci.setDbName(portDb[1]);
-        ci.setDbUsername(System.getenv("db_username"));
-        ci.setDbPassword(System.getenv("db_password"));
+        ci.setDbUsername(username);
+        ci.setDbPassword(password);
         return ci;
     }
 }
