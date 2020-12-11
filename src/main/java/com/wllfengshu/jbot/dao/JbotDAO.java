@@ -15,6 +15,7 @@ public interface JbotDAO {
      * 获取指定数据库中表结构
      *
      * @param dbName
+     * @return
      */
     List<Table> getTables(String dbName);
 

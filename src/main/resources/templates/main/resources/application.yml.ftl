@@ -33,7 +33,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 mapper:
-  mappers: ${packageName}.${projectName}.utils.MyMapper
+  mappers: ${packageName}.${projectName}.utils.MapperUtil
   not-empty: false
   identity: MYSQL
 pagehelper:

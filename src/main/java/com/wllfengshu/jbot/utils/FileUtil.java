@@ -1,6 +1,7 @@
 package com.wllfengshu.jbot.utils;
 
 import com.wllfengshu.jbot.exception.CustomException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -19,9 +20,8 @@ import java.util.zip.ZipOutputStream;
  *
  * @author wllfengshu
  */
+@Slf4j
 public class FileUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
     /**
      * 递归的把文件压缩为zip文件
@@ -30,7 +30,7 @@ public class FileUtil {
      * @param inputFile
      */
     public static void fileToZip(String zipFileName, String inputFile) throws CustomException {
-        logger.info("开始压缩文件，zipFileName:{},inputFile:{}", zipFileName, inputFile);
+        log.info("开始压缩文件，zipFileName:{},inputFile:{}", zipFileName, inputFile);
         FileOutputStream fos = null;
         ZipOutputStream out = null;
         try {
@@ -38,21 +38,23 @@ public class FileUtil {
             out = new ZipOutputStream(fos);
             zip(out, new File(inputFile), "");
         } catch (Exception e) {
-            logger.error("压缩文件异常", e);
+            log.error("压缩文件异常", e);
             throw new CustomException("压缩文件异常", CustomException.ExceptionName.FailedZipFile);
         } finally {
             try {
                 if (out != null) {
+                    out.flush();
                     out.close();
                 }
                 if (fos != null) {
+                    fos.flush();
                     fos.close();
                 }
             } catch (Exception e) {
-                logger.error("压缩文件异常 finally", e);
+                log.error("压缩文件异常 finally", e);
             }
         }
-        logger.info("文件压缩完毕");
+        log.info("文件压缩完毕");
     }
 
     /**
@@ -83,14 +85,14 @@ public class FileUtil {
                 }
             }
         } catch (Exception e) {
-            logger.error("zip 异常", e);
+            log.error("zip 异常", e);
         } finally {
             try {
                 if (in != null) {
                     in.close();
                 }
             } catch (Exception e) {
-                logger.error("zip 异常 finally", e);
+                log.error("zip 异常 finally", e);
             }
         }
     }
@@ -103,14 +105,14 @@ public class FileUtil {
      * @param newStr   替换后内容
      */
     public static void replace(String filePath, String[] oldStr, String[] newStr) throws CustomException {
-        logger.info("开始替换文件内容，fielPath:{},oldStr size:{},newStr size:{}", filePath, oldStr.length, newStr.length);
+        log.info("开始替换文件内容，fielPath:{},oldStr size:{},newStr size:{}", filePath, oldStr.length, newStr.length);
         if (oldStr.length > newStr.length) {
-            logger.error("oldStr元素个数:{}必须小于等于newStr:{}", oldStr.length, newStr.length);
+            log.error("oldStr元素个数:{}必须小于等于newStr:{}", oldStr.length, newStr.length);
             return;
         }
         File file = new File(filePath);
         if (!file.exists()) {
-            logger.error("待替换文件不存在，filePath:{}", filePath);
+            log.error("待替换文件不存在，filePath:{}", filePath);
             return;
         }
         Long fileLength = file.length();
@@ -127,7 +129,7 @@ public class FileUtil {
             out = new PrintWriter(filePath);
             out.write(str);
         } catch (Exception e) {
-            logger.error("替换文件内容异常", e);
+            log.error("替换文件内容异常", e);
             throw new CustomException("替换文件内容异常", CustomException.ExceptionName.FailedReplaceFile);
         } finally {
             try {
@@ -139,10 +141,10 @@ public class FileUtil {
                     in.close();
                 }
             } catch (Exception e) {
-                logger.error("替换文件内容异常 finally", e);
+                log.error("替换文件内容异常 finally", e);
             }
         }
-        logger.info("文件替换完成");
+        log.info("文件替换完成");
     }
 
     /**
@@ -152,13 +154,13 @@ public class FileUtil {
      * @param response 请求体
      */
     public static void download(String fileName, HttpServletResponse response) throws CustomException {
-        logger.info("开始文件下载，文件名：{}", fileName);
+        log.info("开始文件下载，文件名：{}", fileName);
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
         try {
             File file = new File(fileName);
             if (!file.exists()) {
-                logger.error("待下载文件不存在，fileName:{}", fileName);
+                log.error("待下载文件不存在，fileName:{}", fileName);
                 return;
             }
             response.setCharacterEncoding("UTF-8");
@@ -174,9 +176,9 @@ public class FileUtil {
                 }
                 bos.write(buff, 0, bytesRead);
             }
-            logger.info("文件下载完成");
+            log.info("文件下载完成");
         } catch (Exception e) {
-            logger.error("下载文件异常", e);
+            log.error("下载文件异常", e);
             throw new CustomException("下载文件异常", CustomException.ExceptionName.FailedDownloadFile);
         } finally {
             try {
@@ -184,10 +186,11 @@ public class FileUtil {
                     bis.close();
                 }
                 if (bos != null) {
+                    bos.flush();
                     bos.close();
                 }
             } catch (Exception e) {
-                logger.error("下载文件异常 finally", e);
+                log.error("下载文件异常 finally", e);
             }
         }
     }
@@ -201,11 +204,11 @@ public class FileUtil {
      * @return
      */
     public static List<String> readFile2Set(String fileName) throws CustomException {
-        logger.info("开始把文件读到List中，fileName:{}", fileName);
+        log.info("开始把文件读到List中，fileName:{}", fileName);
         List<String> items = new ArrayList<>();
         Resource resource = new ClassPathResource(fileName);
         if (!resource.exists()) {
-            logger.error("把文件读到List中时，资源文件不存在");
+            log.error("把文件读到List中时，资源文件不存在");
             return items;
         }
         InputStream input = null;
@@ -222,7 +225,7 @@ public class FileUtil {
                 }
             }
         } catch (Exception e) {
-            logger.error("把文件读到List中时异常", e);
+            log.error("把文件读到List中时异常", e);
         } finally {
             try {
                 if (br != null) {
@@ -235,10 +238,10 @@ public class FileUtil {
                     input.close();
                 }
             } catch (Exception e) {
-                logger.error("把文件读到List中时异常 finally", e);
+                log.error("把文件读到List中时异常 finally", e);
             }
         }
-        logger.info("文件读到List中完毕");
+        log.info("文件读到List中完毕");
         return items;
     }
 
@@ -263,17 +266,19 @@ public class FileUtil {
             bw = new BufferedWriter(fw);
             bw.write(content);
         } catch (Exception e) {
-            logger.error("创建文件异常", e);
+            log.error("创建文件异常", e);
         } finally {
             try {
                 if (bw != null) {
+                    bw.flush();
                     bw.close();
                 }
                 if (fw != null) {
+                    fw.flush();
                     fw.close();
                 }
             } catch (Exception e) {
-                logger.error("创建文件异常 finally", e);
+                log.error("创建文件异常 finally", e);
             }
         }
     }
@@ -299,10 +304,10 @@ public class FileUtil {
      * @param newPath
      */
     public static void copyFile(String oldPath, String newPath) throws CustomException {
-        logger.info("开始复制文件，oldPath:{},newPath:{}", oldPath, newPath);
+        log.info("开始复制文件，oldPath:{},newPath:{}", oldPath, newPath);
         Resource resource = new ClassPathResource(oldPath);
         if (!resource.exists()) {
-            logger.error("复制文件时，资源文件不存在");
+            log.error("复制文件时，资源文件不存在");
             return;
         }
         InputStream input = null;
@@ -323,17 +328,18 @@ public class FileUtil {
                 out.write(buffer, 0, readByte);
             }
         } catch (Exception e) {
-            logger.error("复制文件异常", e);
+            log.error("复制文件异常", e);
         } finally {
             try {
                 if (out != null) {
+                    out.flush();
                     out.close();
                 }
                 if (input != null) {
                     input.close();
                 }
             } catch (Exception e) {
-                logger.error("复制文件异常 finally", e);
+                log.error("复制文件异常 finally", e);
             }
         }
     }
@@ -344,7 +350,7 @@ public class FileUtil {
      * @param filename
      */
     public static void deleteFile(String filename) throws CustomException {
-        logger.info("删除文件,文件名{}",filename);
+        log.info("删除文件,文件名{}",filename);
         File file = new File(filename);
         if (file.isDirectory()) {
             return;

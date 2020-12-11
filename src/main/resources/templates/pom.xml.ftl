@@ -68,7 +68,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.36</version>
+            <version>1.2.58</version>
         </dependency>
         <dependency>
             <groupId>net.logstash.logback</groupId>

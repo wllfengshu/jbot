@@ -2,13 +2,17 @@ package com.wllfengshu.jbot.model.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 数据库连接信息
  *
  * @author wllfengshu
  */
 @Data
-public class ConnectInfoVO {
+public class ConnectInfoVO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 数据库ip

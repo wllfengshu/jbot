@@ -4,6 +4,7 @@ import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
 import com.wllfengshu.jbot.model.Field;
 import com.wllfengshu.jbot.model.Table;
 import com.wllfengshu.jbot.exception.CustomException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +17,8 @@ import java.util.List;
  *
  * @author wllfengshu
  */
+@Slf4j
 public class MysqlUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(MysqlUtil.class);
 
     /**
      * 向指定数据库中获取表结构
@@ -27,7 +27,7 @@ public class MysqlUtil {
      * @return
      */
     public static List<Table> getDbInfo(ConnectInfoVO connectInfoVO) throws CustomException {
-        logger.info("开始从用户数据库中获取表信息，connectInfo dbIp:{}", connectInfoVO.getDbIp());
+        log.info("开始从用户数据库中获取表信息，connectInfo dbIp:{}", connectInfoVO.getDbIp());
         List<Table> tables = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
@@ -46,7 +46,7 @@ public class MysqlUtil {
             stmt = conn.createStatement();
             //2 执行sql获取指定数据库中所有的表
             String sql = "SELECT `table_name` FROM information_schema.`tables` WHERE table_schema = '" + connectInfoVO.getDbName() + "' and table_type = 'base table'";
-            logger.info("get table info sql:{}", sql);
+            log.info("get table info sql:{}", sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Table ti = new Table();
@@ -56,7 +56,7 @@ public class MysqlUtil {
             //3 再执行sql获取每个表中所有的字段
             for (Table ti : tables) {
                 sql = "SELECT `column_name` AS fieldName, `data_type` AS fieldType, `column_comment` AS columnComment, `is_nullable` AS nullable, `column_type` AS columnType , `column_key` AS columnKey FROM information_schema.`columns` WHERE table_schema = '" + connectInfoVO.getDbName() + "' AND table_name = '" + ti.getTableName() + "'";
-                logger.info("get field info sql:{}", sql);
+                log.info("get field info sql:{}", sql);
                 rs = stmt.executeQuery(sql);
                 List<Field> fis = new ArrayList<>();
                 while (rs.next()) {
@@ -73,7 +73,7 @@ public class MysqlUtil {
                 ti.setFields(fis);
             }
         } catch (Exception e) {
-            logger.error("从用户数据库中获取表信息异常", e);
+            log.error("从用户数据库中获取表信息异常", e);
             throw new CustomException("从用户数据库中获取表信息异常", CustomException.ExceptionName.CannotGetDbinfoFromUserDb);
         } finally {
             //4 关闭连接
@@ -88,10 +88,10 @@ public class MysqlUtil {
                     conn.close();
                 }
             } catch (Exception e) {
-                logger.error("从用户数据库中获取表信息异常 finally", e);
+                log.error("从用户数据库中获取表信息异常 finally", e);
             }
         }
-        logger.info("从用户数据库中获取数据完毕");
+        log.info("从用户数据库中获取数据完毕");
         return tables;
     }
 

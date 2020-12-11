@@ -1,5 +1,6 @@
 package ${packageName}.${projectName}.rest;
 
+import lombok.extern.slf4j.Slf4j;
 import ${packageName}.${projectName}.entity.${tableName4FUH}Entity;
 import ${packageName}.${projectName}.exception.CustomException;
 import ${packageName}.${projectName}.service.${tableName4FUH}Service;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
+@Slf4j
 @Api(value = "${tableName4FLH} Rest",tags = "${tableName4FLH}管理")
 @RestController
 @RequestMapping("/${tableName4FLH}s")
@@ -20,7 +22,6 @@ public class ${tableName4FUH}Rest {
 
     @Autowired
     private ${tableName4FUH}Service ${tableName4FLH}Service;
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @ApiOperation(value = "添加", httpMethod = "POST")
     @ApiImplicitParam(name = "sessionId", value = "SessionId", required = true, dataType = "string", paramType = "header")
@@ -33,7 +34,7 @@ public class ${tableName4FUH}Rest {
             HttpServletRequest request,
             HttpServletResponse response,
             @RequestBody ${tableName4FUH}Entity entity) throws CustomException {
-        logger.info("insert entity:{}", entity);
+        log.info("insert entity:{}", entity);
         return ${tableName4FLH}Service.insert(entity, sessionId);
     }
 
@@ -51,7 +52,7 @@ public class ${tableName4FUH}Rest {
             @RequestHeader(value = "sessionId") String sessionId,
             HttpServletRequest request,
             HttpServletResponse response) throws CustomException {
-        logger.info("delete id:{}", id);
+        log.info("delete id:{}", id);
         return ${tableName4FLH}Service.delete(id, sessionId);
     }
 
@@ -66,7 +67,7 @@ public class ${tableName4FUH}Rest {
             HttpServletRequest request,
             HttpServletResponse response,
             @RequestBody ${tableName4FUH}Entity entity) throws CustomException {
-        logger.info("update entity:{}", entity);
+        log.info("update entity:{}", entity);
         return ${tableName4FLH}Service.update(entity, sessionId);
     }
 
@@ -84,7 +85,7 @@ public class ${tableName4FUH}Rest {
             @RequestHeader(value = "sessionId") String sessionId,
             HttpServletRequest request,
             HttpServletResponse response) throws CustomException {
-        logger.info("select id:{}", id);
+        log.info("select id:{}", id);
         return ${tableName4FLH}Service.select(id, sessionId);
     }
 
@@ -107,7 +108,7 @@ public class ${tableName4FUH}Rest {
         Map<String, Object> params = new HashMap<>();
         params.put("pageNo", pageNo);
         params.put("pageSize", pageSize);
-        logger.info("selects params{}", params);
+        log.info("selects params{}", params);
         return ${tableName4FLH}Service.selects(params, sessionId);
     }
 }

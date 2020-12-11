@@ -1,5 +1,6 @@
 package ${packageName}.${projectName}.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,18 +15,19 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author
  */
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = CustomException.class)
     @ResponseBody
-    public WebResponse jsonErrorHandler(HttpServletResponse resp, CustomException exception) throws Exception {
+    public WebResponse jsonErrorHandler(HttpServletResponse resp, CustomException exception){
         WebResponse webResponse = new WebResponse();
         webResponse.setErrorCode(exception.getExceptionName().getCode());
         webResponse.setErrorMessage(exception.getMessage());
         webResponse.setInstanceId(System.getenv("instanceId"));
         resp.setStatus(400);
-        exception.printStackTrace();
+        log.error("error:",exception);
         return webResponse;
     }
 
@@ -36,7 +38,7 @@ public class GlobalExceptionHandler {
         WebResponse webResponse = new WebResponse();
         webResponse.setErrorCode(500);
         webResponse.setErrorMessage(ClassUtils.getShortName(ex.getClass()));
-        ex.printStackTrace();
+        log.error("error:",ex);
         return webResponse;
     }
 }

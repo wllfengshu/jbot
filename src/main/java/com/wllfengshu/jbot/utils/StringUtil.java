@@ -1,6 +1,7 @@
 package com.wllfengshu.jbot.utils;
 
 import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,9 +14,8 @@ import java.util.List;
  *
  * @author wllfengshu
  */
+@Slf4j
 public class StringUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(StringUtil.class);
 
     /**
      * 判断字符串：
@@ -79,7 +79,10 @@ public class StringUtil {
                 || "double".equalsIgnoreCase(sqlType)
                 || "smallmoney".equalsIgnoreCase(sqlType)) {
             return "Double";
-        } else if ("datetime".equalsIgnoreCase(sqlType)) {
+        } else if ("datetime".equalsIgnoreCase(sqlType)
+                || "timestamp".equalsIgnoreCase(sqlType)
+                || "time".equalsIgnoreCase(sqlType)
+                || "date".equalsIgnoreCase(sqlType)) {
             return "Date";
         } else if ("image".equalsIgnoreCase(sqlType)) {
             return "Blod";
@@ -222,7 +225,7 @@ public class StringUtil {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (Exception e) {
-            logger.error("获取服务器ip异常");
+            log.error("获取服务器ip异常");
         }
         return null;
     }

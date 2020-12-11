@@ -68,14 +68,15 @@ public class TemplateBoot {
         generatorCode(data,"startup.sh","startup.sh.ftl");
         //java
         String packageProjectPath = "src/main/java/" + StringUtil.spotToSlash(packageName) + "/" + projectName + "/";
-        generatorCode(data,packageProjectPath + "aop/LogAspect.java","main/aop/LogAspect.java.ftl");
+        generatorCode(data,packageProjectPath + "aspect/LogAspect.java","main/aspect/LogAspect.java.ftl");
         generatorCode(data,packageProjectPath + "config/DruidConfig.java","main/configs/DruidConfig.java.ftl");
         generatorCode(data,packageProjectPath + "config/Swagger2Config.java","main/configs/Swagger2Config.java.ftl");
         generatorCode(data,packageProjectPath + "exception/CustomException.java","main/exception/CustomException.java.ftl");
         generatorCode(data,packageProjectPath + "exception/GlobalExceptionHandler.java","main/exception/GlobalExceptionHandler.java.ftl");
         generatorCode(data,packageProjectPath + "exception/WebResponse.java","main/exception/WebResponse.java.ftl");
-        generatorCode(data,packageProjectPath + "utils/MyMapper.java","main/utils/MyMapper.java.ftl");
+        generatorCode(data,packageProjectPath + "utils/MapperUtil.java","main/utils/MapperUtil.java.ftl");
         generatorCode(data,packageProjectPath + projectName4FU + "Application.java","main/Application.java.ftl");
+        generatorCode(data,packageProjectPath + "rest/HealthRest.java","main/rest/HealthRest.java.ftl");
         //resources
         generatorCode(data,"src/main/resources/application.yml","main/resources/application.yml.ftl");
         generatorCode(data,"src/main/resources/logback.xml","main/resources/logback.xml.ftl");
