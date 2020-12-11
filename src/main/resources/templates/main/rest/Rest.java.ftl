@@ -1,13 +1,12 @@
 package ${packageName}.${projectName}.rest;
 
-import lombok.extern.slf4j.Slf4j;
 import ${packageName}.${projectName}.entity.${tableName4FUH}Entity;
 import ${packageName}.${projectName}.exception.CustomException;
 import ${packageName}.${projectName}.service.${tableName4FUH}Service;
 import io.swagger.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +16,11 @@ import java.util.*;
 @Slf4j
 @Api(value = "${tableName4FLH} Rest",tags = "${tableName4FLH}管理")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/${tableName4FLH}s")
 public class ${tableName4FUH}Rest {
 
-    @Autowired
+    @NonNull
     private ${tableName4FUH}Service ${tableName4FLH}Service;
 
     @ApiOperation(value = "添加", httpMethod = "POST")

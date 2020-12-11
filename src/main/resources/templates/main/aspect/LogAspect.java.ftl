@@ -1,4 +1,4 @@
-package ${packageName}.${projectName}.aop;
+package ${packageName}.${projectName}.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

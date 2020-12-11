@@ -1,23 +1,26 @@
 package ${packageName}.${projectName}.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import ${packageName}.${projectName}.dao.${tableName4FUH}DAO;
 import ${packageName}.${projectName}.entity.${tableName4FUH}Entity;
 import ${packageName}.${projectName}.exception.CustomException;
 import ${packageName}.${projectName}.service.${tableName4FUH}Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author
+ */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ${tableName4FUH}ServiceImpl implements ${tableName4FUH}Service {
 
-    @Autowired
+    @NonNull
     private ${tableName4FUH}DAO ${tableName4FLH}DAO;
 
     @Override

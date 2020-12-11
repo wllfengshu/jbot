@@ -2,11 +2,9 @@ package ${packageName}.${projectName}.service;
 
 import ${packageName}.${projectName}.entity.${tableName4FUH}Entity;
 import ${packageName}.${projectName}.exception.CustomException;
-import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-@Service
 public interface ${tableName4FUH}Service {
 
     Map<String, Object> insert(${tableName4FUH}Entity entity, String sessionId) throws CustomException;

@@ -99,8 +99,8 @@ public class TemplateBoot {
         //java
         String packageProjectPath = "src/main/java/" + StringUtil.spotToSlash(packageName) + "/" + projectName + "/";
         generatorCode(projectName, data,packageProjectPath + "aspect/LogAspect.java","main/aspect/LogAspect.java.ftl");
-        generatorCode(projectName, data,packageProjectPath + "config/DruidConfig.java","main/configs/DruidConfig.java.ftl");
-        generatorCode(projectName, data,packageProjectPath + "config/Swagger2Config.java","main/configs/Swagger2Config.java.ftl");
+        generatorCode(projectName, data,packageProjectPath + "configs/DruidConfig.java","main/configs/DruidConfig.java.ftl");
+        generatorCode(projectName, data,packageProjectPath + "configs/Swagger2Config.java","main/configs/Swagger2Config.java.ftl");
         generatorCode(projectName, data,packageProjectPath + "exception/CustomException.java","main/exception/CustomException.java.ftl");
         generatorCode(projectName, data,packageProjectPath + "exception/GlobalExceptionHandler.java","main/exception/GlobalExceptionHandler.java.ftl");
         generatorCode(projectName, data,packageProjectPath + "exception/WebResponse.java","main/exception/WebResponse.java.ftl");
