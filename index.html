@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>欢迎使用Jbot代码生成器-index</title>
+		<link href="./img/favicon.ico" rel="icon" type="image/x-icon">
+		<link href="./img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+		<link href="./css/bootstrap.min.css" rel="stylesheet">
+		<script src="./js/jquery.min.js"></script>
+		<script src="./js/angular.min.js"></script>
+		<script src="./js/bootstrap.min.js"></script>
+		<script src="./js/jbot.js"></script>
+	</head>
+
+	<body ng-app="jbot" ng-controller="jbotController" ng-init="initProjectFun()">
+		<div id="loading" style="position:fixed; top:0px; left:0px; width:100%; height:100%; display:none; background-color:#000; opacity: 0.3; z-index:99999;">
+			<div style="font-size: 50px;vertical-align: middle;width:200px; height:100px; position: absolute; top:50%; left:50%; margin-top: -50px; margin-left:-50px;">加载中...</div>
+		</div>
+		<div style="text-align:center;height: 80px;margin-top: 20px;">
+			<h1>使用本工具可以一键生成swagger+springboot+spring+mybatis项目</h1>
+		</div>
+		<div id="step1" style="background-color: #FFFFCC;width: 100%;height: 100%;">
+			<h2>步骤一：设置项目名</h2>
+			<a style="color: red;">注：以字母开头，只允许字母、数字、-连字符、_下划线，不能以-和_结尾，长度大于1小于50。例如：jbot</a>
+			<div class="control-group form-horizontal" >
+				<label class="control-label" for="projectName">请输入项目名：</label>
+				<div class="controls">
+					<input ng-model="projectName" id="projectName" type="text" placeholder="项目名" class="input-xlarge">
+				</div>
+			</div>
+			<div id="step2" style="background-color: #CCFFFF;width: 100%;height: 100%;">
+				<h2>步骤二：设置包名</h2>
+				<a style="color: red;">注：以字母开头，只允许字母、数字、点，不能以点结尾，长度大于1小于100；子包都不能以数字开头，子包不能超过10层。例如：com.wllfengshu</a>
+				<div class="control-group form-horizontal" >
+					<label class="control-label" for="packageName">请输入包名：</label>
+					<div class="controls">
+						<input ng-model="packageName" id="packageName" type="text" placeholder="包名，不含项目名" class="input-xlarge">
+					</div>
+				</div>
+				<div id="step3" style="background-color: #FFCCCC;width: 100%;height: 100%;">
+					<h2>步骤三：设置数据库信息</h2>
+					<a style="color: red;">注：这里的localhost和127.0.0.1指的是jbot服务所在的地址</a>
+					<div class="control-group form-horizontal" >
+						<label class="control-label" for="dbIp">请输入IP：</label>
+						<div class="controls">
+							<input ng-model="dbIp" id="dbIp" type="text" placeholder="例如：127.0.0.1" class="input-xlarge">
+						</div>
+					</div>
+					<div class="control-group form-horizontal" >
+						<label class="control-label" for="dbPort">请输入端口：</label>
+						<div class="controls">
+							<input ng-model="dbPort" id="dbPort" type="text" placeholder="例如：3306" class="input-xlarge">
+						</div>
+					</div>
+					<div class="control-group form-horizontal" >
+						<label class="control-label" for="dbName">请输入数据库名：</label>
+						<div class="controls">
+							<input ng-model="dbName" id="dbName" type="text" placeholder="例如：test" class="input-xlarge">
+						</div>
+					</div>
+					<div class="control-group form-horizontal" >
+						<label class="control-label" for="dbUsername">请输入数据库用户名：</label>
+						<div class="controls">
+							<input ng-model="dbUsername" id="dbUsername" type="text" placeholder="例如：root" class="input-xlarge">
+						</div>
+					</div>
+					<div class="control-group form-horizontal" >
+						<label class="control-label" for="dbPassword">请输入数据库密码：</label>
+						<div class="controls">
+							<input ng-model="dbPassword" id="dbPassword" type="password" placeholder="例如：root" class="input-xlarge">
+						</div>
+					</div>
+					<div id="step4" style="background-color: #99CCCC;width: 100%;height: 100%;">
+						<h2>步骤四：测试数据库连接</h2>
+						<a style="color: red;">注：点击“测试连接”后，请勾选待生成项目实体类对应的表</a>
+						<div class="controls">
+				            <button id="settingProject" ng-click="settingProjectFun()" class="btn btn-success">测试连接</button>
+				        </div>
+				        <div class="box-content">
+							<table id="havaTable" class="table table-striped table-bordered responsive">
+								<thead>
+									<tr>
+										<th>编号</th>
+										<th>表名</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="(index,todo) in todos">
+										<td class="center">{{index+1}}</td>
+										<td class="center">{{todo.tableName}}</td>
+										<td class="center">
+											<div class="control-group">
+										        <div class="controls">
+										            <label class="checkbox">
+										            	<input type="checkbox" ng-click="updateSelection($event,todo)">
+										              	勾选
+										            </label>
+										        </div>
+									        </div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+				        <div id="step5" style="background-color: #FFCC99;width: 100%;height: 100%;">
+							<h2>步骤五：生成项目工程</h2>
+							<a style="color: red;">注：下载压缩包解压后，需要设置项目的环境变量才可运行</a>
+							<div class="controls">
+					            <button id="produceProject" ng-click="produceProjectFun()" class="btn btn-success">生成项目</button>
+					        </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
