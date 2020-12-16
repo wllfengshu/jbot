@@ -26,14 +26,14 @@ public class LogAspect {
      */
     private static final long WEB_WARN_WHEN_OVER_TIME = 60 * 1000;
 
-    private Object process(ProceedingJoinPoint joinPoint,String target,long warnTime) throws Throwable {
+    private Object process(ProceedingJoinPoint joinPoint, String target, long warnTime) throws Throwable {
         long startTime = System.currentTimeMillis();
         Object result = joinPoint.proceed();
         long costTime = System.currentTimeMillis() - startTime;
         if (costTime > warnTime) {
-            log.warn("execute "+target+":{} costTime:{} ms", joinPoint.getSignature().getName(), costTime);
+            log.warn("execute " + target + ":{} costTime:{} ms", joinPoint.getSignature().getName(), costTime);
         } else {
-            log.info("execute "+target+":{} costTime:{} ms", joinPoint.getSignature().getName(), costTime);
+            log.info("execute " + target + ":{} costTime:{} ms", joinPoint.getSignature().getName(), costTime);
         }
         return result;
     }
@@ -43,16 +43,15 @@ public class LogAspect {
      *
      * @param joinPoint
      * @return
-     * @throws Throwable
-     *    切入点解释：
-     *         第一个 * 代表任意修饰符及任意返回值
-     *         第二个 * 定义在web包或者子包
-     *         第三个 * 任意方法
-     *         .. 匹配任意数量的参数
+     * @throws Throwable 切入点解释：
+     *                   第一个 * 代表任意修饰符及任意返回值
+     *                   第二个 * 定义在web包或者子包
+     *                   第三个 * 任意方法
+     *                   .. 匹配任意数量的参数
      */
     @Around("execution( * com.wllfengshu.jbot.dao.*.*(..))")
     public Object sqlLogExecution(ProceedingJoinPoint joinPoint) throws Throwable {
-        return process(joinPoint,"sql",SQL_WARN_WHEN_OVER_TIME);
+        return process(joinPoint, "sql", SQL_WARN_WHEN_OVER_TIME);
     }
 
     /**
@@ -64,6 +63,6 @@ public class LogAspect {
      */
     @Around("execution( * com.wllfengshu.jbot.rest.*.*(..))")
     public Object webLogExecution(ProceedingJoinPoint joinPoint) throws Throwable {
-        return process(joinPoint,"request",WEB_WARN_WHEN_OVER_TIME);
+        return process(joinPoint, "request", WEB_WARN_WHEN_OVER_TIME);
     }
 }

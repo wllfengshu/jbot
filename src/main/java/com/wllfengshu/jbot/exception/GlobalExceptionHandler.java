@@ -21,13 +21,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = CustomException.class)
     @ResponseBody
-    public WebResponse jsonErrorHandler(HttpServletResponse resp, CustomException exception){
+    public WebResponse jsonErrorHandler(HttpServletResponse resp, CustomException exception) {
         WebResponse webResponse = new WebResponse();
         webResponse.setErrorCode(exception.getExceptionName().getCode());
         webResponse.setErrorMessage(exception.getMessage());
         webResponse.setInstanceId(System.getenv("instanceId"));
         resp.setStatus(400);
-        log.error("error:",exception);
+        log.error("error:", exception);
         return webResponse;
     }
 
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         WebResponse webResponse = new WebResponse();
         webResponse.setErrorCode(500);
         webResponse.setErrorMessage(ClassUtils.getShortName(ex.getClass()));
-        log.error("error:",ex);
+        log.error("error:", ex);
         return webResponse;
     }
 }

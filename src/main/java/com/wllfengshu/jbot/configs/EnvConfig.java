@@ -22,7 +22,7 @@ public class EnvConfig implements InitializingBean {
     /**
      * 服务端数据库配置
      */
-    @Value("${db_url:jdbc:mysql://192.168.40.254:3306/test}")
+    @Value("${db_url:jdbc:mysql://127.0.0.1:3306/test}")
     private String dbUrl;
     @Value("${db_username:root}")
     private String dbUsername;

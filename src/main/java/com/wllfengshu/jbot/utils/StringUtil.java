@@ -17,11 +17,11 @@ public class StringUtil {
 
     /**
      * 判断字符串：
-     *     以字母开头，只允许字母、数字、-连字符、_下划线，不能以-和_结尾，长度大于1小于100
+     * 以字母开头，只允许字母、数字、-连字符、_下划线，不能以-和_结尾，长度大于1小于100
      *
      * @param str
      * @return true 验证通过
-     *          false 验证不通过
+     * false 验证不通过
      */
     public static boolean checkProjectName(String str) {
         return str.matches("^[a-zA-Z][a-zA-Z-_\\d]*[a-zA-Z\\d]{1,100}$");
@@ -29,11 +29,11 @@ public class StringUtil {
 
     /**
      * 判断字符串：
-     *     以字母开头，只允许字母、数字、点，各个部分都不能以数字开头，不能以点结尾，长度大于1小于100
+     * 以字母开头，只允许字母、数字、点，各个部分都不能以数字开头，不能以点结尾，长度大于1小于100
      *
      * @param str
      * @return true 验证通过
-     *          false 验证不通过
+     * false 验证不通过
      */
     public static boolean checkPackageName(String str) {
         //1 验证以字母开头，只允许字母、数字、点，不能以点结尾，长度大于1小于100
@@ -151,7 +151,7 @@ public class StringUtil {
      *
      * @param str
      * @return true 空
-     *          false 非空
+     * false 非空
      */
     public static boolean isEmpty(String str) {
         if (null == str || "".equals(str)) {
@@ -236,7 +236,7 @@ public class StringUtil {
     public static ConnectInfoVO getServerDbConnect(String dbUrl, String username, String password) {
         ConnectInfoVO ci = new ConnectInfoVO();
         //1 截取出ip:port/dbName
-        String temp = dbUrl.substring("jdbc:mysql://".length(),dbUrl.contains("?") ? dbUrl.indexOf("?") : dbUrl.length());
+        String temp = dbUrl.substring("jdbc:mysql://".length(), dbUrl.contains("?") ? dbUrl.indexOf("?") : dbUrl.length());
         //2 分离ip(如果环境变量中是本地ip，则使用服务器ip)
         String[] ipPortDb = temp.split(":");
         if ("localhost".equals(ipPortDb[0]) || "127.0.0.1".equals(ipPortDb[0])) {

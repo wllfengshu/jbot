@@ -70,16 +70,16 @@ public class FileUtil {
                 File[] files = f.listFiles();
                 out.putNextEntry(new ZipEntry(base + "/"));
                 base += "/";
-                for(File cf:files){
-                    zip(out, cf, base+cf.getName());
+                for (File cf : files) {
+                    zip(out, cf, base + cf.getName());
                 }
             } else {
                 out.putNextEntry(new ZipEntry(base));
                 in = new FileInputStream(f);
                 byte[] b = new byte[1024];
                 int n = -1;
-                while ((n=in.read(b)) != -1) {
-                    out.write(b,0,n);
+                while ((n = in.read(b)) != -1) {
+                    out.write(b, 0, n);
                 }
             }
         } catch (Exception e) {
@@ -196,7 +196,7 @@ public class FileUtil {
     /**
      * 把文件读到List中
      * 注意：1、一行只允许一个字符串；
-     *       2、以#开头的字符串将被忽略；
+     * 2、以#开头的字符串将被忽略；
      *
      * @param fileName
      * @return
@@ -348,7 +348,7 @@ public class FileUtil {
      * @param filename
      */
     public static void deleteFile(String filename) throws CustomException {
-        log.info("删除文件,文件名{}",filename);
+        log.info("删除文件,文件名{}", filename);
         File file = new File(filename);
         if (file.isDirectory()) {
             return;
@@ -385,8 +385,8 @@ public class FileUtil {
      * @param dir
      * @return
      */
-    public static boolean isExistsAndDir(File dir){
-        if (null != dir && dir.exists() && dir.isDirectory()){
+    public static boolean isExistsAndDir(File dir) {
+        if (null != dir && dir.exists() && dir.isDirectory()) {
             return true;
         }
         return false;

@@ -41,7 +41,7 @@ public class JbotServiceImpl implements JbotService {
     @Override
     public Map<String, Object> initProject() throws CustomException {
         Map<String, Object> result = new HashMap<>(16);
-        result.put("data", StringUtil.getServerDbConnect(envConfig.getDbUrl(),envConfig.getDbUsername(),envConfig.getDbPassword()));
+        result.put("data", StringUtil.getServerDbConnect(envConfig.getDbUrl(), envConfig.getDbUsername(), envConfig.getDbPassword()));
         log.info("JbotServiceImpl,init-------->result:{}", result);
         return result;
     }
@@ -93,17 +93,17 @@ public class JbotServiceImpl implements JbotService {
             throw new CustomException("包名不合法", CustomException.ExceptionName.IllegalPackageName);
         }
         //3 生成项目
-        new TemplateBoot().start(projectName, packageName,tables);
+        new TemplateBoot().start(projectName, packageName, tables);
         //4 压缩生成的项目
         String targetProjectPath = Constant.TARGET_PROJECT_HOME + "/" + projectName;
         String targetProjectZipPath = targetProjectPath + ".zip";
-        FileUtil.fileToZip(targetProjectZipPath,targetProjectPath);
+        FileUtil.fileToZip(targetProjectZipPath, targetProjectPath);
         //5 下载生成的项目
         FileUtil.download(targetProjectZipPath, response);
         //6 删除生成的项目文件
         new File(targetProjectZipPath).delete();
         FileUtil.deleteDir(new File(targetProjectPath));
-        result.put("operation","success");
+        result.put("operation", "success");
         log.info("JbotServiceImpl,produceProject-------->result:{}", result);
         return result;
     }

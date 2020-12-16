@@ -41,7 +41,7 @@ public class Interceptor {
      *
      * @param deci
      * @return false 不通过
-     *          true 通过
+     * true 通过
      */
     public boolean checkProject(String deci) {
         if (StringUtil.isEmpty(deci) || deci.length() < 2 || deci.length() > 50 || !StringUtil.checkProjectName(deci) || BLACK.contains(deci)) {
@@ -55,7 +55,7 @@ public class Interceptor {
      *
      * @param deci
      * @return false 不通过
-     *          true 通过
+     * true 通过
      */
     public boolean checkPackage(String deci) {
         if (StringUtil.isEmpty(deci) || deci.length() < 2 || deci.length() > 100 || !StringUtil.checkPackageName(deci) || BLACK.contains(deci)) {
