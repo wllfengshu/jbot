@@ -1,10 +1,14 @@
 package com.wllfengshu.jbot.common;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * 公共常量集合
  *
  * @author wllfengshu
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Constant {
 
     /**

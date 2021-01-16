@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         WebResponse webResponse = new WebResponse();
         webResponse.setErrorCode(500);
         webResponse.setErrorMessage(ClassUtils.getShortName(ex.getClass()));
-        log.error("error:", ex);
+        log.error("error ex:", ex);
         return webResponse;
     }
 }

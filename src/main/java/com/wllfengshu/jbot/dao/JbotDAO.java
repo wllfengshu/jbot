@@ -18,5 +18,4 @@ public interface JbotDAO {
      * @return
      */
     List<Table> getTables(String dbName);
-
 }

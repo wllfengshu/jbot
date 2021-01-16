@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class DruidConfig {
 
     @Bean
-    public ServletRegistrationBean druidServlet() {
+    public ServletRegistrationBean servletRegistrationBean() {
         ServletRegistrationBean bean = new ServletRegistrationBean();
         bean.setServlet(new StatViewServlet());
         bean.addUrlMappings("/druid/*");
