@@ -107,7 +107,7 @@ public class StringUtil {
      */
     public static String delTUnderline(String str) {
         if (str.startsWith("t_") && str.length() > 2) {
-            return str.substring(2, str.length());
+            return str.substring(2);
         }
         return str;
     }
@@ -154,10 +154,7 @@ public class StringUtil {
      * false 非空
      */
     public static boolean isEmpty(String str) {
-        if (null == str || "".equals(str)) {
-            return true;
-        }
-        return false;
+        return null == str || "".equals(str);
     }
 
     /**

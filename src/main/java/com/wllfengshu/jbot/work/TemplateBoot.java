@@ -1,7 +1,6 @@
 package com.wllfengshu.jbot.work;
 
 import com.wllfengshu.jbot.common.Constant;
-import com.wllfengshu.jbot.exception.CustomException;
 import com.wllfengshu.jbot.model.Table;
 import com.wllfengshu.jbot.utils.FileUtil;
 import com.wllfengshu.jbot.utils.StringUtil;
@@ -79,7 +78,7 @@ public class TemplateBoot {
         log.info("模板文件加载完毕");
     }
 
-    public void start(String projectName, String packageName, List<Table> tables) throws CustomException {
+    public void start(String projectName, String packageName, List<Table> tables) {
         //1 准备数据
         Map<String, Object> data = new HashMap<>();
         //存入StringUtil类后，就可以在ftl文件中直接调用其静态方法
@@ -141,25 +140,15 @@ public class TemplateBoot {
      * @throws Exception
      */
     public void generatorCode(String projectName, Map<String, Object> data, String path, String templateName) {
-        Writer out = null;
-        try {
-            File file = new File(Constant.TARGET_PROJECT_HOME + "/" + projectName + "/" + path);
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
-            out = new FileWriter(file);
+        File file = new File(Constant.TARGET_PROJECT_HOME + "/" + projectName + "/" + path);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        try (Writer out = new FileWriter(file)){
             configuration.getTemplate(templateName).process(data, out);
+            out.flush();
         } catch (Exception e) {
             log.error("生成代码失败", e);
-        } finally {
-            try {
-                if (out != null) {
-                    out.flush();
-                    out.close();
-                }
-            } catch (Exception e) {
-                log.error("生成代码失败 finally", e);
-            }
         }
     }
 }

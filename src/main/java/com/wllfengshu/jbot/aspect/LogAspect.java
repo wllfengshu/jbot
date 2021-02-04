@@ -19,12 +19,12 @@ public class LogAspect {
     /**
      * 当sql执行时间超过该值时，进行warn级别的打印(单位ms)
      */
-    private static final long SQL_WARN_WHEN_OVER_TIME = 5 * 1000;
+    private static final long SQL_WARN_WHEN_OVER_TIME = 5000;
 
     /**
      * 当web请求响应时间超过该值时，进行warn级别的打印(单位ms)
      */
-    private static final long WEB_WARN_WHEN_OVER_TIME = 60 * 1000;
+    private static final long WEB_WARN_WHEN_OVER_TIME = 60000;
 
     private Object process(ProceedingJoinPoint joinPoint, String target, long warnTime) throws Throwable {
         long startTime = System.currentTimeMillis();

@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Configuration;
 public class DruidConfig {
 
     @Bean
-    public ServletRegistrationBean servletRegistrationBean() {
-        ServletRegistrationBean bean = new ServletRegistrationBean();
+    public ServletRegistrationBean<StatViewServlet> druidServlet() {
+        ServletRegistrationBean<StatViewServlet> bean = new ServletRegistrationBean<>();
         bean.setServlet(new StatViewServlet());
         bean.addUrlMappings("/druid/*");
         bean.addInitParameter("loginUsername", "root");
@@ -28,8 +28,8 @@ public class DruidConfig {
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean bean = new FilterRegistrationBean();
+    public FilterRegistrationBean<WebStatFilter> filterRegistrationBean() {
+        FilterRegistrationBean<WebStatFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(new WebStatFilter());
         bean.addUrlPatterns("/*");
         // 过滤文件类型

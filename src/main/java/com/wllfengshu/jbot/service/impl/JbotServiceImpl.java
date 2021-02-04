@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author wllfengshu
@@ -52,25 +53,25 @@ public class JbotServiceImpl implements JbotService {
         //1 检测数据库地址是否合法(可以是域名或IP)
         if (StringUtil.isEmpty(connectInfoVO.getDbIp())) {
             log.error("数据库地址不合法");
-            throw new CustomException("数据库地址不合法", CustomException.ExceptionName.IllegalDbIp);
+            throw new CustomException("数据库地址不合法", CustomException.ExceptionName.ILLEGAL_DB_IP);
         }
         //2 检测数据库端口是否合法
-        if (StringUtil.isEmpty(connectInfoVO.getDbPort()) && Integer.valueOf(connectInfoVO.getDbPort()) > 0 && Integer.valueOf(connectInfoVO.getDbPort()) < 65535) {
+        if (StringUtil.isEmpty(connectInfoVO.getDbPort()) && Integer.parseInt(connectInfoVO.getDbPort()) > 0 && Integer.parseInt(connectInfoVO.getDbPort()) < 65535) {
             log.error("数据库端口不合法");
-            throw new CustomException("数据库端口不合法", CustomException.ExceptionName.IllegalDbPort);
+            throw new CustomException("数据库端口不合法", CustomException.ExceptionName.ILLEGAL_DB_PORT);
         }
         //3 检测数据库名是否合法
         if (StringUtil.isEmpty(connectInfoVO.getDbName())) {
             log.error("数据库名不合法");
-            throw new CustomException("数据库名不合法", CustomException.ExceptionName.IllegalDbName);
+            throw new CustomException("数据库名不合法", CustomException.ExceptionName.ILLEGAL_DB_NAME);
         }
         //4 检测数据库用户名是否合法
         if (StringUtil.isEmpty(connectInfoVO.getDbPort())) {
             log.error("数据库用户名不合法");
-            throw new CustomException("数据库用户名不合法", CustomException.ExceptionName.IllegalDbUsername);
+            throw new CustomException("数据库用户名不合法", CustomException.ExceptionName.ILLEGAL_DB_USERNAME);
         }
         //5 获取数据库中的表信息
-        if ("localhost".equals(connectInfoVO.getDbIp()) || "127.0.0.1".equals(connectInfoVO.getDbIp()) || StringUtil.getServerIp().equals(connectInfoVO.getDbIp())) {
+        if ("localhost".equals(connectInfoVO.getDbIp()) || "127.0.0.1".equals(connectInfoVO.getDbIp()) || Objects.equals(StringUtil.getServerIp(), connectInfoVO.getDbIp())) {
             result.put("data", jbotDao.getTables(connectInfoVO.getDbName()));
         } else {
             result.put("data", MysqlUtil.getDbInfo(connectInfoVO));
@@ -85,12 +86,12 @@ public class JbotServiceImpl implements JbotService {
         //1 检测项目名是否合法
         if (!interceptor.checkProject(projectName)) {
             log.error("项目名不合法");
-            throw new CustomException("项目名不合法", CustomException.ExceptionName.IllegalProjectName);
+            throw new CustomException("项目名不合法", CustomException.ExceptionName.ILLEGAL_PROJECT_NAME);
         }
         //2 检测包名是否合法
         if (!interceptor.checkPackage(packageName)) {
             log.error("包名不合法");
-            throw new CustomException("包名不合法", CustomException.ExceptionName.IllegalPackageName);
+            throw new CustomException("包名不合法", CustomException.ExceptionName.ILLEGAL_PACKAGE_NAME);
         }
         //3 生成项目
         new TemplateBoot().start(projectName, packageName, tables);

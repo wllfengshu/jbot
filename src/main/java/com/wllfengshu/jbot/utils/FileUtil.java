@@ -1,6 +1,8 @@
 package com.wllfengshu.jbot.utils;
 
 import com.wllfengshu.jbot.exception.CustomException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -8,6 +10,7 @@ import org.springframework.core.io.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -19,6 +22,7 @@ import java.util.zip.ZipOutputStream;
  * @author wllfengshu
  */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FileUtil {
 
     /**
@@ -29,28 +33,14 @@ public class FileUtil {
      */
     public static void fileToZip(String zipFileName, String inputFile) throws CustomException {
         log.info("开始压缩文件，zipFileName:{},inputFile:{}", zipFileName, inputFile);
-        FileOutputStream fos = null;
-        ZipOutputStream out = null;
-        try {
-            fos = new FileOutputStream(zipFileName);
-            out = new ZipOutputStream(fos);
+        try (FileOutputStream fos = new FileOutputStream(zipFileName);
+             ZipOutputStream out = new ZipOutputStream(fos)) {
             zip(out, new File(inputFile), "");
+            out.flush();
+            fos.flush();
         } catch (Exception e) {
             log.error("压缩文件异常", e);
-            throw new CustomException("压缩文件异常", CustomException.ExceptionName.FailedZipFile);
-        } finally {
-            try {
-                if (out != null) {
-                    out.flush();
-                    out.close();
-                }
-                if (fos != null) {
-                    fos.flush();
-                    fos.close();
-                }
-            } catch (Exception e) {
-                log.error("压缩文件异常 finally", e);
-            }
+            throw new CustomException("压缩文件异常", CustomException.ExceptionName.FAILED_ZIP_FILE);
         }
         log.info("文件压缩完毕");
     }
@@ -63,86 +53,29 @@ public class FileUtil {
      * @param base
      * @throws CustomException
      */
-    private static void zip(ZipOutputStream out, File f, String base) throws CustomException {
-        FileInputStream in = null;
-        try {
-            if (f.isDirectory()) {
-                File[] files = f.listFiles();
-                out.putNextEntry(new ZipEntry(base + "/"));
-                base += "/";
-                for (File cf : files) {
-                    zip(out, cf, base + cf.getName());
-                }
-            } else {
+    private static void zip(ZipOutputStream out, File f, String base) throws Exception {
+        if (f.isDirectory()) {
+            File[] files = f.listFiles();
+            if (null == files) {
+                return;
+            }
+            out.putNextEntry(new ZipEntry(base + "/"));
+            base += "/";
+            for (File cf : files) {
+                zip(out, cf, base + cf.getName());
+            }
+        } else {
+            try (FileInputStream in = new FileInputStream(f)) {
                 out.putNextEntry(new ZipEntry(base));
-                in = new FileInputStream(f);
                 byte[] b = new byte[1024];
-                int n = -1;
+                int n;
                 while ((n = in.read(b)) != -1) {
                     out.write(b, 0, n);
                 }
-            }
-        } catch (Exception e) {
-            log.error("zip 异常", e);
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
             } catch (Exception e) {
-                log.error("zip 异常 finally", e);
+                log.error("zip 异常", e);
             }
         }
-    }
-
-    /**
-     * 替换文件内容(注意：oldStr[]元素个数必须小于等于newStr[])
-     *
-     * @param filePath 文件名（文件路径+文件名）
-     * @param oldStr   待替换内容
-     * @param newStr   替换后内容
-     */
-    public static void replace(String filePath, String[] oldStr, String[] newStr) throws CustomException {
-        log.info("开始替换文件内容，fielPath:{},oldStr size:{},newStr size:{}", filePath, oldStr.length, newStr.length);
-        if (oldStr.length > newStr.length) {
-            log.error("oldStr元素个数:{}必须小于等于newStr:{}", oldStr.length, newStr.length);
-            return;
-        }
-        File file = new File(filePath);
-        if (!file.exists()) {
-            log.error("待替换文件不存在，filePath:{}", filePath);
-            return;
-        }
-        Long fileLength = file.length();
-        byte[] fileContext = new byte[fileLength.intValue()];
-        FileInputStream in = null;
-        PrintWriter out = null;
-        try {
-            in = new FileInputStream(filePath);
-            in.read(fileContext);
-            String str = new String(fileContext, "utf-8");
-            for (int i = 0; i < oldStr.length; i++) {
-                str = str.replace(oldStr[i], newStr[i]);
-            }
-            out = new PrintWriter(filePath);
-            out.write(str);
-        } catch (Exception e) {
-            log.error("替换文件内容异常", e);
-            throw new CustomException("替换文件内容异常", CustomException.ExceptionName.FailedReplaceFile);
-        } finally {
-            try {
-                if (out != null) {
-                    out.flush();
-                    out.close();
-                }
-                if (in != null) {
-                    in.close();
-                }
-            } catch (Exception e) {
-                log.error("替换文件内容异常 finally", e);
-            }
-        }
-        log.info("文件替换完成");
     }
 
     /**
@@ -153,19 +86,22 @@ public class FileUtil {
      */
     public static void download(String fileName, HttpServletResponse response) throws CustomException {
         log.info("开始文件下载，文件名：{}", fileName);
-        BufferedInputStream bis = null;
-        BufferedOutputStream bos = null;
+        File file = new File(fileName);
+        if (!file.exists()) {
+            log.error("待下载文件不存在，fileName:{}", fileName);
+            return;
+        }
         try {
-            File file = new File(fileName);
-            if (!file.exists()) {
-                log.error("待下载文件不存在，fileName:{}", fileName);
-                return;
-            }
             response.setCharacterEncoding("UTF-8");
             response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
             response.setHeader("Content-Length", String.valueOf(file.length()));
-            bis = new BufferedInputStream(new FileInputStream(file));
-            bos = new BufferedOutputStream(response.getOutputStream());
+        } catch (Exception e) {
+            log.error("设置响应头异常", e);
+            throw new CustomException("设置响应头异常", CustomException.ExceptionName.FAILED_DOWNLOAD_FILE);
+        }
+
+        try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream())) {
             byte[] buff = new byte[2048];
             while (true) {
                 int bytesRead;
@@ -177,19 +113,7 @@ public class FileUtil {
             log.info("文件下载完成");
         } catch (Exception e) {
             log.error("下载文件异常", e);
-            throw new CustomException("下载文件异常", CustomException.ExceptionName.FailedDownloadFile);
-        } finally {
-            try {
-                if (bis != null) {
-                    bis.close();
-                }
-                if (bos != null) {
-                    bos.flush();
-                    bos.close();
-                }
-            } catch (Exception e) {
-                log.error("下载文件异常 finally", e);
-            }
+            throw new CustomException("下载文件异常", CustomException.ExceptionName.FAILED_DOWNLOAD_FILE);
         }
     }
 
@@ -201,7 +125,7 @@ public class FileUtil {
      * @param fileName
      * @return
      */
-    public static List<String> readFile2Set(String fileName) throws CustomException {
+    public static List<String> readFile2Set(String fileName) {
         log.info("开始把文件读到List中，fileName:{}", fileName);
         List<String> items = new ArrayList<>();
         Resource resource = new ClassPathResource(fileName);
@@ -209,154 +133,20 @@ public class FileUtil {
             log.error("把文件读到List中时，资源文件不存在");
             return items;
         }
-        InputStream input = null;
-        Reader reader = null;
-        BufferedReader br = null;
-        try {
-            input = resource.getInputStream();
-            reader = new InputStreamReader(input, "UTF-8");
-            br = new BufferedReader(reader);
-            String temp = null;
+        try (InputStream input = resource.getInputStream();
+             Reader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
+             BufferedReader br = new BufferedReader(reader)) {
+            String temp;
             while (null != (temp = br.readLine())) {
-                if (null != temp && !"".equals(temp) && !"\n".equals(temp) && !"\r\n".equals(temp) && !temp.startsWith("#")) {
+                if (!"".equals(temp) && !"\n".equals(temp) && !"\r\n".equals(temp) && !temp.startsWith("#")) {
                     items.add(temp);
                 }
             }
         } catch (Exception e) {
             log.error("把文件读到List中时异常", e);
-        } finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-                if (reader != null) {
-                    reader.close();
-                }
-                if (input != null) {
-                    input.close();
-                }
-            } catch (Exception e) {
-                log.error("把文件读到List中时异常 finally", e);
-            }
         }
         log.info("文件读到List中完毕");
         return items;
-    }
-
-    /**
-     * 创建文件
-     *
-     * @param fileName
-     * @return
-     */
-    public static void createFile(String fileName, String content) throws CustomException {
-        File file = new File(fileName);
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-        try {
-            if (file.getParentFile() != null && !file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            fw = new FileWriter(file.getAbsoluteFile());
-            bw = new BufferedWriter(fw);
-            bw.write(content);
-        } catch (Exception e) {
-            log.error("创建文件异常", e);
-        } finally {
-            try {
-                if (bw != null) {
-                    bw.flush();
-                    bw.close();
-                }
-                if (fw != null) {
-                    fw.flush();
-                    fw.close();
-                }
-            } catch (Exception e) {
-                log.error("创建文件异常 finally", e);
-            }
-        }
-    }
-
-    /**
-     * 创建目录
-     *
-     * @param destDirName
-     * @return
-     */
-    public static void createDir(String destDirName) throws CustomException {
-        File dir = new File(destDirName);
-        if (dir.exists() && dir.isDirectory()) {
-            return;
-        }
-        dir.mkdirs();
-    }
-
-    /**
-     * 复制文件
-     *
-     * @param oldPath
-     * @param newPath
-     */
-    public static void copyFile(String oldPath, String newPath) throws CustomException {
-        log.info("开始复制文件，oldPath:{},newPath:{}", oldPath, newPath);
-        Resource resource = new ClassPathResource(oldPath);
-        if (!resource.exists()) {
-            log.error("复制文件时，资源文件不存在");
-            return;
-        }
-        InputStream input = null;
-        FileOutputStream out = null;
-        try {
-            File file = new File(newPath);
-            if (file.getParentFile() != null && !file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            input = resource.getInputStream();
-            out = new FileOutputStream(file);
-            byte[] buffer = new byte[2048];
-            int readByte = 0;
-            while ((readByte = input.read(buffer)) != -1) {
-                out.write(buffer, 0, readByte);
-            }
-        } catch (Exception e) {
-            log.error("复制文件异常", e);
-        } finally {
-            try {
-                if (out != null) {
-                    out.flush();
-                    out.close();
-                }
-                if (input != null) {
-                    input.close();
-                }
-            } catch (Exception e) {
-                log.error("复制文件异常 finally", e);
-            }
-        }
-    }
-
-    /**
-     * 删除一个文件。
-     *
-     * @param filename
-     */
-    public static void deleteFile(String filename) throws CustomException {
-        log.info("删除文件,文件名{}", filename);
-        File file = new File(filename);
-        if (file.isDirectory()) {
-            return;
-        }
-        if (!file.exists()) {
-            return;
-        }
-        file.delete();
     }
 
     /**
@@ -364,7 +154,7 @@ public class FileUtil {
      *
      * @param dir
      */
-    public static void deleteDir(File dir) throws CustomException {
+    public static void deleteDir(File dir) {
         if (!dir.exists()) {
             return;
         }
@@ -386,9 +176,6 @@ public class FileUtil {
      * @return
      */
     public static boolean isExistsAndDir(File dir) {
-        if (null != dir && dir.exists() && dir.isDirectory()) {
-            return true;
-        }
-        return false;
+        return null != dir && dir.exists() && dir.isDirectory();
     }
 }

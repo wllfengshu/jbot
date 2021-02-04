@@ -30,7 +30,7 @@ public class JbotRest {
     @ApiResponses({
             @ApiResponse(code = 400, message = "IllegalParam")
     })
-    @RequestMapping(value = "/init", method = RequestMethod.GET)
+    @GetMapping("/init")
     public Map<String, Object> initProject(
             HttpServletRequest request,
             HttpServletResponse response) throws CustomException {
@@ -42,7 +42,7 @@ public class JbotRest {
     @ApiResponses({
             @ApiResponse(code = 400, message = "IllegalParam")
     })
-    @RequestMapping(value = "/setting", method = RequestMethod.POST)
+    @PostMapping("/setting")
     public Map<String, Object> settingProject(
             @RequestBody @ApiParam(value = "数据库连接实体类（数据库连接信息）", required = true) ConnectInfoVO connectInfoVO,
             HttpServletRequest request,
@@ -59,7 +59,7 @@ public class JbotRest {
     @ApiResponses({
             @ApiResponse(code = 400, message = "IllegalParam")
     })
-    @RequestMapping(value = "/produce", method = RequestMethod.POST)
+    @PostMapping("/produce")
     public Map<String, Object> produceProject(
             @RequestParam(value = "projectName") String projectName,
             @RequestParam(value = "packageName") String packageName,
