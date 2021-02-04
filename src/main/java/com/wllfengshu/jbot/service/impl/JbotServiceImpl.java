@@ -38,6 +38,8 @@ public class JbotServiceImpl implements JbotService {
     private EnvConfig envConfig;
     @NonNull
     private Interceptor interceptor;
+    @NonNull
+    private TemplateBoot templateBoot;
 
     @Override
     public Map<String, Object> initProject() throws CustomException {
@@ -94,7 +96,7 @@ public class JbotServiceImpl implements JbotService {
             throw new CustomException("包名不合法", CustomException.ExceptionName.ILLEGAL_PACKAGE_NAME);
         }
         //3 生成项目
-        new TemplateBoot().start(projectName, packageName, tables);
+        templateBoot.start(projectName, packageName, tables);
         //4 压缩生成的项目
         String targetProjectPath = Constant.TARGET_PROJECT_HOME + "/" + projectName;
         String targetProjectZipPath = targetProjectPath + ".zip";

@@ -40,7 +40,7 @@ public class ${tableName4FUH}Rest {
 
     @ApiOperation(value = "删除", httpMethod = "DELETE")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID",example = 0, required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "id", value = "用户ID",example = "0", required = true, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "sessionId", value = "SessionId", required = true, dataType = "string", paramType = "header")
     })
     @ApiResponses({
@@ -73,7 +73,7 @@ public class ${tableName4FUH}Rest {
 
     @ApiOperation(value = "查询", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", example = 0, required = true, dataType = "int", paramType = "path"),
+            @ApiImplicitParam(name = "id", value = "用户ID", example = "0", required = true, dataType = "int", paramType = "path"),
             @ApiImplicitParam(name = "sessionId", value = "SessionId", required = true, dataType = "string", paramType = "header")
     })
     @ApiResponses({
@@ -91,8 +91,8 @@ public class ${tableName4FUH}Rest {
 
     @ApiOperation(value = "查询列表", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNo", value = "页数(从0开始，默认0)", example = 0, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "pageSize", value = "每页的数量(默认10)", example = 0, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "pageNo", value = "页数(从0开始，默认0)", example = "0", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "每页的数量(默认10)", example = "0", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "sessionId", value = "SessionId", required = true, dataType = "string", paramType = "header")
     })
     @ApiResponses({

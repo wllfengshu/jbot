@@ -5,9 +5,10 @@ import com.wllfengshu.jbot.model.Table;
 import com.wllfengshu.jbot.utils.FileUtil;
 import com.wllfengshu.jbot.utils.StringUtil;
 import freemarker.template.TemplateExceptionHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -29,7 +30,8 @@ import java.util.Map;
  * @author wllfengshu
  */
 @Slf4j
-@Component
+@Configuration
+@RequiredArgsConstructor
 public class TemplateBoot {
 
     private static final freemarker.template.Configuration configuration = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_22);
@@ -97,19 +99,19 @@ public class TemplateBoot {
         generatorCode(projectName, data, "startup.sh", "startup.sh.ftl");
         //java
         String packageProjectPath = "src/main/java/" + StringUtil.spotToSlash(packageName) + "/" + projectName + "/";
-        generatorCode(projectName, data, packageProjectPath + "aspect/LogAspect.java", "main/aspect/LogAspect.java.ftl");
-        generatorCode(projectName, data, packageProjectPath + "configs/DruidConfig.java", "main/configs/DruidConfig.java.ftl");
-        generatorCode(projectName, data, packageProjectPath + "configs/Swagger2Config.java", "main/configs/Swagger2Config.java.ftl");
-        generatorCode(projectName, data, packageProjectPath + "exception/CustomException.java", "main/exception/CustomException.java.ftl");
-        generatorCode(projectName, data, packageProjectPath + "exception/GlobalExceptionHandler.java", "main/exception/GlobalExceptionHandler.java.ftl");
-        generatorCode(projectName, data, packageProjectPath + "exception/WebResponse.java", "main/exception/WebResponse.java.ftl");
-        generatorCode(projectName, data, packageProjectPath + "utils/MapperUtil.java", "main/utils/MapperUtil.java.ftl");
-        generatorCode(projectName, data, packageProjectPath + projectName4FU + "Application.java", "main/Application.java.ftl");
-        generatorCode(projectName, data, packageProjectPath + "rest/HealthRest.java", "main/rest/HealthRest.java.ftl");
+        generatorCode(projectName, data, packageProjectPath + "aspect/LogAspect.java", "main/java/aspect/LogAspect.java.ftl");
+        generatorCode(projectName, data, packageProjectPath + "configs/DruidConfig.java", "main/java/configs/DruidConfig.java.ftl");
+        generatorCode(projectName, data, packageProjectPath + "configs/Swagger2Config.java", "main/java/configs/Swagger2Config.java.ftl");
+        generatorCode(projectName, data, packageProjectPath + "exception/CustomException.java", "main/java/exception/CustomException.java.ftl");
+        generatorCode(projectName, data, packageProjectPath + "exception/GlobalExceptionHandler.java", "main/java/exception/GlobalExceptionHandler.java.ftl");
+        generatorCode(projectName, data, packageProjectPath + "exception/WebResponse.java", "main/java/exception/WebResponse.java.ftl");
+        generatorCode(projectName, data, packageProjectPath + "utils/MapperUtil.java", "main/java/utils/MapperUtil.java.ftl");
+        generatorCode(projectName, data, packageProjectPath + projectName4FU + "Application.java", "main/java/Application.java.ftl");
+        generatorCode(projectName, data, packageProjectPath + "rest/HealthRest.java", "main/java/rest/HealthRest.java.ftl");
         //resources
         generatorCode(projectName, data, "src/main/resources/application.yml", "main/resources/application.yml.ftl");
         generatorCode(projectName, data, "src/main/resources/logback.xml", "main/resources/logback.xml.ftl");
-        //table
+        //table(有多少张表，就循环多少次)
         for (Table table : tables) {
             String tableName4H = StringUtil.underlineToHump(table.getTableName());
             String tableName4FUH = StringUtil.toFirstCharUpperCase(tableName4H);
@@ -118,11 +120,11 @@ public class TemplateBoot {
             data.put("tableName4FUH", tableName4FUH);
             data.put("tableName4FLH", tableName4FLH);
             data.put("fields", table.getFields());
-            generatorCode(projectName, data, packageProjectPath + "dao/" + tableName4FUH + "DAO.java", "main/dao/DAO.java.ftl");
-            generatorCode(projectName, data, packageProjectPath + "entity/" + tableName4FUH + "Entity.java", "main/entity/Entity.java.ftl");
-            generatorCode(projectName, data, packageProjectPath + "rest/" + tableName4FUH + "Rest.java", "main/rest/Rest.java.ftl");
-            generatorCode(projectName, data, packageProjectPath + "service/" + tableName4FUH + "Service.java", "main/service/Service.java.ftl");
-            generatorCode(projectName, data, packageProjectPath + "service/impl/" + tableName4FUH + "ServiceImpl.java", "main/service/impl/ServiceImpl.java.ftl");
+            generatorCode(projectName, data, packageProjectPath + "dao/" + tableName4FUH + "DAO.java", "main/java/dao/DAO.java.ftl");
+            generatorCode(projectName, data, packageProjectPath + "entity/" + tableName4FUH + "Entity.java", "main/java/entity/Entity.java.ftl");
+            generatorCode(projectName, data, packageProjectPath + "rest/" + tableName4FUH + "Rest.java", "main/java/rest/Rest.java.ftl");
+            generatorCode(projectName, data, packageProjectPath + "service/" + tableName4FUH + "Service.java", "main/java/service/Service.java.ftl");
+            generatorCode(projectName, data, packageProjectPath + "service/impl/" + tableName4FUH + "ServiceImpl.java", "main/java/service/impl/ServiceImpl.java.ftl");
             //mapper
             generatorCode(projectName, data, "src/main/resources/mapper/" + tableName4FUH + ".xml", "main/resources/mapper/mapper.xml.ftl");
             //doc
@@ -144,7 +146,7 @@ public class TemplateBoot {
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-        try (Writer out = new FileWriter(file)){
+        try (Writer out = new FileWriter(file)) {
             configuration.getTemplate(templateName).process(data, out);
             out.flush();
         } catch (Exception e) {
