@@ -37,7 +37,9 @@ public class CustomException extends Exception {
         //替换文件内容异常
         FAILED_REPLACE_FILE(10011),
         //压缩文件异常
-        FAILED_ZIP_FILE(10012);
+        FAILED_ZIP_FILE(10012),
+        //等待线程池执行完毕时发生异常
+        FAILED_AWAIT_EXECUTOR_SERVICE(10013);
 
         private int code;
 

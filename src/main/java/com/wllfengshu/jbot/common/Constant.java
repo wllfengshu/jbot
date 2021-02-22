@@ -1,5 +1,6 @@
 package com.wllfengshu.jbot.common;
 
+import freemarker.template.Configuration;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,9 @@ public class Constant {
      * 模板文件目录路径
      */
     public static final String TEMPLATE_PATH = "./src/main/resources/" + TEMPLATE_NAME;
+
+    /**
+     * 模板引擎执行器
+     */
+    public static final Configuration CONFIGURATION = new Configuration(Configuration.VERSION_2_3_22);
 }

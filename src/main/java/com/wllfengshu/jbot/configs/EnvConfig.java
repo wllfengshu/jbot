@@ -29,6 +29,12 @@ public class EnvConfig implements InitializingBean {
     @Value("${db_password:root}")
     private String dbPassword;
 
+    /**
+     * 定时任务线程池大小
+     */
+    @Value("${job_thread_pool_size:4}")
+    private String jobThreadPoolSize;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("程序环境变量:{}", this.toString());
