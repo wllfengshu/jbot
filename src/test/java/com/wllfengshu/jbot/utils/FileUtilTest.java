@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 public class FileUtilTest {
@@ -34,7 +33,7 @@ public class FileUtilTest {
             URI uri = FileUtilTest.class.getClassLoader().getResource(filepath).toURI();
             File uriFile = new File(uri);
             System.out.println(uriFile.getAbsolutePath());
-        } catch (URISyntaxException e) {
+        } catch (Exception e) {
             System.err.println(e);
         }
     }
