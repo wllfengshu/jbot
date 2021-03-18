@@ -38,11 +38,11 @@ public class InitRunner implements CommandLineRunner {
                 log.error("尝试使用getResource方式查找-发生异常", e);
             }
         }
-        //2 尝试使用jar包方式查找
+        //3 尝试使用jar包方式查找
         if (!FileUtil.isExistsAndDir(templateDir)) {
             try {
                 log.info("使用getResource方式查找-失败；尝试使用jar包方式查找");
-                ClassPathResource resource = new ClassPathResource(Constant.TEMPLATE_PATH);
+                ClassPathResource resource = new ClassPathResource(Constant.TEMPLATE_NAME + "/");
                 if (null != resource && resource.exists()) {
                     templateDir = resource.getFile();
                 } else {

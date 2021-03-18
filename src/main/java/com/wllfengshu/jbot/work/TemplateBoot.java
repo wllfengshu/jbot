@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 处理模板文件
@@ -90,7 +91,7 @@ public class TemplateBoot {
         tasks.forEach(i -> executorService.execute(i));
         try {
             log.info("任务都已添加完毕");
-            latch.await();
+            latch.await(10, TimeUnit.MINUTES);
             log.info("任务都已执行完毕");
         } catch (Exception e) {
             log.error("等待线程池执行完毕时发生异常", e);
