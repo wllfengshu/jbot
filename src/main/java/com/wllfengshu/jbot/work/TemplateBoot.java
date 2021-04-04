@@ -49,7 +49,7 @@ public class TemplateBoot {
         data.put("packageName", packageName);
         //2 生成代码
         List<Runnable> tasks = new ArrayList<>();
-        final CountDownLatch latch = new CountDownLatch(tasks.size());
+        final CountDownLatch latch = new CountDownLatch(15 + (tables.size() * 7));
         //root
         tasks.add(new GeneratorCodeTask(latch, projectName, data, "Dockerfile", "Dockerfile.ftl"));
         tasks.add(new GeneratorCodeTask(latch, projectName, data, "pom.xml", "pom.xml.ftl"));
@@ -71,22 +71,23 @@ public class TemplateBoot {
         tasks.add(new GeneratorCodeTask(latch, projectName, data, "src/main/resources/logback.xml", "main/resources/logback.xml.ftl"));
         //table(有多少张表，就循环多少次)
         for (Table table : tables) {
+            Map<String, Object> tableData = new HashMap<>(data);
             String tableName4H = StringUtil.underlineToHump(table.getTableName());
             String tableName4FUH = StringUtil.toFirstCharUpperCase(tableName4H);
             String tableName4FLH = StringUtil.toFirstCharLowCase(tableName4H);
-            data.put("tableName", table.getTableName());
-            data.put("tableName4FUH", tableName4FUH);
-            data.put("tableName4FLH", tableName4FLH);
-            data.put("fields", table.getFields());
-            tasks.add(new GeneratorCodeTask(latch, projectName, data, packageProjectPath + "dao/" + tableName4FUH + "DAO.java", "main/java/dao/DAO.java.ftl"));
-            tasks.add(new GeneratorCodeTask(latch, projectName, data, packageProjectPath + "entity/" + tableName4FUH + "Entity.java", "main/java/entity/Entity.java.ftl"));
-            tasks.add(new GeneratorCodeTask(latch, projectName, data, packageProjectPath + "rest/" + tableName4FUH + "Rest.java", "main/java/rest/Rest.java.ftl"));
-            tasks.add(new GeneratorCodeTask(latch, projectName, data, packageProjectPath + "service/" + tableName4FUH + "Service.java", "main/java/service/Service.java.ftl"));
-            tasks.add(new GeneratorCodeTask(latch, projectName, data, packageProjectPath + "service/impl/" + tableName4FUH + "ServiceImpl.java", "main/java/service/impl/ServiceImpl.java.ftl"));
+            tableData.put("tableName", table.getTableName());
+            tableData.put("tableName4FUH", tableName4FUH);
+            tableData.put("tableName4FLH", tableName4FLH);
+            tableData.put("fields", table.getFields());
+            tasks.add(new GeneratorCodeTask(latch, projectName, tableData, packageProjectPath + "dao/" + tableName4FUH + "DAO.java", "main/java/dao/DAO.java.ftl"));
+            tasks.add(new GeneratorCodeTask(latch, projectName, tableData, packageProjectPath + "entity/" + tableName4FUH + "Entity.java", "main/java/entity/Entity.java.ftl"));
+            tasks.add(new GeneratorCodeTask(latch, projectName, tableData, packageProjectPath + "rest/" + tableName4FUH + "Rest.java", "main/java/rest/Rest.java.ftl"));
+            tasks.add(new GeneratorCodeTask(latch, projectName, tableData, packageProjectPath + "service/" + tableName4FUH + "Service.java", "main/java/service/Service.java.ftl"));
+            tasks.add(new GeneratorCodeTask(latch, projectName, tableData, packageProjectPath + "service/impl/" + tableName4FUH + "ServiceImpl.java", "main/java/service/impl/ServiceImpl.java.ftl"));
             //mapper
-            tasks.add(new GeneratorCodeTask(latch, projectName, data, "src/main/resources/mapper/" + tableName4FUH + ".xml", "main/resources/mapper/mapper.xml.ftl"));
+            tasks.add(new GeneratorCodeTask(latch, projectName, tableData, "src/main/resources/mapper/" + tableName4FUH + ".xml", "main/resources/mapper/mapper.xml.ftl"));
             //doc
-            tasks.add(new GeneratorCodeTask(latch, projectName, data, "doc/" + tableName4FUH + "Doc.md", "doc/Doc.md.ftl"));
+            tasks.add(new GeneratorCodeTask(latch, projectName, tableData, "doc/" + tableName4FUH + "Doc.md", "doc/Doc.md.ftl"));
         }
         tasks.forEach(i -> executorService.execute(i));
         try {

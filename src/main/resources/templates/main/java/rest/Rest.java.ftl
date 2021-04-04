@@ -92,7 +92,7 @@ public class ${tableName4FUH}Rest {
     @ApiOperation(value = "查询列表", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo", value = "页数(从0开始，默认0)", example = "0", dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "pageSize", value = "每页的数量(默认10)", example = "0", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "每页的数量(默认10)", example = "10", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "sessionId", value = "SessionId", required = true, dataType = "string", paramType = "header")
     })
     @ApiResponses({

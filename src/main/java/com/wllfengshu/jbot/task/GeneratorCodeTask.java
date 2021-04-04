@@ -33,7 +33,7 @@ public class GeneratorCodeTask implements Runnable{
 
     @Override
     public void run() {
-        log.info("开始执行任务 templateName:{}", templateName);
+        log.info("开始执行任务 projectName:{},path:{},templateName:{}", projectName, path, templateName);
         try {
             File file = new File(Constant.TARGET_PROJECT_HOME + "/" + projectName + "/" + path);
             if (!file.getParentFile().exists()) {

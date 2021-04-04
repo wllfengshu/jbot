@@ -27,7 +27,7 @@ public class ${tableName4FUH}ServiceImpl implements ${tableName4FUH}Service {
     public Map<String, Object> insert(${tableName4FUH}Entity entity, String sessionId) throws CustomException {
         log.info("insert entity:{}", entity);
         Map<String, Object> result = new HashMap<>();
-        ${tableName4FLH}DAO.insert(entity);
+        ${tableName4FLH}DAO.insertSelective(entity);
         return result;
     }
 

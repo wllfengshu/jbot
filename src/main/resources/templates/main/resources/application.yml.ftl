@@ -41,7 +41,9 @@ pagehelper:
   reasonable: true
   params: count=countSql
   support-methods-arguments: true
-
+logging:
+  level:
+    ${packageName}.${projectName}.dao: debug
 
 
 
