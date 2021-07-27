@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = CustomException.class)
     @ResponseBody
-    public WebResponse jsonErrorHandler(HttpServletResponse resp, CustomException exception) {
+    public WebResponse webResponse(HttpServletResponse resp, CustomException exception) {
         WebResponse webResponse = new WebResponse();
         webResponse.setErrorCode(exception.getExceptionName().getCode());
         webResponse.setErrorMessage(exception.getMessage());
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public WebResponse exceptionHandler(Exception ex) {
+    public WebResponse webResponse(Exception ex) {
         WebResponse webResponse = new WebResponse();
         webResponse.setErrorCode(500);
         webResponse.setErrorMessage(ClassUtils.getShortName(ex.getClass()));

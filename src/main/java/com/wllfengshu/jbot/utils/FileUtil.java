@@ -1,6 +1,8 @@
 package com.wllfengshu.jbot.utils;
 
+import com.wllfengshu.jbot.common.Constant;
 import com.wllfengshu.jbot.exception.CustomException;
+import com.wllfengshu.jbot.work.TemplateBoot;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,10 +11,12 @@ import org.springframework.core.io.Resource;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -177,5 +181,105 @@ public class FileUtil {
      */
     public static boolean isExistsAndDir(File dir) {
         return null != dir && dir.exists() && dir.isDirectory();
+    }
+
+    /**
+     * 获取本地资源文件（即resources目录下的文件或文件夹）
+     *
+     * @param path 不包含"./src/main/resources/"路径
+     * @return 文件或文件夹
+     */
+    public static File giveLocalResourcesFile(String path) {
+        //1 尝试本地直接查找模板文件所在目录
+        File templateDir = new File(Constant.RESOURCES_ROOT_PATH + path);
+        //2 尝试使用getResource方式查找
+        if (!templateDir.exists()) {
+            try {
+                log.info("本地直接查找-失败；尝试使用getResource方式查找");
+                String url = TemplateBoot.class.getClassLoader().getResource(path).getPath();
+                templateDir = new File(URLDecoder.decode(url, "UTF-8"));
+            } catch (Exception e) {
+                log.error("尝试使用getResource方式查找-发生异常", e);
+            }
+        }
+        //3 尝试使用jar包方式查找
+        if (!templateDir.exists()) {
+            try {
+                log.info("使用getResource方式查找-失败；尝试使用jar包方式查找");
+                ClassPathResource resource = new ClassPathResource(path + "/");
+                if (null != resource && resource.exists()) {
+                    templateDir = resource.getFile();
+                } else {
+                    log.error("尝试使用jar包方式查找-失败");
+                }
+            } catch (Exception e) {
+                log.error("尝试使用jar包方式查找-发生异常", e);
+            }
+        }
+        return templateDir;
+    }
+
+    /**
+     * 获取指定目录下所有的文件名（无子目录中的文件）
+     *
+     * @param path 不包含"./src/main/resources/"路径
+     * @return
+     */
+    public static List<String> giveFileName4Dir(String path) {
+        List<String> result = new ArrayList<>(4);
+        File file = FileUtil.giveLocalResourcesFile(path);
+        if (file.isFile()){
+            log.warn("当前file不是一个目录");
+            return result;
+        }
+        for (File f : Objects.requireNonNull(file.listFiles())) {
+            if (f.isFile()){
+                result.add(f.getAbsolutePath().split(path + "\\\\")[1]);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 获取指定目录下所有的文件名（有子目录中的文件）
+     *
+     * @param path 不包含"./src/main/resources/"路径
+     * @return
+     */
+    public static List<String> giveFileName4DirNeedChild(String path) {
+        List<String> result = new ArrayList<>(16);
+        File file = FileUtil.giveLocalResourcesFile(path);
+        if (file.isFile()){
+            log.warn("当前file不是一个目录");
+            return result;
+        }
+        giveFileName(path, file, result);
+        return result;
+    }
+
+    /**
+     * 递归读取文件
+     *
+     * @param path
+     * @param f
+     * @param result
+     */
+    private static void giveFileName(final String path, File f,final List<String> result) {
+        File[] files = f.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                String name = file.getName();
+                // 以下几个包单独处理，不在这里处理
+                if ("dao".equals(name) || "entity".equals(name) || "rest".equals(name) ||
+                    "service".equals(name) || "impl".equals(name)) {
+                    continue;
+                }
+                giveFileName(path, file, result);
+            }else {
+                String ping = file.getAbsolutePath().split(path + "\\\\")[1];
+                ping = ping.replace('\\','/');
+                result.add(ping);
+            }
+        }
     }
 }

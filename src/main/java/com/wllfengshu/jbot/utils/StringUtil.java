@@ -249,4 +249,13 @@ public class StringUtil {
         ci.setDbPassword(password);
         return ci;
     }
+
+    /**
+     * 截取ftl后缀
+     *
+     * @return
+     */
+    public static String splitFtlSuffix(String fileName) {
+        return fileName.split("\\.ftl")[0];
+    }
 }
