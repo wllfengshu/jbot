@@ -2,7 +2,6 @@ package com.wllfengshu.jbot.utils;
 
 import com.wllfengshu.jbot.common.Constant;
 import com.wllfengshu.jbot.exception.CustomException;
-import com.wllfengshu.jbot.work.TemplateBoot;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -196,7 +195,7 @@ public class FileUtil {
         if (!templateDir.exists()) {
             try {
                 log.info("本地直接查找-失败；尝试使用getResource方式查找");
-                String url = TemplateBoot.class.getClassLoader().getResource(path).getPath();
+                String url = FileUtil.class.getClassLoader().getResource(path).getPath();
                 templateDir = new File(URLDecoder.decode(url, "UTF-8"));
             } catch (Exception e) {
                 log.error("尝试使用getResource方式查找-发生异常", e);
@@ -228,12 +227,12 @@ public class FileUtil {
     public static List<String> giveFileName4Dir(String path) {
         List<String> result = new ArrayList<>(4);
         File file = FileUtil.giveLocalResourcesFile(path);
-        if (file.isFile()){
+        if (file.isFile()) {
             log.warn("当前file不是一个目录");
             return result;
         }
         for (File f : Objects.requireNonNull(file.listFiles())) {
-            if (f.isFile()){
+            if (f.isFile()) {
                 result.add(f.getAbsolutePath().split(path + "\\\\")[1]);
             }
         }
@@ -249,7 +248,7 @@ public class FileUtil {
     public static List<String> giveFileName4DirNeedChild(String path) {
         List<String> result = new ArrayList<>(16);
         File file = FileUtil.giveLocalResourcesFile(path);
-        if (file.isFile()){
+        if (file.isFile()) {
             log.warn("当前file不是一个目录");
             return result;
         }
@@ -264,20 +263,20 @@ public class FileUtil {
      * @param f
      * @param result
      */
-    private static void giveFileName(final String path, File f,final List<String> result) {
+    private static void giveFileName(final String path, File f, final List<String> result) {
         File[] files = f.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
                 String name = file.getName();
                 // 以下几个包单独处理，不在这里处理
                 if ("dao".equals(name) || "entity".equals(name) || "rest".equals(name) ||
-                    "service".equals(name) || "impl".equals(name)) {
+                        "service".equals(name) || "impl".equals(name)) {
                     continue;
                 }
                 giveFileName(path, file, result);
-            }else {
+            } else {
                 String ping = file.getAbsolutePath().split(path + "\\\\")[1];
-                ping = ping.replace('\\','/');
+                ping = ping.replace('\\', '/');
                 result.add(ping);
             }
         }

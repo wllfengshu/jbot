@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * 生成代码
@@ -15,16 +14,14 @@ import java.util.concurrent.CountDownLatch;
  * @author wangll
  */
 @Slf4j
-public class GeneratorCodeTask implements Runnable{
+public class GeneratorCodeTask implements Runnable {
 
-    private CountDownLatch latch;
     private String projectName;
     private Map<String, Object> data;
     private String path;
     private String templateName;
 
-    public GeneratorCodeTask(CountDownLatch latch, String projectName, Map<String, Object> data, String path, String templateName) {
-        this.latch = latch;
+    public GeneratorCodeTask(String projectName, Map<String, Object> data, String path, String templateName) {
         this.projectName = projectName;
         this.data = data;
         this.path = path;
@@ -45,10 +42,8 @@ public class GeneratorCodeTask implements Runnable{
             } catch (Exception e) {
                 log.error("生成代码失败", e);
             }
-        }catch (Exception e){
-            log.error("执行任务过程中发生异常",e);
-        }finally {
-            latch.countDown();
+        } catch (Exception e) {
+            log.error("执行任务过程中发生异常", e);
         }
         log.info("templateName:{} 任务执行完毕", templateName);
     }

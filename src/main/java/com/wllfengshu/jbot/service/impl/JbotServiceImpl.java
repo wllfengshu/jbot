@@ -2,15 +2,15 @@ package com.wllfengshu.jbot.service.impl;
 
 import com.wllfengshu.jbot.common.Constant;
 import com.wllfengshu.jbot.configs.EnvConfig;
+import com.wllfengshu.jbot.dao.JbotDAO;
 import com.wllfengshu.jbot.exception.CustomException;
 import com.wllfengshu.jbot.model.Table;
-import com.wllfengshu.jbot.utils.FileUtil;
-import com.wllfengshu.jbot.utils.MysqlUtil;
-import com.wllfengshu.jbot.utils.StringUtil;
-import com.wllfengshu.jbot.dao.JbotDAO;
 import com.wllfengshu.jbot.model.vo.ConnectInfoVO;
 import com.wllfengshu.jbot.security.Interceptor;
 import com.wllfengshu.jbot.service.JbotService;
+import com.wllfengshu.jbot.utils.FileUtil;
+import com.wllfengshu.jbot.utils.MysqlUtil;
+import com.wllfengshu.jbot.utils.StringUtil;
 import com.wllfengshu.jbot.work.TemplateBoot;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,7 +105,11 @@ public class JbotServiceImpl implements JbotService {
         //5 下载生成的项目
         FileUtil.download(targetProjectZipPath, response);
         //6 删除生成的项目文件
-        new File(targetProjectZipPath).delete();
+        try {
+            Files.delete(new File(targetProjectZipPath).toPath());
+        }catch (Exception e) {
+            log.warn("临时文件未删除成功");
+        }
         FileUtil.deleteDir(new File(targetProjectPath));
         result.put("operation", "success");
         log.info("JbotServiceImpl,produceProject-------->result:{}", result);
