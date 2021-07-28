@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = CustomException.class)
     @ResponseBody
-    public WebResponse jsonErrorHandler(HttpServletResponse resp, CustomException exception){
+    public WebResponse errorHandler(HttpServletResponse resp, CustomException exception){
         WebResponse webResponse = new WebResponse();
         webResponse.setErrorCode(exception.getExceptionName().getCode());
         webResponse.setErrorMessage(exception.getMessage());
